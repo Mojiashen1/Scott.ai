@@ -47,15 +47,6 @@ insert into AI (categoryId, categoryType, questionText) values (2, 'food', 'What
 insert into AI (categoryId, categoryType, questionText) values (1, 'hobby', 'What do you like to do in your free time?');
 insert into AI (categoryId, categoryType, questionText) values (1, 'hobby', "What's your favorite sports? What's the secret of being good at it?");
 
-create table sessions( #stores each persons sessions
-	sessionId int auto_increment not null primary key,
-	userId int not null,
-	convoId int not null, #each conversation stores one question and one answer
-
-	foreign key (userId) references account(userId) on delete restrict on update restrict,
-	foreign key (convoId) references convos(convoId) on delete restrict on update restrict
-);
-
 create table convos( #stores each conversation a user has
 	convoId int auto_increment not null primary key,
 	-- sessionId int not null,
@@ -66,4 +57,13 @@ create table convos( #stores each conversation a user has
 	-- foreign key (sessionId) references sessions(sessionId) on delete restrict on update restrict,
 	-- foreign key (userId) references account(userId) on delete restrict on update restrict,
 	foreign key (questionId) references AI(questionId) on delete restrict on update restrict
+);
+
+create table sessions( #stores each persons sessions
+	sessionId int auto_increment not null primary key,
+	userId int not null,
+	convoId int not null, #each conversation stores one question and one answer
+
+	foreign key (userId) references account(userId) on delete restrict on update restrict,
+	foreign key (convoId) references convos(convoId) on delete restrict on update restrict
 );
