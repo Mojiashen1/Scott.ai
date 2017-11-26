@@ -27,7 +27,7 @@ create table profile( #detailed profile info from onboarding survey
 	faveFood enum('Chinese food','American food','Indian food','Mexican food'),
 	faveCountry enum('America','UK','France','China'),
 
-	foreign key (userId) references account(userId) on delete restrict on update restrict
+	foreign key (userId) references account(userId) on delete cascade on update cascade
 );
 
 create table AI( #stores all possible conversations
@@ -54,9 +54,9 @@ create table convos( #stores each conversation a user has
 	questionId int not null,
 	answerText varchar(100) not null, #store file path for audio answer
 	-- userId int not null,
-	-- foreign key (sessionId) references sessions(sessionId) on delete restrict on update restrict,
-	-- foreign key (userId) references account(userId) on delete restrict on update restrict,
-	foreign key (questionId) references AI(questionId) on delete restrict on update restrict
+	-- foreign key (sessionId) references sessions(sessionId) on delete cascade on update cascade,
+	-- foreign key (userId) references account(userId) on delete cascade on update cascade,
+	foreign key (questionId) references AI(questionId) on delete cascade on update cascade
 );
 
 create table sessions( #stores each persons sessions
@@ -64,6 +64,6 @@ create table sessions( #stores each persons sessions
 	userId int not null,
 	convoId int not null, #each conversation stores one question and one answer
 
-	foreign key (userId) references account(userId) on delete restrict on update restrict,
-	foreign key (convoId) references convos(convoId) on delete restrict on update restrict
+	foreign key (userId) references account(userId) on delete cascade on update cascade,
+	foreign key (convoId) references convos(convoId) on delete cascade on update cascade
 );
