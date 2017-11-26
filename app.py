@@ -8,6 +8,7 @@ from helper import *
 import dbconn2
 
 app = Flask(__name__)
+app.secret_key = 'youcantguessthisout'
 
 @app.route('/', methods =['POST', 'GET'])
 def home():
@@ -53,9 +54,6 @@ def feedback(id):
         return redirect(url_for('topic'))
     result = feedback(id)
     return render_template('feedback.html', feedback = result)
-
-
-app.secret_key = 'youcantguessthisout'
 
 if __name__ == '__main__':
   ''' main method'''

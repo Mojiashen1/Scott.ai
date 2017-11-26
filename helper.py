@@ -9,7 +9,7 @@ from flask import flash
 #Connects to the db
 def getConn():
     DSN = dbconn2.read_cnf()
-    DSN['db'] = 'mshen2_db'
+    DSN['db'] = 'hyerramr_db'
     return dbconn2.connect(DSN)
 
 def feedback(id):
