@@ -4,10 +4,11 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 import os, sys
 import MySQLdb
-from helper.py import *
+from helper import *
 import dbconn2
 
 app = Flask(__name__)
+app.secret_key = 'youcantguessthisout'
 
 @app.route('/', methods =['POST', 'GET'])
 def home():
@@ -54,10 +55,11 @@ def feedback(id):
     result = feedback(id)
     return render_template('feedback.html', feedback = result)
 
-
-app.secret_key = 'youcantguessthisout'
-
 if __name__ == '__main__':
-  app.debug == True
-  port = os.getuid()
-  app.run('0.0.0.0', port)
+  ''' main method'''
+  # port = os.getuid()
+  port = 8000
+  app.debug = True
+  # Flask will print the port anyhow, but let's do so too
+  print('Running on port '+str(port))
+  app.run('0.0.0.0',port)
