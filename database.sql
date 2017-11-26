@@ -58,12 +58,12 @@ create table sessions( #stores each persons sessions
 
 create table convos( #stores each conversation a user has
 	convoId int auto_increment not null primary key,
-	sessionId int not null,
+	-- sessionId int not null,
 	categoryId int not null, #so we can join them to give feedback
 	questionId int not null,
 	answerText varchar(100) not null, #store file path for audio answer
-	userId int not null,
-	foreign key (sessionId) references sessions(sessionId) on delete restrict on update restrict,
-	foreign key (userId) references account(userId) on delete restrict on update restrict,
+	-- userId int not null,
+	-- foreign key (sessionId) references sessions(sessionId) on delete restrict on update restrict,
+	-- foreign key (userId) references account(userId) on delete restrict on update restrict,
 	foreign key (questionId) references AI(questionId) on delete restrict on update restrict
 );
