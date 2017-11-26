@@ -17,7 +17,7 @@ create table profile( #detailed profile info from onboarding survey
 	userId int not null,
 	yearsLearned int,
 	birthday Date,
-	nativeLang lang varchar(50) not null, #persons native language
+	nativeLang varchar(50) not null, #persons native language
 	-- proficiencyScore int not null, # we are not demostrating this for the project
 	points int not null default 0, #points earned using the application
 	timeActive int not null default 0, #measured in days
