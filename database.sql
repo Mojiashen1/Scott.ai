@@ -8,7 +8,7 @@ create table account( #basic profile information to start account
 	userId int auto_increment not null primary key,
 	name varchar(50) not null,
 	username varchar(50) not null, #wellesley alias
-	password varchar(100) not null, #hashed password
+	password varchar(100) not null #hashed password
 );
 
 create table profile( #detailed profile info from onboarding survey
@@ -34,7 +34,7 @@ create table AI( #stores all possible conversations
 	questionId int auto_increment not null primary key,
 	categoryId int not null, #allows multiple questions to be grouped
 	categoryType varchar(50), #topic of conversation
-	questionText varchar(100) not null, #question the AI will ask
+	questionText varchar(100) not null #question the AI will ask
 );
 
 insert into AI (categoryId, categoryType, questionText) values (1, 'school', 'Tell me about your school. Do you like it?');
