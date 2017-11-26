@@ -17,8 +17,8 @@ create table profile( #detailed profile info from onboarding survey
 	birthday Date,
 	native_lang lang varchar(50) not null, #person's native language
 	-- proficiencyScore int not null, # we are not demostrating this for the project
-	points int not null default 0, #points earned using the application
-	timeActive int not null default 0, #measured in days
+	points int not null default (0), #points earned using the application
+	timeActive int not null default (0), #measured in days
 	-- proPic varchar(100), #profile picture file path. we can get rid of this if audio file works
 	#survey questions:
 	faveSport enum('swimming','table tennis','basketball', 'running', 'sleeping','yoga'),
