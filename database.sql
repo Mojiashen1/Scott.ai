@@ -25,7 +25,7 @@ create table profile( #detailed profile info from onboarding survey
 	faveShow enum('Star Trek','Titanic','Modern Family','News'),
 	faveHobby enum('Drawing','Singing','Playing music','Hiking'),
 	faveFood enum('Chinese food','American food','Indian food','Mexican food'),
-	faveCountry enum('America','UK','France','China')
+	faveCountry enum('America','UK','France','China'),
 
 	foreign key (userId) references account(userId) on delete restrict on update restrict
 );
