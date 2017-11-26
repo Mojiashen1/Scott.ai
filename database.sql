@@ -1,4 +1,4 @@
-SET FOREIGN_KEY_CHECKS=0;
+SET FOREIGN_KEY_CHECKS=0; #ignore foreign key checks when initializing tables
 drop table if exists account;
 drop table if exists profile;
 drop table if exists AI;
