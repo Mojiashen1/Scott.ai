@@ -11,3 +11,12 @@ def getConn():
     DSN = dbconn2.read_cnf()
     DSN['db'] = 'mshen2_db'
     return dbconn2.connect(DSN)
+
+def feedback(id):
+    pass
+
+def new_convo(id):
+    pass
+
+def new_file(id):
+    pass
