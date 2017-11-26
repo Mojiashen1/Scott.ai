@@ -57,7 +57,8 @@ def feedback(id):
 
 if __name__ == '__main__':
   ''' main method'''
-  port = os.getuid()
+  # port = os.getuid()
+  port = 8000
   app.debug = True
   # Flask will print the port anyhow, but let's do so too
   print('Running on port '+str(port))
