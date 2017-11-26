@@ -9,6 +9,8 @@ create table account( #basic profile information to start account
 	name varchar(50) not null,
 	username varchar(50) not null, #wellesley alias
 	password varchar(100) not null #hashed password
+
+	INDEX
 );
 
 create table profile( #detailed profile info from onboarding survey
@@ -49,10 +51,10 @@ insert into AI (categoryId, categoryType, questionText) values (1, 'hobby', "Wha
 
 create table sessions( #stores each person's sessions
 	sessionId int auto_increment not null primary key,
-	personId int not null,
+	userId int not null,
 	convoId int not null, #each conversation stores one question and one answer
 
-	foreign key (personId) references person(personId) on delete restrict on update restrict,
+	foreign key (userId) references account(userId) on delete restrict on update restrict,
 	foreign key (convoId) references convos(convoId) on delete restrict on update restrict
 );
 
