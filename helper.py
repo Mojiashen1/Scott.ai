@@ -20,3 +20,16 @@ def new_convo(id):
 
 def new_file(id):
     pass
+
+def create_account(username, password):
+	# check if user exists, and display error if account exists
+
+	# otherwise, add username, password, name, etc to account table
+
+def login(username, password):
+	#check if user exists:
+		# if so, check if passowrd matches
+			#if true - return true (logs them in)
+
+			#false - say incorrect password
+		#say user does not exist -- link to create account
