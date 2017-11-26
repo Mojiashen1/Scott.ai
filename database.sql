@@ -17,7 +17,7 @@ create table profile( #detailed profile info from onboarding survey
 	userId int not null,
 	yearsLearned int,
 	birthday Date,
-	nativeLang lang varchar(50) not null, #person's native language
+	nativeLang lang varchar(50) not null, #persons native language
 	-- proficiencyScore int not null, # we are not demostrating this for the project
 	points int not null default 0, #points earned using the application
 	timeActive int not null default 0, #measured in days
@@ -49,7 +49,7 @@ insert into AI (categoryId, categoryType, questionText) values (2, 'food', 'What
 insert into AI (categoryId, categoryType, questionText) values (1, 'hobby', 'What do you like to do in your free time?');
 insert into AI (categoryId, categoryType, questionText) values (1, 'hobby', "What's your favorite sports? What's the secret of being good at it?");
 
-create table sessions( #stores each person's sessions
+create table sessions( #stores each persons sessions
 	sessionId int auto_increment not null primary key,
 	userId int not null,
 	convoId int not null, #each conversation stores one question and one answer
