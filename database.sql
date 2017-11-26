@@ -9,8 +9,6 @@ create table account( #basic profile information to start account
 	name varchar(50) not null,
 	username varchar(50) not null, #wellesley alias
 	password varchar(100) not null #hashed password
-
-	INDEX
 );
 
 create table profile( #detailed profile info from onboarding survey
