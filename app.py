@@ -30,9 +30,9 @@ def signup():
     # flash(desc[0]) #flash return message
 
     if desc[1] == 1: #if user added
-      return redirect(url_for('signup'), error_message=desc[0])
+      return render_template(url_for('signup'), error_message=desc[0])
     else: 
-      return redirect(url_for('signup'), error_message=desc[0])
+      return render_template(url_for('signup'), error_message=desc[0])
 
 # onboarding survey asking for user's basic information
 @app.route('/survey/', methods =['POST', 'GET'])
