@@ -33,11 +33,13 @@ def signup():
     elif requeat.form['submit']=='login':
       desc = login(username, password)
 
+    print (desc[0])
+
     if desc[1] == 1: #if user added/logged-in, go to onboarding page
-      return redirect(url_for('signup', error_message=desc[0]))
-      
+      return redirect(url_for('signup'))
+
     else: #remain on sign up page if not successfull
-      return redirect(url_for('signup', error_message=desc[0]))
+      return redirect(url_for('signup'))
 
 # onboarding survey asking for user's basic information
 @app.route('/survey/', methods =['POST', 'GET'])
