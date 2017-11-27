@@ -21,17 +21,49 @@ def new_convo(id):
 def new_file(id):
     pass
 
-def create_account(username, password):
-	pass
-	# check if user exists, and display error if account exists
+def create_account(name, username, password):
+	#establish connection 
+	conn = getConn()
+	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-	# otherwise, add username, password, name, etc to account table
+	if name and username and password:
+		#check if user exists (log in) 
+
+		curs.execute("select * from account where username = %s", [username])
+		other_account = curs.fetchone()
+
+		if other_account:
+			return ('''User {username} already exists. Please try again.'''.format(username=username),0)
+
+		else:
+			#if user does not exist, insert into table (sign up)
+			sql = "insert into account (name, username, password) VALUES (%s, %s, %s)"
+			data = (name, username, password)
+			curs.execute(sql, data)
+			conn.commit()
+			curs.close()
+			conn.close()
+			return ('''User {username} created.'''.format(username=username),1)
+	else:
+		return ("Form Incomplete. Please try again.")
 
 def login(username, password):
-	pass
-	#check if user exists:
-		# if so, check if passowrd matches
-			#if true - return true (logs them in)
+	conn = getConn()
+	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-			#false - say incorrect password
-		#say user does not exist -- link to create account
+	curs.execute("select * from account where username = %s", [username])
+	other_account = curs.fetchone()
+
+	if other_account:
+		curs.execute("select * from account where password = %s", [password])
+
+		found_account = curs.fetchone()
+
+		if found_account['password']==password:
+			#success
+			return ('''Success, {username} logged in.'''.format(username=username),1)
+
+		else:
+			return ("Password does not match. Please try again.", 0)
+	else: 
+		return ('''User {username} does not exist. Please try again. '''.format(username=username),0)

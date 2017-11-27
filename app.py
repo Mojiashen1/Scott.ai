@@ -17,12 +17,29 @@ def home():
 #harshita
 @app.route('/signup/', methods =['POST', 'GET'])
 def signup():
-    pass
+  if (request.method == "GET"):
+    return render_template('signup.html', script=(url_for("signup")))
 
-#harshita
-@app.route('/login/', methods =['POST', 'GET'])
-def login():
-    pass
+  elif (request.method == "POST"):
+    # get information from form 
+    name = request.form['name']
+    username = request.form['username']
+    password = request.form['password']
+    desc = ""
+
+    if request.form['submit']=='signup':
+      desc = create_account(name, username, password)
+
+    elif request.form['submit']=='login':
+      desc = login(username, password)
+
+    print (desc[0])
+
+    if desc[1] == 1: #if user added/logged-in, go to onboarding page
+      return redirect(url_for('signup')) #CHANGE TO GO TO ONBOARDING PAGE
+
+    else: #remain on sign up page if not successful
+      return redirect(url_for('signup'))
 
 # onboarding survey asking for user's basic information
 @app.route('/survey/', methods =['POST', 'GET'])

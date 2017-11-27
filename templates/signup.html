@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Header -->
+<header class="masthead">
+  <div class="container">
+    <div class="intro-text">
+      <h1> Sign up to begin using Scott.ai! </h1>
+</div>
+</header>
+
+<div class = "container">
+
+  <h3> Enter your information below to create an account. </h3>
+
+  <!-- error message not being shown (flashing doesn't work)--> 
+  <!-- <h4> {{error_message}} </h4>  -->
+
+  <form method = "POST" action = "{{script}}">
+
+<!--     <input type="text" placeholder="Name" name="name" value="{{
+    request.form.name }}">
+
+    <input type="text" placeholder="Username" name="username" value="{{
+    request.form.username }}">
+
+    <input type="password" placeholder="Password" name="password" value="{{
+    request.form.password }}"> -->
+
+   <div class="form-group">
+    <label for="exampleInputPassword1">Name</label>
+    <input type="text" name = "name" class="form-control" id="exampleInputPassword1" placeholder="Wendy Wellesley">
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputEmail1">Username</label>
+    <input type="text" class="form-control" name = "username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="wendy1234">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.</small>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" name = "password" id="exampleInputPassword1" placeholder="Password">
+  </div>
+
+<div class="form-check">
+  <label class="form-check-label">
+    <input type="checkbox" class="form-check-input">
+    Remember Me
+  </label>
+</div>
+
+<button type="submit" name = "submit" value = "signup" class="btn btn-primary">Sign Up</button>
+<button type="submit" name = "submit" value = "login" class="btn btn-primary">Log In</button>
+</form>
+
+</div>
+{% endblock %}
