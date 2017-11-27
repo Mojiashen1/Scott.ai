@@ -30,7 +30,7 @@ def signup():
     flash(desc)
 
     if desc[1] == 1: #if user added
-      return redirect(url_for('home'))
+      return redirect(url_for('signup'))
     else: 
       return redirect(url_for('signup'))
 
