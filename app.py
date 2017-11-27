@@ -25,11 +25,6 @@ def signup():
     name = request.form['name']
     username = request.form['email']
     password = request.form['password']
-
-    print (name)
-    print (username)
-    print (password)
-    
     desc = helper.create_account(name, username, password)
     return redirect(url_for('signup'))
 
