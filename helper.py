@@ -22,27 +22,32 @@ def new_file(id):
     pass
 
 def create_account(name, username, password):
+
 	#establish connection 
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-	#check if user exists (log in) 
+	if name and username and password:
 
-	curs.execute("select * from account where username = %s", [username])
-	other_account = curs.fetchone()
+		#check if user exists (log in) 
 
-	if other_account:
-		return ('''User {username} already exists. Please try again.'''.format(username=username),0)
+		curs.execute("select * from account where username = %s", [username])
+		other_account = curs.fetchone()
 
+		if other_account:
+			return ('''User {username} already exists. Please try again.'''.format(username=username),0)
+
+		else:
+			#if user does not exist, insert into table (sign up)
+			sql = "insert into account (name, username, password) VALUES (%s, %s, %s)"
+			data = (name, username, password)
+			curs.execute(sql, data)
+			conn.commit()
+			curs.close()
+			conn.close()
+			return ('''User {username} created.'''.format(username=username),1)
 	else:
-		#if user does not exist, insert into table (sign up)
-		sql = "insert into account (name, username, password) VALUES (%s, %s, %s)"
-		data = (name, username, password)
-		curs.execute(sql, data)
-		conn.commit()
-		curs.close()
-		conn.close()
-		return ('''User {username} created.'''.format(username=username),1)
+		return ("Form Incomplete. Please try again.")
 
 def login(username, password):
 	print ("IN LOGIN")
