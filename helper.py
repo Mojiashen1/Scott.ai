@@ -9,8 +9,41 @@ from flask import flash
 #Connects to the db
 def getConn():
     DSN = dbconn2.read_cnf()
-    DSN['db'] = 'hyerramr_db'
+    DSN['db'] = 'mshen2_db'
     return dbconn2.connect(DSN)
+
+#this should come from session
+username = 'mshen2'
+
+def create_profile(name, birthday, yearsLearned, nation, lang):
+    #establish connection
+	conn = getConn()
+	curs = conn.cursor(MySQLdb.cursors.DictCursor)
+
+	#check if profile exists
+	curs.execute("select * from profile where useId = %s", [username])
+    existing_profile = curs.fetchone()
+
+    # update profile
+	if existing_profile:
+        sql = '''update profile
+                 set birthday=%s, yearsLearned=%s, nation=%s, nativeLang=%s
+                 where userId = %s'''
+        data = (birthday, yearsLearned, nation, lang, str(username))
+        curs.execute(sql, data)
+        conn.commit()
+		curs.close()
+		conn.close()
+        return ('Profile {username} updated'.format(username=username),1)
+    # create profile
+	else:
+		sql = "insert into profile (birthday, yearsLearned, nation, nativeLang) VALUES (%s, %s, %s, %s)"
+		data = (birthday, yearsLearned, nation, lang)
+		curs.execute(sql, data)
+		conn.commit()
+		curs.close()
+		conn.close()
+		return ('''Profile {username} created.'''.format(username=username),1)
 
 def feedback(id):
     pass
