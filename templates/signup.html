@@ -1,19 +1,5 @@
 {% extends "layout.html" %}
 
-{% block flashing %}
-
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div id="messages">
-        {% for msg in messages %}
-            <p>{{msg}}</p>
-        {% endfor %}
-        </div>
-    {% endif %}
-{% endwith %}
-
-{% endblock %}
-
 {% block content %}
 <!-- Header -->
 <header class="masthead">
