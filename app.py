@@ -27,12 +27,12 @@ def signup():
     username = request.form['username']
     password = request.form['password']
     desc = helper.create_account(name, username, password)
-    flash(desc)
+    # flash(desc[0]) #flash return message
 
     if desc[1] == 1: #if user added
-      return redirect(url_for('signup'))
+      return redirect(url_for('signup'), error_message=desc[0])
     else: 
-      return redirect(url_for('signup'))
+      return redirect(url_for('signup'), error_message=desc[0])
 
 # onboarding survey asking for user's basic information
 @app.route('/survey/', methods =['POST', 'GET'])

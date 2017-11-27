@@ -43,21 +43,6 @@
       </div>
     </nav>
 
-    <!-- flashing -->
-    {% block flashing %}
-
-      {% with messages = get_flashed_messages() %}
-          {% if messages %}
-              <div id="messages">
-              {% for msg in messages %}
-                  <p>{{msg}}</p>
-              {% endfor %}
-              </div>
-          {% endif %}
-      {% endwith %}
-
-    {% endblock %}
-
     <!-- content -->
     <div id="content">{% block content %}{% endblock %}</div>
 
