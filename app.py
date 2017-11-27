@@ -40,9 +40,9 @@ def signup():
     print (desc[0])
 
     if desc[1] == 1: #if user added/logged-in, go to onboarding page
-      return redirect(url_for('signup'))
+      return redirect(url_for('signup')) #CHANGE TO GO TO ONBOARDING PAGE
 
-    else: #remain on sign up page if not successfull
+    else: #remain on sign up page if not successful
       return redirect(url_for('signup'))
 
 # onboarding survey asking for user's basic information
