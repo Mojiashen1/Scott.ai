@@ -29,6 +29,7 @@ def signup():
     print (name)
     print (username)
     print (password)
+    
     desc = helper.create_account(name, username, password)
     return redirect(url_for('signup'))
 

@@ -25,7 +25,7 @@ def create_account(name, username, password):
 	print ("HELLO")
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
-	sql = "insert into account VALUES (%s, %s, %s)"
+	sql = "insert into account (name, username, password) VALUES (%s, %s, %s)"
 	data = (name, username, password)
 	curs.execute(sql, data)
 	conn.commit()
