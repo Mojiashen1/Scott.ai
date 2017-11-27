@@ -45,6 +45,7 @@ def create_account(name, username, password):
 		return ('''User {username} created.'''.format(username=username),1)
 
 def login(username, password):
+	print ("IN LOGIN")
 
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)

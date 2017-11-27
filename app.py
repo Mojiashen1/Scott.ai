@@ -31,6 +31,7 @@ def signup():
       desc = create_account(name, username, password)
 
     elif requeat.form['submit']=='login':
+      print ("IN ELIF")
       desc = login(username, password)
 
     print (desc[0])
