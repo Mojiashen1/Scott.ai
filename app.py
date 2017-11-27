@@ -27,7 +27,10 @@ def signup():
     username = request.form['username']
     password = request.form['password']
 
+    desc = ""
+
     if request.form['submit']=='signup':
+      print ("IN SUBMIT")
       desc = create_account(name, username, password)
 
     elif requeat.form['submit']=='login':
