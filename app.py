@@ -21,20 +21,16 @@ def signup():
     return render_template('signup.html', script=(url_for("signup")))
 
   elif (request.method == "POST"):
-    
     # get information from form 
     name = request.form['name']
     username = request.form['username']
     password = request.form['password']
-
     desc = ""
 
     if request.form['submit']=='signup':
-      print ("IN SUBMIT")
       desc = create_account(name, username, password)
 
     elif request.form['submit']=='login':
-      print ("IN ELIF")
       desc = login(username, password)
 
     print (desc[0])

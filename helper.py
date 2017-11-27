@@ -22,13 +22,11 @@ def new_file(id):
     pass
 
 def create_account(name, username, password):
-
 	#establish connection 
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
 	if name and username and password:
-
 		#check if user exists (log in) 
 
 		curs.execute("select * from account where username = %s", [username])
@@ -50,8 +48,6 @@ def create_account(name, username, password):
 		return ("Form Incomplete. Please try again.")
 
 def login(username, password):
-	print ("IN LOGIN")
-
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
