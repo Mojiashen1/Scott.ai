@@ -23,7 +23,7 @@ def signup():
   elif (request.method == "POST"):
     print ("ON APP")
     name = request.form['name']
-    username = request.form['email']
+    username = request.form['username']
     password = request.form['password']
     desc = helper.create_account(name, username, password)
     return redirect(url_for('signup'))
