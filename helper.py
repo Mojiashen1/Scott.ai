@@ -56,7 +56,7 @@ def login(username, password):
 	if other_account:
 		curs.execute("select * from account where password = %s", [password])
 
-		if curs.fetchone==password:
+		if curs.fetchone['password']==password:
 			#success
 			return ('''Success, {username} logged in.'''.format(username=username),1)
 
