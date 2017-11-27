@@ -4,7 +4,7 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 import os, sys
 import MySQLdb
-import helper
+from helper import *
 import dbconn2
 
 app = Flask(__name__)
@@ -26,12 +26,17 @@ def signup():
     name = request.form['name']
     username = request.form['username']
     password = request.form['password']
-    desc = helper.create_account(name, username, password)
-    # flash(desc[0]) #flash return message
 
-    if desc[1] == 1: #if user added
+    if request.form['submit']=='signup':
+      desc = create_account(name, username, password)
+
+    elif requeat.form['submit']=='login':
+      desc = login(username, password)
+
+    if desc[1] == 1: #if user added/logged-in, go to onboarding page
       return redirect(url_for('signup', error_message=desc[0]))
-    else: 
+      
+    else: #remain on sign up page if not successfull
       return redirect(url_for('signup', error_message=desc[0]))
 
 # onboarding survey asking for user's basic information

@@ -15,7 +15,8 @@
 
   <h3> Enter your information below to create an account. </h3>
 
-  <h4> {{error_message}} </h4>
+  <!-- error message not being shown (flashing doesn't work)--> 
+  <h4> {{error_message}} </h4> 
 
   <form method = "POST" action = "{{script}}">
 
@@ -51,7 +52,8 @@
   </label>
 </div>
 
-<button type="submit" class="btn btn-primary">Submit</button>
+<button type="submit" vaulue = "signup" class="btn btn-primary">Sign Up</button>
+<button type="submit" value = "login" class="btn btn-primary">Log In</button>
 </form>
 
 </div>
