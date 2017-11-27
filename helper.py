@@ -43,15 +43,23 @@ def create_account(name, username, password):
 		curs.close()
 		conn.close()
 		return ('''User {username} created.'''.format(username=username),1)
-	# check if user exists, and display error if account exists
-
-	# otherwise, add username, password, name, etc to account table
 
 def login(username, password):
-	pass
-	#check if user exists:
-		# if so, check if passowrd matches
-			#if true - return true (logs them in)
 
-			#false - say incorrect password
-		#say user does not exist -- link to create account
+	conn = getConn()
+	curs = conn.cursor(MySQLdb.cursors.DictCursor)
+
+	curs.execute("select * from account where username = %s", [username])
+	other_account = curs.fetchone()
+
+	if other_account:
+		curs.execute("select * from account where password = %s", [password])
+
+		if curs.fetchone==password:
+			#success
+			return ('''Success, {username} logged in.'''.format(username=username),1)
+
+		else:
+			return ("Password does not match. Please try again.", 0)
+	else: 
+		return ('''User {username} does not exist. Please try again. '''.format(username=username),0)
