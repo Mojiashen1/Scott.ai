@@ -21,7 +21,8 @@ def signup():
     return render_template('signup.html', script=(url_for("signup")))
 
   elif (request.method == "POST"):
-    print ("ON APP")
+    
+    # get information from form 
     name = request.form['name']
     username = request.form['username']
     password = request.form['password']
