@@ -1,24 +1,5 @@
 {% extends "layout.html" %}
 
-
-    {% block head %}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mojia&Harshita">
-
-    <title>Scott.ai</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">    <!-- Custom styles for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
-    <link href="css/agency.css" rel="stylesheet">
-    {% endblock %}
-
     {% block content %}
     <!-- Header -->
     <header class="masthead">
@@ -26,8 +7,8 @@
         <div class="intro-text">
           <div class="intro-lead-in">Dream of speaking like a native?</div>
           <div class="intro-heading">Scott.ai is your English teacher that focuses on helping you improve your speaking abilities.</div>
-          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">GET STARTED</a>
-          <p>Already talking to Scott? <span id='signin'>Sign in<span></p>
+          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="signup">GET STARTED</a>
+          <p>Already talking to Scott? <span id='signin'> <a href="signup">Sign in </a><span></p>
         </div>
       </div>
     </header>
@@ -84,7 +65,7 @@
       <div class="container">
         <h2>Try it for free</h2>
         <p>Already taking to Scott? Sign in.</p>
-        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">GET STARTED</a>
+        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="signup">GET STARTED</a>
       </div>
     </section>
     {% endblock %}

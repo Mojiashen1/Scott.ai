@@ -21,8 +21,16 @@ def new_convo(id):
 def new_file(id):
     pass
 
-def create_account(username, password):
-	pass
+def create_account(name, username, password):
+	conn = getConn()
+	curs = conn.cursor(MySQLdb.cursors.DictCursor)
+	sql = "insert into account VALUES (%s, %s, %s)"
+	data = (name, username, password)
+	curs.execute(sql, data)
+	conn.commit()
+	curs.close()
+	conn.close()
+	return ('''User {username} created.'''.format(username=username))
 	# check if user exists, and display error if account exists
 
 	# otherwise, add username, password, name, etc to account table

@@ -4,7 +4,7 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 import os, sys
 import MySQLdb
-from helper import *
+import helper
 import dbconn2
 
 app = Flask(__name__)
@@ -17,12 +17,15 @@ def home():
 #harshita
 @app.route('/signup/', methods =['POST', 'GET'])
 def signup():
-    pass
-
-#harshita
-@app.route('/login/', methods =['POST', 'GET'])
-def login():
-    pass
+  if (request.method == "GET"):
+    return render_template('signup.html')
+    
+  elif (request.method == "POST"):
+    name = request.form['name']
+    username = request.form['username']
+    password = request.form['password']
+    desc = helper.create_account(name, username, password)
+    return render_template('signup.html')
 
 # onboarding survey asking for user's basic information
 @app.route('/survey/', methods =['POST', 'GET'])
