@@ -4,6 +4,7 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-agency/blob/master/LICENSE)
  */
 body {
+  padding-top: 70px; 
   overflow-x: hidden;
   font-family: 'Crimson Text','Dosis','Helvetica Neue', Helvetica, Arial, sans-serif; }
 
