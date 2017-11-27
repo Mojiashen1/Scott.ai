@@ -7,15 +7,24 @@
     <div class="intro-text">
       <h1> Sign up to begin using Scott.ai! </h1>
 <!--       <div class="intro-lead-in">Dream of speaking like a native?</div>
-    </div> -->
-  </div>
+</div> -->
+</div>
 </header>
 
 <div class = "container">
 
-<form>
+  <form method = "POST" action = "{{script}}">
 
-  <div class="form-group">
+    <input type="text" placeholder="Name" name="name" value="{{
+    request.form.name }}">
+
+    <input type="text" placeholder="Username" name="username" value="{{
+    request.form.username }}">
+
+    <input type="password" placeholder="Password" name="password" value="{{
+    request.form.password }}">
+
+<!--   <div class="form-group">
     <label for="exampleInputPassword1">Name</label>
     <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Wendy Wellesley">
   </div>
@@ -30,15 +39,15 @@
     <label for="exampleInputPassword1">Password</label>
     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
   </div>
+-->
+<div class="form-check">
+  <label class="form-check-label">
+    <input type="checkbox" class="form-check-input">
+    Remember Me
+  </label>
+</div>
 
-  <div class="form-check">
-    <label class="form-check-label">
-      <input type="checkbox" class="form-check-input">
-      Remember Me
-    </label>
-  </div>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
+<input type="submit" value="Submit">
 </form>
 
 </div>

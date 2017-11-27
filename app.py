@@ -18,14 +18,15 @@ def home():
 @app.route('/signup/', methods =['POST', 'GET'])
 def signup():
   if (request.method == "GET"):
-    return render_template('signup.html')
-    
+    return render_template('signup.html', script=(url_for("signup")))
+
   elif (request.method == "POST"):
+    print ("ON APP")
     name = request.form['name']
     username = request.form['username']
     password = request.form['password']
     desc = helper.create_account(name, username, password)
-    return render_template('signup.html')
+    return redirect(url_for('signup'))
 
 # onboarding survey asking for user's basic information
 @app.route('/survey/', methods =['POST', 'GET'])

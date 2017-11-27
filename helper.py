@@ -22,6 +22,7 @@ def new_file(id):
     pass
 
 def create_account(name, username, password):
+	print ("HELLO")
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 	sql = "insert into account VALUES (%s, %s, %s)"
