@@ -3,9 +3,18 @@
  * Copyright 2013-2017 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-agency/blob/master/LICENSE)
  */
+
 body {
   overflow-x: hidden;
   font-family: 'Crimson Text','Dosis','Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+/*need to fix this*/
+#survey {
+    margin-top:100px; }
+
+nav {
+  margin-bottom: 500px;
+}
 
 p {
   line-height: 1.75; }

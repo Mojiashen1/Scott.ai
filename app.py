@@ -44,7 +44,15 @@ def signup():
 # onboarding survey asking for user's basic information
 @app.route('/survey/', methods =['POST', 'GET'])
 def survey():
-    pass
+    if request.method == 'GET':
+        return render_template('survey.html', script=url_for('survey'))
+    elif request.method == 'POST':
+        birthday = request.form['birthday']
+        yearsLearned = request.form['yearsLearned']
+        nation = request.form['nation']
+        lang = request.form['lang']
+        create_profile(birthday, yearsLearned, nation, lang)
+        return redirect(url_for('topic.html'))
 
 # select topic
 @app.route('/topic/', methods =['POST', 'GET'])

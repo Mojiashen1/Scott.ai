@@ -15,9 +15,10 @@ create table account( #basic profile information to start account
 
 create table profile( #detailed profile info from onboarding survey
 	userId int not null,
-	yearsLearned int,
-	birthday Date,
-	nativeLang varchar(50) not null, #persons native language
+	yearsLearned int not null,
+	birthday Date not null,
+	nativeLang varchar(50), #persons native language
+	nation varchar(50),
 	-- proficiencyScore int not null, # we are not demostrating this for the project
 	points int not null default 0, #points earned using the application
 	timeActive int not null default 0, #measured in days
@@ -64,8 +65,8 @@ create table convos( #stores each conversation a user has
 create table sessions( #stores each persons sessions
 	sessionId int auto_increment not null primary key,
 	userId int not null,
-	convoId int not null, #each conversation stores one question and one answer
+	-- convoId int not null, #each conversation stores one question and one answer
 
-	foreign key (userId) references account(userId) on delete cascade on update cascade,
-	foreign key (convoId) references convos(convoId) on delete cascade on update cascade
+	foreign key (userId) references account(userId) on delete cascade on update cascade
+	-- foreign key (convoId) references convos(convoId) on delete cascade on update cascade
 );
