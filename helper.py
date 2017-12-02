@@ -45,6 +45,19 @@ def create_profile(birthday, yearsLearned, nation, lang):
 		conn.close()
 		return 'Profile created'
 
+def get_profile():
+	conn = getConn()
+	curs = conn.cursor(MySQLdb.cursors.DictCursor)
+
+	#check if profile exists
+	curs.execute('select * from profile where userId = %s', [userId])
+    existing_profile = curs.fetchone()
+    print (existing_profile)
+    conn.commit()
+    curs.close()
+    conn.close()
+    return existing_profile
+
 def feedback(id):
     pass
 

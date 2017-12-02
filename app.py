@@ -45,7 +45,8 @@ def signup():
 @app.route('/survey/', methods =['POST', 'GET'])
 def survey():
     if request.method == 'GET':
-        return render_template('survey.html', script=url_for('survey'))
+        data = get_profile()
+        return render_template('survey.html', script=url_for('survey'), data=data)
     elif request.method == 'POST':
         birthday = request.form['birthday']
         yearsLearned = request.form['yearsLearned']
