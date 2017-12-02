@@ -71,7 +71,7 @@ def convo(type):
 
       categories = {"school": 1, "hobby":2, "food":3}
       typeId = categories[type]
-      
+
       #pull questions from database by type
       all_questions = get_questions(typeId)
       print all_questions;
