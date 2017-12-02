@@ -21,7 +21,7 @@ def signup():
     return render_template('signup.html', script=(url_for("signup")))
 
   elif (request.method == "POST"):
-    # get information from form 
+    # get information from form
     name = request.form['name']
     username = request.form['username']
     password = request.form['password']
@@ -36,7 +36,7 @@ def signup():
     print (desc[0])
 
     if desc[1] == 1: #if user added/logged-in, go to onboarding page
-      return redirect(url_for('signup')) #CHANGE TO GO TO ONBOARDING PAGE
+      return redirect(url_for('survey')) #CHANGE TO GO TO ONBOARDING PAGE
 
     else: #remain on sign up page if not successful
       return redirect(url_for('signup'))
@@ -52,30 +52,30 @@ def survey():
         nation = request.form['nation']
         lang = request.form['lang']
         create_profile(birthday, yearsLearned, nation, lang)
-        return redirect(url_for('topic.html'))
+        return redirect(url_for('topic'))
 
 # select topic
 @app.route('/topic/', methods =['POST', 'GET'])
 def topic():
-    if request.methods == "POST":
+    if request.method == "POST":
         category_id = request.form['form-id']
         return redirect(url_for('convo', id=category_id)) #user id?
     return render_template('topic.html')
 
 #start a new convo
-@app.route('/convo/<id>', methods =['POST', 'GET'])
-def convo(id):
-    if request.methods == 'POST':
+@app.route('/convo/<type>', methods =['POST', 'GET'])
+def convo(type):
+    if request.method == 'POST':
         #sessionid?
-        answer = new_file(id) # start a new audio file, return a file path
-        new_convo(id, answer) #create a new convo with the selected topic, and audio file
+        # answer = new_file(id) # start a new audio file, return a file path
+        # new_convo(id, answer) #create a new convo with the selected topic, and audio file
         return redirect(url_for('feedback', id = session_id)) #maybe not session_id, we need to retrieve the most recent convo to a user
     return render_template('convo.html')
 
 #feedback page
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
 def feedback(id):
-    if request.methods == 'POST':
+    if request.method == 'POST':
         return redirect(url_for('topic'))
     result = feedback(id)
     return render_template('feedback.html', feedback = result)

@@ -9,19 +9,19 @@ from flask import flash
 #Connects to the db
 def getConn():
     DSN = dbconn2.read_cnf()
-    DSN['db'] = 'mshen2_db'
+    DSN['db'] = 'scottai_db'
     return dbconn2.connect(DSN)
 
 #this should come from session
-username = 'mshen2'
+userId = 1
 
-def create_profile(name, birthday, yearsLearned, nation, lang):
+def create_profile(birthday, yearsLearned, nation, lang):
     #establish connection
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
 	#check if profile exists
-	curs.execute("select * from profile where useId = %s", [username])
+	curs.execute("select * from profile where userId = %s", [userId])
     existing_profile = curs.fetchone()
 
     # update profile
@@ -29,21 +29,21 @@ def create_profile(name, birthday, yearsLearned, nation, lang):
         sql = '''update profile
                  set birthday=%s, yearsLearned=%s, nation=%s, nativeLang=%s
                  where userId = %s'''
-        data = (birthday, yearsLearned, nation, lang, str(username))
+        data = (birthday, yearsLearned, nation, lang, str(userId))
         curs.execute(sql, data)
         conn.commit()
-		curs.close()
-		conn.close()
-        return ('Profile {username} updated'.format(username=username),1)
+        curs.close()
+        conn.close()
+        return 'Profile update'
     # create profile
 	else:
-		sql = "insert into profile (birthday, yearsLearned, nation, nativeLang) VALUES (%s, %s, %s, %s)"
-		data = (birthday, yearsLearned, nation, lang)
+		sql = "insert into profile (userId, birthday, yearsLearned, nation, nativeLang) VALUES (%s, %s, %s, %s, %s)"
+		data = (userId, birthday, yearsLearned, nation, lang)
 		curs.execute(sql, data)
 		conn.commit()
 		curs.close()
 		conn.close()
-		return ('''Profile {username} created.'''.format(username=username),1)
+		return 'Profile created'
 
 def feedback(id):
     pass
@@ -55,12 +55,12 @@ def new_file(id):
     pass
 
 def create_account(name, username, password):
-	#establish connection 
+	#establish connection
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
 	if name and username and password:
-		#check if user exists (log in) 
+		#check if user exists (log in)
 
 		curs.execute("select * from account where username = %s", [username])
 		other_account = curs.fetchone()
@@ -98,5 +98,5 @@ def login(username, password):
 
 		else:
 			return ("Password does not match. Please try again.", 0)
-	else: 
+	else:
 		return ('''User {username} does not exist. Please try again. '''.format(username=username),0)
