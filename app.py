@@ -90,7 +90,7 @@ def convo(type):
       #sessionid?
       # answer = new_file(id) # start a new audio file, return a file path
       # new_convo(id, answer) #create a new convo with the selected topic, and audio file
-      return render_template('convo.html', script=url_for('convo'))
+      return render_template('convo.html')
     elif request.method == 'POST':
 
         return render_template('convo.html')
