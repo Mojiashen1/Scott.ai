@@ -80,7 +80,7 @@ def convo(type):
 
       # store response in appropriate table
 
-      return render_template('convo.html', questions = all_questions)
+      return render_template('convo.html', all_questions = all_questions)
     elif request.method == 'POST': #once they submit ?
 
         return render_template('convo.html')
