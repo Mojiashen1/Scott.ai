@@ -90,8 +90,10 @@ def convo(type):
       #sessionid?
       # answer = new_file(id) # start a new audio file, return a file path
       # new_convo(id, answer) #create a new convo with the selected topic, and audio file
-      return redirect(url_for('feedback', id = session_id)) #maybe not session_id, we need to retrieve the most recent convo to a user
-    return render_template('convo.html')
+      return render_template('convo.html', script=url_for('convo'))
+    elif request.method == 'POST':
+
+        return render_template('convo.html')
 
 #NOT DONE
 #feedback page
