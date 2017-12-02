@@ -56,7 +56,7 @@ def get_questions(type):
 
 	print (type)
 
-	curs.execute("select * from AI where categoryId == %s", [type])
+	curs.execute("select * from AI where categoryId = %s", [type])
 	return curs.fetchall()
 
 def new_convo(id):
