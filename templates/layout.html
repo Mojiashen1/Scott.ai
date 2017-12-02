@@ -24,7 +24,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Scott.ai</a>
+        <a class="navbar-brand js-scroll-trigger" href="index">Scott.ai</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -43,15 +43,16 @@
     </nav>
 
     <!-- content -->
-    <div id="content">{% block content %}{% endblock %}</div>
-
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        {% for message in messages %}
-           <p>{{ message }}
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+    <div>{% block content %}{% endblock %}</div>
+    <div class='container'>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+             <p>{{ message }}
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
 
     <!-- Footer -->
     <footer>
