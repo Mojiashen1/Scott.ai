@@ -14,12 +14,12 @@
 
     <div class="form-group">
       <label for="birthday">When is your birthday</label>
-      <input type='date' class='form-control' name='birthday' placeholder='1998-12-12' value="{{data[birthday]}}" required>
+      <input type='date' class='form-control' name='birthday' value="{{data[birthday]}}" placeholder='1998-12-12' required>
     </div>
 
     <div class="form-group">
       <label for="yearsLearned">How many years have you been learning English?</label>
-      <select class="form-control" name='yearsLearned' value="{{data[yearsLearned]}}">
+      <select class="form-control" value="{{data[yearsLearned]}}" name='yearsLearned'>
         <option value=1>1</option>
         <option value=2>2</option>
         <option value=3>3</option>
@@ -32,12 +32,12 @@
 
     <div class="form-group">
       <label for="nation">Which country are you from?</label>
-      <input type='text' class='form-control' name='nation' placeholder='Germany' value="{{data[nation]}}">
+      <input type='text' class='form-control' name='nation' value="{{data[nation]}}" placeholder='Germany'>
     </div>
 
     <div class="form-group">
       <label for="lang">What's your native language?</label>
-      <input type='text' class='form-control' name='lang' placeholder='German' value="{{data[lang]}}">
+      <input type='text' class='form-control' name='lang' value="{{data[nativeLang]}}" placeholder='German'>
     </div>
 
     <input type="submit" value = 'Submit' class="btn btn-primary">
