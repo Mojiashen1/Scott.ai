@@ -69,29 +69,19 @@ def topic():
 def convo(type):
     if request.method == 'GET':
 
-      #pull category type (hard code mapping for now)
-      print ("IN CONVO")
-
+      #convert type to ID
       categories = {"school": 1, "hobby":2, "food":3}
       typeId = categories[type]
 
-      print (typeId)
-      
       #pull questions from database by type
       all_questions = get_questions(typeId)
       print (all_questions);
 
-      #display each question
 
       # store response in appropriate table
 
-      #once done, go to feedback
-
-      #sessionid?
-      # answer = new_file(id) # start a new audio file, return a file path
-      # new_convo(id, answer) #create a new convo with the selected topic, and audio file
-      return render_template('convo.html')
-    elif request.method == 'POST':
+      return render_template('convo.html', questions = all_questions)
+    elif request.method == 'POST': #once they submit ?
 
         return render_template('convo.html')
 

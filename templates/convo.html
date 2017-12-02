@@ -41,16 +41,18 @@ h1{
 		<div id="wrapper">
 			<div id="steps">
 				<form id="formElem" name="formElem" action="" method="post">
+
+					{% for question in all_questions %}
 					
 					<fieldset class="step">
-						<legend>{{questionText}}</legend>
+						<legend>{{question['questionText']}}</legend>
 						<p>
-							<input id="username" name="username" />
+							<input id="{{question['questionId']}}" name="{{question['questionId']}}" />
 						</p>
 
 					</fieldset>
 
-					<fieldset class="step">
+<!-- 					<fieldset class="step">
 						<legend>{{questionText}}</legend>
 						<p>
 							<input id="name" name="name" type="text" AUTOCOMPLETE=OFF />
@@ -81,7 +83,9 @@ h1{
 							<input id="lastQ" name="lastQ" type="text" AUTOCOMPLETE=OFF />
 						</p>
 
-					</fieldset>
+					</fieldset> -->
+
+					{% endfor %}
 
 					<fieldset class="step">	
 						<p class="submit">
