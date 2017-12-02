@@ -70,13 +70,16 @@ def convo(type):
     if request.method == 'POST':
 
       #pull category type (hard code mapping for now)
+      print ("IN CONVO")
 
       categories = {"school": 1, "hobby":2, "food":3}
       typeId = categories[type]
+
+      print ("TYPE ID IS SOMETHING" + typeId)
       
       #pull questions from database by type
       all_questions = get_questions(typeId)
-      print all_questions;
+      print (all_questions);
 
       #display each question
 
