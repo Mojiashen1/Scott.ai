@@ -83,6 +83,7 @@ img::-moz-selection {
   background: transparent; }
 
 body {
+  margin-top: 50px;
   -webkit-tap-highlight-color: #83E4C8; }
 
 #mainNav {
