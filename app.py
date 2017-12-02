@@ -67,7 +67,7 @@ def topic():
 #start a new convo
 @app.route('/convo/<type>', methods =['POST', 'GET'])
 def convo(type):
-    if request.method == 'POST':
+    if request.method == 'GET':
 
       #pull category type (hard code mapping for now)
       print ("IN CONVO")
