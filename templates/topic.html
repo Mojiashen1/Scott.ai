@@ -4,19 +4,19 @@
 <div class='container' id='topic'>
   <a href="{{ url_for('convo', type='school') }}">
       <div class = 'topics'>
-      <img scr = "{{ url_for('static', filename='img/food.jpg') }}">
+      <img scr = "{{ url_for('../static', filename='img/food.jpg') }}">
       <p>School</p>
     </div>
   </a>
   <a href="{{ url_for('convo', type='hobby') }}">
     <div class = 'topics'>
-      <img scr = "{{ url_for('static', filename='img/food.jpg') }}">
+      <img scr = "{{ url_for('../static', filename='img/food.jpg') }}">
       <p>Hobby</p>
     </div>
   </a>
   <a href="{{ url_for('convo', type='food') }}">
     <div class = 'topics'>
-      <img scr = "{{ url_for('static', filename='img/food.jpg') }}">
+      <img scr = "{{ url_for('../static', filename='img/food.jpg') }}">
       <p>Food</p>
     </div>
   </a>
