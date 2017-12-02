@@ -262,24 +262,15 @@ ul.social-buttons {
 }
 
 .selection{
-
-margin: 40px;
-padding: 15px;
-
+  margin: 40px;
+  padding: 15px;
 }
 
 .selection h4{
   padding-top: 40px;
+  text-align: center;
 }
 
-.topics h4{
-  padding-top: 40px
-}
-
-.topics {
-  float: right;
-  margin: 40px;
-  max-bottom: 20px;
-  padding: 15px;
-  color: white;
+.selection img {
+  margin: 15px;
 }

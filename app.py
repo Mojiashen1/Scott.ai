@@ -71,7 +71,7 @@ def convo(type):
 
       categories = {"school": 1, "hobby":2, "food":3}
       typeId = categories[type]
-      
+
       #pull questions from database by type
       all_questions = get_questions(typeId)
       print all_questions;
@@ -100,7 +100,7 @@ def feedback(id):
 if __name__ == '__main__':
   ''' main method'''
   # port = os.getuid()
-  port = 8000
+  port = 9000
   app.debug = True
   # Flask will print the port anyhow, but let's do so too
   print('Running on port '+str(port))
