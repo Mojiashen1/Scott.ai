@@ -48,6 +48,14 @@ def create_profile(birthday, yearsLearned, nation, lang):
 def feedback(id):
     pass
 
+def get_questions(type):
+	#establish connection
+	conn = getConn()
+	curs = conn.cursor(MySQLdb.cursors.DictCursor)
+
+	curs.execute("select * from AI where categoryId == %s", [type])
+	return curs.fetchall()
+
 def new_convo(id):
     pass
 

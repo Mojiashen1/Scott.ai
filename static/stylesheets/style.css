@@ -86,7 +86,8 @@ body {
   -webkit-tap-highlight-color: #83E4C8; }
 
 #mainNav {
-  background-color: #212529; }
+  background-color: #212529;
+  margin-bottom: 50px; }
   #mainNav .navbar-toggler {
     font-size: 12px;
     right: 0;
@@ -260,9 +261,24 @@ ul.social-buttons {
   margin-bottom:200px;
 }
 
+.selection{
+
+margin: 40px;
+padding: 15px;
+
+}
+
+.selection h4{
+  padding-top: 40px;
+}
+
+.topics h4{
+  padding-top: 40px
+}
+
 .topics {
-  background-color: #83E4C8;
-  border-radius: 10px;
+  float: right;
+  margin: 40px;
   max-bottom: 20px;
   padding: 15px;
   color: white;

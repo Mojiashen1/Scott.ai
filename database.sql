@@ -64,12 +64,12 @@ create table convos( -- stores each conversation a user has
 	convoId int auto_increment not null primary key,
 	-- sessionId int not null,
 	categoryId int not null, #so we can join them to give feedback
-	questionId int not null,
-	answerText varchar(100) not null, #store file path for audio answer
+	-- questionId int not null,
+	answerText varchar(100) not null, #store file path for audio answer - one audio file for entire conversation
 	-- userId int not null,
 	-- foreign key (sessionId) references sessions(sessionId) on delete cascade on update cascade,
 	-- foreign key (userId) references account(userId) on delete cascade on update cascade,
-	foreign key (questionId) references AI(questionId) on delete cascade on update cascade
+	foreign key (categoryId) references category(categoryId) on delete cascade on update cascade
 );
 
 create table sessions( #stores each persons sessions

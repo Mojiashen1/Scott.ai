@@ -33,7 +33,7 @@ def signup():
     elif request.form['submit']=='login':
       desc = login(username, password)
 
-    print (desc[0])
+    flash(desc[0])
 
     if desc[1] == 1: #if user added/logged-in, go to onboarding page
       return redirect(url_for('survey')) #CHANGE TO GO TO ONBOARDING PAGE
@@ -66,12 +66,29 @@ def topic():
 @app.route('/convo/<type>', methods =['POST', 'GET'])
 def convo(type):
     if request.method == 'POST':
-        #sessionid?
-        # answer = new_file(id) # start a new audio file, return a file path
-        # new_convo(id, answer) #create a new convo with the selected topic, and audio file
-        return redirect(url_for('feedback', id = session_id)) #maybe not session_id, we need to retrieve the most recent convo to a user
+
+      #pull category type (hard code mapping for now)
+
+      categories = {"school": 1, "hobby":2, "food":3}
+      typeId = categories[type]
+      
+      #pull questions from database by type
+      all_questions = get_questions(typeId)
+      print all_questions;
+
+      #display each question
+
+      # store response in appropriate table
+
+      #once done, go to feedback
+
+      #sessionid?
+      # answer = new_file(id) # start a new audio file, return a file path
+      # new_convo(id, answer) #create a new convo with the selected topic, and audio file
+      return redirect(url_for('feedback', id = session_id)) #maybe not session_id, we need to retrieve the most recent convo to a user
     return render_template('convo.html')
 
+#NOT DONE
 #feedback page
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
 def feedback(id):
