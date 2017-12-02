@@ -135,6 +135,8 @@ body {
       transition: all 0.3s; }
     #mainNav .navbar-nav .nav-item .nav-link {
       padding: 1.1em 1em !important; }
+#mainNav .navbar-nav .nav-item_2 .nav-link_2 {
+      padding: 1.1em 1em !important; }
     #mainNav.navbar-shrink {
       padding-top: 0;
       padding-bottom: 0;
