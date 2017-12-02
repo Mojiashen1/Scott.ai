@@ -263,9 +263,11 @@ ul.social-buttons {
 
 #topic img{
   height: 40px;
+  float: left;
 }
 
 .topics {
+  float: right;
   background-color: #83E4C8;
   border-radius: 10px;
   max-bottom: 20px;
