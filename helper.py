@@ -22,19 +22,19 @@ def create_profile(birthday, yearsLearned, nation, lang):
 
 	#check if profile exists
 	curs.execute("select * from profile where userId = %s", [userId])
-    existing_profile = curs.fetchone()
+        existing_profile = curs.fetchone()
 
     # update profile
 	if existing_profile:
-        sql = '''update profile
+                sql = '''update profile
                  set birthday=%s, yearsLearned=%s, nation=%s, nativeLang=%s
                  where userId = %s'''
-        data = (birthday, yearsLearned, nation, lang, str(userId))
-        curs.execute(sql, data)
-        conn.commit()
-        curs.close()
-        conn.close()
-        return 'Profile update'
+                data = (birthday, yearsLearned, nation, lang, str(userId))
+                curs.execute(sql, data)
+                conn.commit()
+                curs.close()
+                conn.close()
+                return 'Profile update'
     # create profile
 	else:
 		sql = "insert into profile (userId, birthday, yearsLearned, nation, nativeLang) VALUES (%s, %s, %s, %s, %s)"
