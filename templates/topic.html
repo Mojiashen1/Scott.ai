@@ -3,9 +3,15 @@
 {% block content %}
 <div class='container' id='topic'>
   <a href="{{ url_for('convo', type='school') }}">
-      <div class = 'topics'>
-      <img src = "../static/img/food.jpg" height=115px>
-      <p>School</p>
+    <div class = 'topics'>
+
+      <table>
+        <tr>
+          <td><img src = "../static/img/food.jpg" height=115px></td>
+          <td><p>School</p></td>
+        </tr>
+      </table>
+      
     </div>
   </a>
   <a href="{{ url_for('convo', type='hobby') }}">
