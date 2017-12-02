@@ -4,27 +4,37 @@
 <div class='container' id='topic'>
   <div class='row text-center topics'>
     <a href="{{ url_for('convo', type='school') }}">
-    <div class='col-md-4'>
+      <div class='col-md-4'>
 
-          <img src = "../static/img/food.jpg" height=115px>
-          <p>School</p>
+        <img src = "../static/img/food.jpg" height=115px>
+        <p>School</p>
 
-    </div>
-  </a>
-</div>
+      </div>
+    </a>
+  </div>
 
-  <a href="{{ url_for('convo', type='hobby') }}">
-    <div class = 'topics'>
-      <img src = "../static/img/hobby.jpg" height=115px>
-      <p>Hobby</p>
-    </div>
-  </a>
-  <a href="{{ url_for('convo', type='food') }}">
-    <div class = 'topics'>
-      <img src = "../static/img/food.jpg" height=115px>
-      <p>Food</p>
-    </div>
-  </a>
+  <div class='row text-center topics'>
+    <a href="{{ url_for('convo', type='hobby') }}">
+      <div class='col-md-4'>
+
+        <img src = "../static/img/hobby.jpg" height=115px>
+        <p>Hobby</p>
+
+      </div>
+    </a>
+  </div>
+
+  <div class='row text-center topics'>
+    <a href="{{ url_for('convo', type='food') }}">
+      <div class='col-md-4'>
+
+        <img src = "../static/img/food.jpg" height=115px>
+        <p>School</p>
+
+      </div>
+    </a>
+  </div>
+
 </div>
 
 {% endblock %}
