@@ -33,6 +33,8 @@ def signup():
     elif request.form['submit']=='login':
       desc = login(username, password)
 
+    print desc
+
     flash(desc[0])
 
     if desc[1] == 1: #if user added/logged-in, go to onboarding page
