@@ -98,20 +98,14 @@ h1{
 			<div id="navigation" style="display:none;">
 				<ul>
 				<li class="selected">
-						<a href="#">Question One</a>
-					</li>
+
+					{% for question in all_questions %}
 					<li>
-						<a href="#"> Question Two</a>
+						<a href="#">Question # {{question['questionId']}} </a>
 					</li>
-					<li>
-						<a href="#">Question Three</a>
-					</li>
-					<li>
-						<a href="#">Question Four</a>
-					</li>
-					<li>
-						<a href="#">Question Five</a>
-					</li>
+
+					{% endfor %}
+
 					<li>
 						<a href="#">Submit</a>
 					</li>
