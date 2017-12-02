@@ -2,7 +2,7 @@
 body {
   overflow-x: hidden;
   font-family: 'Crimson Text','Dosis','Helvetica Neue', Helvetica, Arial, sans-serif; }
-  
+
 #content{
     margin:50px auto;
     text-align:center;
@@ -11,9 +11,9 @@ body {
     height:100%;
 }
 #wrapper{
-    -moz-box-shadow:0px 0px 3px #aaa;
-    -webkit-box-shadow:0px 0px 3px #aaa;
-    box-shadow:0px 0px 3px #aaa;
+    /*-moz-box-shadow:0px 0px 3px #aaa;
+    -webkit-box-shadow:0px 0px 3px #aaa;*/
+    /*box-shadow:0px 0px 3px #aaa;*/
     -moz-border-radius:10px;
     -webkit-border-radius:10px;
     border-radius:10px;
@@ -23,13 +23,13 @@ body {
     overflow:hidden;
 }
 #steps{
-    width:600px;
+    width:1000;
 	/*height:320px;*/
     overflow:hidden;
 }
 .step{
     float:left;
-    width:600px;
+    width:1000;
 	/*height:320px;*/
 }
 #navigation{
@@ -88,7 +88,7 @@ body {
 #navigation ul li.selected a{
     background:#d8d8d8;
     color:#666;
-    text-shadow:1px 1px 1px #fff;
+    /*text-shadow:1px 1px 1px #fff;*/
 }
 span.checked{
     background:transparent url(../images/checked.png) no-repeat top left;
@@ -115,7 +115,7 @@ span.error{
     background-color:#f0f0f0;
     color:#666;
     font-size:24px;
-    text-shadow:1px 1px 1px #fff;
+    /*text-shadow:1px 1px 1px #fff;*/
     font-weight:bold;
     float:left;
     width:590px;
@@ -136,9 +136,9 @@ span.error{
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
-    -moz-box-shadow:0px 0px 3px #aaa;
+/*    -moz-box-shadow:0px 0px 3px #aaa;
     -webkit-box-shadow:0px 0px 3px #aaa;
-    box-shadow:0px 0px 3px #aaa;
+    box-shadow:0px 0px 3px #aaa;*/
 }
 #steps form p label{
     width:160px;
@@ -147,7 +147,7 @@ span.error{
     margin-right:15px;
     line-height:26px;
     color:#666;
-    text-shadow:1px 1px 1px #fff;
+    /*text-shadow:1px 1px 1px #fff;*/
     font-weight:bold;
 }
 #steps form input:not([type=radio]),
@@ -164,17 +164,17 @@ span.error{
     float:left;
 }
 #steps form input:focus{
-    -moz-box-shadow:0px 0px 3px #aaa;
+  /*  -moz-box-shadow:0px 0px 3px #aaa;
     -webkit-box-shadow:0px 0px 3px #aaa;
-    box-shadow:0px 0px 3px #aaa;
+    box-shadow:0px 0px 3px #aaa;*/
     background-color:#FFFEEF;
 }
 #steps form p.submit{
     background:none;
     border:none;
-    -moz-box-shadow:none;
+/*    -moz-box-shadow:none;
     -webkit-box-shadow:none;
-    box-shadow:none;
+    box-shadow:none;*/
 }
 #steps form button {
 	border:none;
@@ -188,17 +188,17 @@ span.error{
     margin: 0px auto;
     clear:both;
     padding: 7px 25px;
-    text-shadow: 0 1px 1px #777;
+    /*text-shadow: 0 1px 1px #777;*/
     font-weight:bold;
     font-family:"Century Gothic", Helvetica, sans-serif;
     font-size:22px;
-    -moz-box-shadow:0px 0px 3px #aaa;
+    /*-moz-box-shadow:0px 0px 3px #aaa;
     -webkit-box-shadow:0px 0px 3px #aaa;
-    box-shadow:0px 0px 3px #aaa;
+    box-shadow:0px 0px 3px #aaa;*/
     background:#4797ED;
 }
 #steps form button:hover {
     background:#d8d8d8;
     color:#666;
-    text-shadow:1px 1px 1px #fff;
+    /*text-shadow:1px 1px 1px #fff;*/
 }
