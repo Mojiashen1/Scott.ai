@@ -33,7 +33,7 @@ def signup():
     elif request.form['submit']=='login':
       desc = login(username, password)
 
-    print (desc[0])
+    flash(desc[0])
 
     if desc[1] == 1: #if user added/logged-in, go to onboarding page
       return redirect(url_for('survey')) #CHANGE TO GO TO ONBOARDING PAGE
