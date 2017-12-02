@@ -6,7 +6,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<link rel="stylesheet" href="../static/stylesheets/convos.css" type="text/css" media="screen"/>
+	<link rel="stylesheet" href="../static/stylesheets/style.css" type="text/css" media="screen"/>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script type="text/javascript" src="../static/js/sliding.form.js"></script>
 </head>
@@ -43,16 +43,15 @@ h1{
 				<form id="formElem" name="formElem" action="" method="post">
 					
 					<fieldset class="step">
-						<legend>Question One</legend>
+						<legend>{{questionText}}</legend>
 						<p>
-							<label for="username">User name</label>
 							<input id="username" name="username" />
 						</p>
 
 					</fieldset>
 
 					<fieldset class="step">
-						<legend>Question Two</legend>
+						<legend>{{questionText}}</legend>
 						<p>
 							<input id="name" name="name" type="text" AUTOCOMPLETE=OFF />
 						</p>
@@ -60,30 +59,36 @@ h1{
 					</fieldset>
 
 					<fieldset class="step">
-						<legend>Question Three</legend>
+						<legend>{{questionText}}</legend>
 
 						<p>
-							<input id="cardnumber" name="cardnumber" type="number" AUTOCOMPLETE=OFF />
+							<input id="name" name="name" type="text" AUTOCOMPLETE=OFF />
+
 						</p>
 
 					</fieldset>
 
 					<fieldset class="step">
-						<legend>Question Four</legend>
+						<legend>{{questionText}}</legend>
 						<p>
 							<input id="tagname" name="tagname" type="text" AUTOCOMPLETE=OFF />
 						</p>
 					</fieldset>
 
 					<fieldset class="step">
-						<legend>Question Five</legend>
+						<legend>{{questionText}}</legend>
 						<p>
 							<input id="lastQ" name="lastQ" type="text" AUTOCOMPLETE=OFF />
 						</p>
+
+					</fieldset>
+
+					<fieldset class="step">	
 						<p class="submit">
-							<button id="submit" type="submit">Register</button>
+							<button id="submit" type="submit">End Conversation</button>
 						</p>
 					</fieldset>
+
 				</form>
 			</div>
 			<div id="navigation" style="display:none;">
@@ -103,6 +108,10 @@ h1{
 					<li>
 						<a href="#">Question Five</a>
 					</li>
+					<li>
+						<a href="#">Submit</a>
+					</li>
+
 				</ul>
 			</div>
 		</div>
