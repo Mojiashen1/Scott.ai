@@ -261,15 +261,15 @@ ul.social-buttons {
   margin-bottom:200px;
 }
 
-.topics img{
-  height: 40px;
-  float: left;
+.topics h4{
+  padding-top: 40px
 }
 
 .topics {
   float: right;
-  background-color: #83E4C8;
-  border-radius: 10px;
+  margin: 40px;
+  /*background-color: #83E4C8;*/
+  /*border-radius: 10px;*/
   max-bottom: 20px;
   padding: 15px;
   color: white;
