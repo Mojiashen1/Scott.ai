@@ -261,6 +261,10 @@ ul.social-buttons {
   margin-bottom:200px;
 }
 
+#topic img{
+  height: 40px;
+}
+
 .topics {
   background-color: #83E4C8;
   border-radius: 10px;
