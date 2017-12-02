@@ -66,15 +66,22 @@ def topic():
 @app.route('/convo/<type>', methods =['POST', 'GET'])
 def convo(type):
     if request.method == 'POST':
+
+      #pull category type (hard code mapping for now)
+
+      categories = {"school": 1, "hobby":2, "food":3}
+      typeId = categories[type]
       
       #pull questions from database by type
+      all_questions = get_questions(typeId)
+      print all_questions;
 
       #display each question
 
       # store response in appropriate table
 
       #once done, go to feedback
-      
+
       #sessionid?
       # answer = new_file(id) # start a new audio file, return a file path
       # new_convo(id, answer) #create a new convo with the selected topic, and audio file
