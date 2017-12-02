@@ -5,6 +5,7 @@
  */
 
 body {
+  margin-top: 50px;
   overflow-x: hidden;
   font-family: 'Crimson Text','Dosis','Helvetica Neue', Helvetica, Arial, sans-serif; }
 
@@ -83,7 +84,6 @@ img::-moz-selection {
   background: transparent; }
 
 body {
-  margin-top: 50px;
   -webkit-tap-highlight-color: #83E4C8; }
 
 #mainNav {
