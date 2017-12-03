@@ -13,7 +13,7 @@ def getConn():
     return dbconn2.connect(DSN)
 
 #this should come from session
-userId = 1
+userId = 1 #hard-coded for now, will remove
 
 def create_profile(birthday, yearsLearned, nation, lang):
     #establish connection
@@ -45,7 +45,7 @@ def create_profile(birthday, yearsLearned, nation, lang):
 		conn.close()
 		return 'Profile created'
 
-def get_profile():
+def get_profile(userId):
 
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
@@ -63,8 +63,8 @@ def get_profile():
 def get_feedback(id):
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
-	
-	curs.execute("select * from profile where userId = %s", [userId])
+
+	curs.execute("select * from profile where userId = %s", [id])
         existing_profile = curs.fetchone()
         print existing_profile
 
