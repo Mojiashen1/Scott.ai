@@ -1,5 +1,7 @@
 # Mojia & Harshita
 # final project
+# draft version
+# Dec 3, 2017
 
 from flask import Flask, render_template, request, flash, redirect, url_for, session
 import os, sys

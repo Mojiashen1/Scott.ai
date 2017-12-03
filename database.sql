@@ -1,3 +1,8 @@
+-- # Mojia & Harshita
+-- # final project
+-- # draft version
+-- # Dec 3, 2017
+
 SET FOREIGN_KEY_CHECKS=0; -- ignore foreign key checks when initializing tables
 
 drop table if exists convos;

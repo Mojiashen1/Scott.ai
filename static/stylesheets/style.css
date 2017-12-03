@@ -256,8 +256,12 @@ ul.social-buttons {
     ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
       background-color: #83E4C8; }
 
+/*# added CSS here
+# Mojia & Harshita
+# final project
+# draft version
+# Dec 3, 2017*/
 
-/*need to fix this*/
 #survey, #topic, #convo{
   margin-top:100px;
   margin-bottom:200px;
@@ -276,4 +280,3 @@ ul.social-buttons {
 .selection img {
   margin: 15px;
 }
-
