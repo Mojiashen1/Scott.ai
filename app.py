@@ -47,14 +47,14 @@ def signup():
       if request.form['submit']=='login':
         return redirect(url_for('topic'))
       else: 
-        return redirect(url_for('survey'))
+        return redirect(url_for('survey', userId = userId))
 
     else: #remain on sign up page if not successful
       return redirect(url_for('signup'))
 
 # onboarding survey asking for user's basic information
 @app.route('/survey/', methods =['POST', 'GET'])
-def survey():
+def survey(userId):
     if request.method == 'GET':
         data = get_profile(userId)
         return render_template('survey.html', script=url_for('survey'), data=data)
