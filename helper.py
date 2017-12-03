@@ -5,6 +5,7 @@ import sys
 import MySQLdb
 import dbconn2
 from flask import flash
+import bcrpyt
 
 #Connects to the db
 def getConn():
@@ -112,10 +113,10 @@ def create_account(name, username, password):
 			#if user does not exist, insert into table (sign up)
 
 			#encrypt password
-			password = password.encode('ascii')
+			hashed = bcrpyt.hashpw(password, bcrpyt.gensalt())
 
 			sql = "insert into account (name, username, password) VALUES (%s, %s, %s)"
-			data = (name, username, password)
+			data = (name, username, hashed)
 			curs.execute(sql, data)
 			conn.commit()
 
@@ -134,14 +135,14 @@ def login(username, password):
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-	#encode password
-	password = password.encode('ascii')
+	#encrpyt password
+	hashed = bcrpyt.hashpw(password, bcrpyt.gensalt())
 
 	curs.execute("select * from account where username = %s", [username])
 	other_account = curs.fetchone()
 
 	if other_account:
-		curs.execute("select * from account where password = %s", [password])
+		curs.execute("select * from account where password = %s", [hashed])
 
 		found_account = curs.fetchone()
 
