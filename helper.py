@@ -56,6 +56,7 @@ def get_feedback(userId):
 
 	curs.execute("select * from account where userId = %s", [userId])
 	userData = curs.fetchone() #should only have one result
+	print userData
 
 	#pull data from convos table
 	#maybe, amount of time recorded on audio
