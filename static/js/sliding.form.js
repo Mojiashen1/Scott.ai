@@ -1,3 +1,5 @@
+// taken from https://tympanus.net/codrops/2010/06/07/fancy-sliding-form-with-jquery/
+
 $(function() {
 	/*
 	number of fieldsets

@@ -1,39 +1,14 @@
+<!-- sliding form ui taken from https://tympanus.net/codrops/2010/06/07/fancy-sliding-form-with-jquery/ -->
+
 {% extends "layout_2.html" %}
 
 {% block content %}
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<link rel="stylesheet" href="../static/stylesheets/convos.css" type="text/css" media="screen"/>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script type="text/javascript" src="../static/js/sliding.form.js"></script>
 </head>
-<style>
-span.reference{
-	position:fixed;
-	left:5px;
-	top:5px;
-	font-size:10px;
-	text-shadow:1px 1px 1px #fff;
-}
-span.reference a{
-	color:#555;
-	text-decoration:none;
-	text-transform:uppercase;
-}
-span.reference a:hover{
-	color:#000;
-
-}
-h1{
-	color:#ccc;
-	font-size:36px;
-	text-shadow:1px 1px 1px #fff;
-	padding:20px;
-}
-</style>
-
 
 <body>
 	<div id="content">
@@ -42,23 +17,17 @@ h1{
 				<form id="formElem" name="formElem" action="{{script}}" method="POST">
 
 					<fieldset class="step">
-					
 						<legend> Please click the questions below to begin the conversation. </legend>
-		
 					</fieldset>
 
+					<!-- Display all questions in large text box -->
 					{% for question in all_questions %}
-
 					<fieldset class="step">
-						<legend>{{question['questionText']}}</legend>
-						<p>
-							<!-- {{question['questionId']}} -->
+						<legend>{{question['questionText']}}</legend> <!-- extract question title from input-->
+						<p> 
 							<input type = "text" id="{{question['questionId']}}" name="{{question['questionId']}}" />
-
 						</p>
-
 					</fieldset>
-
 					{% endfor %}
 
 					<fieldset class="step">	
@@ -73,23 +42,21 @@ h1{
 				<ul>
 					<li class="selected">
 
+						<!-- Add navigation buttons for all questions in UI -->
 						{% for question in all_questions %}
 						<li>
 							<a href="#">Question #{{loop.index}}</a>
 						</li>
-
 						{% endfor %}
 
 						<li>
 							<a href="#">Submit</a>
 						</li>
+					</li> 
 
-					</ul>
-				</div>
+				</ul>
 			</div>
 		</div>
-	</body>
-	</html>
-
-
-	{% endblock %}
+	</div>
+</body>
+{% endblock %}
