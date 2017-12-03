@@ -98,8 +98,8 @@ def convo(type):
 #NOT DONE
 #feedback page
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
-def feedback():
-  result, userData = get_feedback(userId)
+def feedback(id):
+  result, userData = get_feedback(id)
   print result
 
   if request.method == 'GET':
