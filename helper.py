@@ -49,15 +49,14 @@ def feedback(id):
     pass
 
 def get_questions(type):
-	print ("IN GET QUEION")
 	#establish connection
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-	print (type)
-
 	curs.execute("select * from AI where categoryId = %s", [type])
-	return curs.fetchall()
+	results = cures.fetchall()
+	print (results)
+	return results
 
 def new_convo(id):
     pass
