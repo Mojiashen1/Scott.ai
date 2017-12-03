@@ -41,6 +41,9 @@ def signup():
 
     if desc[1] == 1: #if user added/logged-in, go to onboarding page
       userId = desc[2] #extract userId and store locally (will change)
+      print ("USER ID IS")
+      print userId
+
       if request.form['submit']=='login':
         return redirect(url_for('topic'))
       else: 
@@ -96,17 +99,19 @@ def convo(type):
 #feedback page
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
 def feedback(id):
-  result = get_feedback(userId)
+  result, userData = get_feedback(userId)
   print result
-  if request.method == 'POST':
+
+  if request.method == 'GET':
+    return render_template('feedback.html', feedback = result, name=userData['name'], id=id)
+  
+  elif request.method == 'POST':
+
     if request.form['submit']=='topics':
       return redirect(url_for('topic'))
+
     elif request.form['submit']=='logout':
       return redirect(url_for('home'))
-      # #log out 
-      # return redirect(url_for('feedback', id=id, feedback=result))
-  elif request.method == 'GET':
-    return render_template('feedback.html', feedback = result, id=id)
 
 if __name__ == '__main__':
   ''' main method'''

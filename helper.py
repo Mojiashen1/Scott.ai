@@ -54,13 +54,13 @@ def get_feedback(userId):
 	results = curs.fetchone() #should only have one result
 
 	curs.execute("select * from account where userId = %s", [userId])
-	results.append(curs.fetchone()) #should only have one result
+	userData = curs.fetchone() #should only have one result
 
 	#pull data from convos table
 	#maybe, amount of time recorded on audio
 	#append that data to results
 
-	return results
+	return (results, userData)
 
 def get_questions(type):
 	#establish connection
