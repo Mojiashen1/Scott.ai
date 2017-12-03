@@ -91,8 +91,8 @@ def survey():
         userId = session['userId']
         if request.method == 'GET':
             data = get_profile(userId)
-            options = set(data['yearsLearned'])
-            options.union(['1', '2', '3', '4', '5', 'more than 5, but less than 10', 'more than 10'])
+            options = get_options(data['yearsLearned'])
+            print('option', options)
             return render_template('survey.html', script=url_for('survey'), data=data, options=options)
         elif request.method == 'POST':
             birthday = request.form['birthday']
@@ -110,7 +110,7 @@ def topic():
     if 'userId' in session:
         if request.method == "POST":
             category_id = request.form['form-id']
-            return redirect(url_for('convo', id=category_id)) #user id?
+            return redirect(url_for('convo', id=category_id))
         return render_template('topic.html')
     else:
         return redirect(url_for('home'))
