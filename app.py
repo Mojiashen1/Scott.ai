@@ -7,6 +7,8 @@ import MySQLdb
 from helper import *
 import dbconn2
 
+userId = 0
+
 app = Flask(__name__)
 app.secret_key = 'youcantguessthisout'
 
@@ -38,7 +40,10 @@ def signup():
     flash(desc[0])
 
     if desc[1] == 1: #if user added/logged-in, go to onboarding page
-      return redirect(url_for('survey')) #CHANGE TO GO TO ONBOARDING PAGE
+      if request.form['submit']=='login':
+        return redirect(url_for('topic')) #CHANGE TO GO TO ONBOARDING PAGE
+      else: 
+        return redirect(url_for('survey')) #CHANGE TO GO TO ONBOARDING PAGE
 
     else: #remain on sign up page if not successful
       return redirect(url_for('signup'))
@@ -84,16 +89,18 @@ def convo(type):
 
     elif request.method == 'POST': #once they submit ?
       if request.form['submit']=='submit':
-        return redirect(url_for('feedback', id=1)) #user id?
+        return redirect(url_for('feedback', id=typeId)) #user id?
 
 #NOT DONE
 #feedback page
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
 def feedback(id):
     if request.method == 'POST':
-        return redirect(url_for('topic'))
-    result = feedback(id)
-    return render_template('feedback.html', feedback = result)
+      return redirect(url_for('topic'))
+    
+    elif request.method == 'GET':
+      result = feedback(id)
+      return render_template('feedback.html', feedback = result)
 
 if __name__ == '__main__':
   ''' main method'''
