@@ -47,7 +47,7 @@ def create_profile(birthday, yearsLearned, nation, lang):
 
 def get_feedback(userId, convoId):
     #get total time spent and points
-    conn = getConn()
+	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
 	curs.execute("select * from profile where userId = %s", [userId])
@@ -61,8 +61,6 @@ def get_feedback(userId, convoId):
 	#append that data to results
 
 	return results
-
-def get_userData(id)
 
 def get_questions(type):
 	#establish connection
