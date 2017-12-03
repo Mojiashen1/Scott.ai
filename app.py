@@ -106,7 +106,7 @@ def feedback(id, convoId):
       # #log out 
       # return redirect(url_for('feedback', id=id, feedback=result))
   elif request.method == 'GET':
-    return render_template('feedback.html', feedback = result)
+    return render_template('feedback.html', feedback = result, id=id, convoId=convoId)
 
 if __name__ == '__main__':
   ''' main method'''
