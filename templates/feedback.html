@@ -2,6 +2,8 @@
 
 {% block content %}
 
+<div class='container' id='survey' >
+
 <br><br><br><br>
 
 <h2> Congrats! You're done! </h2>
@@ -12,6 +14,7 @@
   <li>Total Time Active: {{feedback['timeActive']}}</li>
   <li>Total Points: {{feedback['points']}}</li>
 </ul>
+
 <!-- 
 <h4> Return to <i> topics </i> to pick a new conversation with Scott.ai, or logout of this session. </h4>
 
@@ -19,4 +22,6 @@
 
 <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="../index.html" data-toggle="modal" data-target=".bs-modal-sm">Logout</a>
  -->
+
+</div>
 {% endblock %}
