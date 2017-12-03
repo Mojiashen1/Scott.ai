@@ -70,7 +70,7 @@ def login():
     username = request.form['username']
     password = request.form['password']
     
-    desc = login(username, password)
+    desc = helper_login(username, password)
 
     flash(desc[0])
 
