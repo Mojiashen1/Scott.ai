@@ -80,7 +80,7 @@ def convo(type):
 
       # store response in appropriate table
 
-      return render_template('convo.html', all_questions = all_questions, script=(url_for("convo")))
+      return render_template('convo.html', all_questions = all_questions, script=(url_for("convo", type=typeId)))
     elif request.method == 'POST': #once they submit ?
       if request.form['submit']=='submit':
         return redirect(url_for('convo', id=1)) #user id?
