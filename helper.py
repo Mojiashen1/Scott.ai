@@ -149,7 +149,7 @@ def login(username, password):
 		found_account = curs.fetchone()
 
 		if found_account:
-			if found_account['password']==password:
+			if found_account['password']==hashed:
 				#success
 				return ('''Success, {username} logged in.'''.format(username=username),1, found_account['userId'])
 			else:
@@ -157,4 +157,4 @@ def login(username, password):
 		else:
 			return ("Password does not match. Please try again.", 0)
 	else:
-		return ('''User {username} does not exist. Please try again. '''.format(username=username),0)
+		return ('''User {username} does not exist. Please create an account. '''.format(username=username),0)
