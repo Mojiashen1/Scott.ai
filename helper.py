@@ -151,9 +151,10 @@ def helper_login(username, password):
 
 def get_options(data):
     all_options = ['1', '2', '3', '4', '5', 'more than 5, but less than 10', 'more than 10']
-    for o in all_options:
-        if o == data:
-            all_options.remove(o)
+    for option in all_options:
+        if option == str(data):
+            all_options.remove(option)
+    print('data', data)
     print('before insert', all_options)
     all_options.insert(0, data)
     print('after insert', all_options)
