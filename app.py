@@ -89,7 +89,7 @@ def convo(type):
       # store response in appropriate table
       # will do later with audio file
       # haven't set up convo id yet
-      return render_template('convo.html', all_questions = all_questions, script=(url_for("convo", type=typeId)))
+      return render_template('convo.html', all_questions = all_questions, script=(url_for("feedback", id=userId)))
 
     elif request.method == 'POST': #once they submit ?
       if request.form['submit']=='submit':
@@ -100,16 +100,15 @@ def convo(type):
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
 def feedback(id):
   result = get_feedback(id)
-  print result
 
   return render_template('feedback.html', feedback = result, id=id, script=(url_for("feedback", id=userId)))
 
-  if request.method == 'POST':  
-    if request.form['submit']=='topics':
-      return redirect(url_for('topic'))
+  # if request.method == 'POST':  
+  if request.form['submit']=='topics':
+    return redirect(url_for('topic'))
 
-    elif request.form['submit']=='logout':
-      return redirect(url_for('home'))
+  elif request.form['submit']=='logout':
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
   ''' main method'''
