@@ -45,8 +45,24 @@ def create_profile(birthday, yearsLearned, nation, lang):
 		conn.close()
 		return 'Profile created'
 
-def get_feedback(id):
-    pass
+def get_feedback(userId, convoId):
+    #get total time spent and points
+    conn = getConn()
+	curs = conn.cursor(MySQLdb.cursors.DictCursor)
+
+	curs.execute("select * from profile where userId = %s", [userId])
+	results = curs.fetchone() #should only have one result
+
+	curs.execute("select * from account where userId = %s", [userId])
+	results.append(curs.fetchone()) #should only have one result
+
+	#pull data from convos table
+	#maybe, amount of time recorded on audio
+	#append that data to results
+
+	return results
+
+def get_userData(id)
 
 def get_questions(type):
 	#establish connection
@@ -88,9 +104,15 @@ def create_account(name, username, password):
 			data = (name, username, password)
 			curs.execute(sql, data)
 			conn.commit()
+
+			#pull user Id
+
+			curs.execute("select * from account where username = %s", [username])
+			userId = curs.fetchone()['userId']
+
 			curs.close()
 			conn.close()
-			return ('''User {username} created.'''.format(username=username),1)
+			return ('''User {username} created.'''.format(username=username),1, userId)
 	else:
 		return ("Form Incomplete. Please try again.")
 
@@ -112,7 +134,7 @@ def login(username, password):
 		if found_account:
 			if found_account['password']==password:
 				#success
-				return ('''Success, {username} logged in.'''.format(username=username),1)
+				return ('''Success, {username} logged in.'''.format(username=username),1, found_account['userId'])
 			else:
 				return ("Password does not match. Please try again.", 0)
 		else:

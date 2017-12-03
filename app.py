@@ -40,10 +40,11 @@ def signup():
     flash(desc[0])
 
     if desc[1] == 1: #if user added/logged-in, go to onboarding page
+      userId = desc[2] #extract userId and store locally (will change)
       if request.form['submit']=='login':
-        return redirect(url_for('topic')) #CHANGE TO GO TO ONBOARDING PAGE
+        return redirect(url_for('topic'))
       else: 
-        return redirect(url_for('survey')) #CHANGE TO GO TO ONBOARDING PAGE
+        return redirect(url_for('survey'))
 
     else: #remain on sign up page if not successful
       return redirect(url_for('signup'))
@@ -84,21 +85,25 @@ def convo(type):
 
       # store response in appropriate table
       # will do later with audio file
-
-      return render_template('convo.html', all_questions = all_questions, script=(url_for("feedback", id=typeId)))
+      # haven't set up convo id yet
+      return render_template('convo.html', all_questions = all_questions, script=(url_for("feedback", id=userId, convoId = 0)))
 
     elif request.method == 'POST': #once they submit ?
       if request.form['submit']=='submit':
-        return redirect(url_for('feedback', id=typeId)) #user id?
+        return redirect(url_for('feedback', id=userId, convoId = 0)) #user id?
 
 #NOT DONE
 #feedback page
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
-def feedback(id):
-  result = get_feedback(id)
+def feedback(id, convoId):
+  result = get_feedback(userId, convoId)
   if request.method == 'POST':
-    return redirect(url_for('feedback', id=id, feedback=result))
-    
+    if request.form['submit']=='topics':
+      return redirect(url_for('topic'))
+    elif request.form['submit']=='logout':
+      return redirect(url_for('home'))
+      # #log out 
+      # return redirect(url_for('feedback', id=id, feedback=result))
   elif request.method == 'GET':
     return render_template('feedback.html', feedback = result)
 

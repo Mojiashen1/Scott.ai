@@ -2,13 +2,13 @@
 
 {% block content %}
 
-<h4> Congrats, {{name}}! You're done! </h4>
+<h4> Congrats, {{feedback['name']}}! You're done! </h4>
 
 <h3> Here's how you're doing so far: </h3>
 
 <ul>
-  <li>Total Time Spent: {{timeSpent}}</li>
-  <li>Total Points: {{points}}</li>
+  <li>Total Time Active: {{feedback['timeActive']}}</li>
+  <li>Total Points: {{feedback['points']}}</li>
 </ul>
 
 <h3> Return to <i> topics </i> to pick a new conversation with Scott.ai, or logout of this session </h3>
