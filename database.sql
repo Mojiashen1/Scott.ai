@@ -57,8 +57,8 @@ create table category(
 );
 
 insert into category (categoryType) values ('school');
-insert into category (categoryType) values ('hobby');
 insert into category (categoryType) values ('food');
+insert into category (categoryType) values ('hobby');
 
 create table convos( -- stores each conversation a user has
 	convoId int auto_increment not null primary key,
