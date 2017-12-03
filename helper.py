@@ -54,7 +54,7 @@ def get_questions(type):
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
 	curs.execute("select * from AI where categoryId = %s", [type])
-	results = cures.fetchall()
+	results = curs.fetchall()
 	print (results)
 	return results
 
