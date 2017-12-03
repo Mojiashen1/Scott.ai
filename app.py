@@ -66,7 +66,7 @@ def signup():
       return redirect(url_for('signup'))
 
 # onboarding survey asking for user's basic information
-@app.route('/survey', methods =['POST', 'GET'])
+@app.route('/survey/', methods =['POST', 'GET'])
 def survey():
     if 'userId' in session: 
         userId = session['userId']
