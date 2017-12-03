@@ -130,7 +130,7 @@ def create_account(name, username, password):
 			conn.close()
 			return ('''User {username} created.'''.format(username=username),1, userId)
 	else:
-		return ("Form Incomplete. Please try again.")
+		return ("Form Incomplete. Please try again.",)
 
 def login(username, password):
 	conn = getConn()
