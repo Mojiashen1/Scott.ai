@@ -1,4 +1,10 @@
-<!-- sliding form ui taken from https://tympanus.net/codrops/2010/06/07/fancy-sliding-form-with-jquery/ -->
+<!-- # Mojia & Harshita
+# final project
+# draft version
+# Dec 3, 2017 -->
+<!-- !!!!! this page is not completed implemented yet! We will update the UI -->
+<!-- this page shows the user a list of questions and allow the user to select what questions to answer
+we will inplement audio file system to record the answers -->
 
 {% extends "layout_2.html" %}
 
@@ -24,13 +30,13 @@
 					{% for question in all_questions %}
 					<fieldset class="step">
 						<legend>{{question['questionText']}}</legend> <!-- extract question title from input-->
-						<p> 
+						<p>
 							<input type = "text" id="{{question['questionId']}}" name="{{question['questionId']}}" />
 						</p>
 					</fieldset>
 					{% endfor %}
 
-					<fieldset class="step">	
+					<fieldset class="step">
 						<p class="submit">
 							<button type="submit" id="submit">End Conversation</button>
 						</p>
@@ -52,7 +58,7 @@
 						<li>
 							<a href="#">Submit</a>
 						</li>
-					</li> 
+					</li>
 
 				</ul>
 			</div>
