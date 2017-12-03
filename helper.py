@@ -60,7 +60,7 @@ def get_profile():
         conn.close()
         return existing_profile
 
-def feedback(id):
+def get_feedback(id):
 	curs.execute("select * from profile where userId = %s", [userId])
         existing_profile = curs.fetchone()
         print existing_profile
