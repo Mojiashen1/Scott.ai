@@ -128,7 +128,7 @@ def convo(type):
 
 #NOT DONE
 #feedback page
-@app.route('/feedback/<id>', methods =['POST', 'GET'])
+@app.route('/feedback/', methods =['POST', 'GET'])
 def feedback():
     if 'userId' in session:
         userId = session['userId'] 
