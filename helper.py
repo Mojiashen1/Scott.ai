@@ -143,7 +143,7 @@ def login(username, password):
 		hashedPassword = other_account['password'].encode('utf-8')
 
 		if bcrypt.hashpw(password.encode('utf-8'), hashedPassword) == hashedPassword:
-			return ('''Success, {username} logged in.'''.format(username=username),1, found_account['userId'])
+			return ('''Success, {username} logged in.'''.format(username=username),1, other_account['userId'])
 		else:
 			return ("Password does not match. Please try again.", 0)
 	else:
