@@ -95,12 +95,12 @@ def convo(type):
 #feedback page
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
 def feedback(id):
-    if request.method == 'POST':
-      return redirect(url_for('feedback'))
+  result = feedback(id)
+  if request.method == 'POST':
+    return redirect(url_for('feedback', id=id, feedback=result))
     
-    elif request.method == 'GET':
-      result = feedback(id)
-      return render_template('feedback.html', feedback = result)
+  elif request.method == 'GET':
+    return render_template('feedback.html', feedback = result)
 
 if __name__ == '__main__':
   ''' main method'''
