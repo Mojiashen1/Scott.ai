@@ -1,7 +1,21 @@
-{% extends "layout.html" %}
+{% extends "layout2.html" %}
 
 {% block content %}
 
-Congrats! You're done!
+<h4> Congrats, {{name}}! You're done! </h4>
+
+<h3> Here's how you're doing so far: </h3>
+
+<ul>
+  <li>Total Time Spent: {{timeSpent}}</li>
+  <li>Total Points: {{points}}</li>
+</ul>
+
+<h3> Return to <i> topics </i> to pick a new conversation with Scott.ai, or logout of this session </h3>
+
+  <form method = "POST" action = "{{script}}">
+
+<button type="submit" name = "submit" value = "topics" class="btn btn-primary">Return to Topics</button>
+<button type="submit" name = "submit" value = "logout" class="btn btn-primary">Log Out</button>
 
 {% endblock %}
