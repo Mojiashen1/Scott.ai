@@ -154,4 +154,5 @@ def get_options(data):
     for o in all_options:
         if o == data:
             all_options.remove(o)
-    return all_options.insert(0, data)
+    all_options.insert(0, data)
+    return all_options
