@@ -97,6 +97,7 @@ def convo(type):
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
 def feedback(id, convoId):
   result = get_feedback(userId, convoId)
+  print result
   if request.method == 'POST':
     if request.form['submit']=='topics':
       return redirect(url_for('topic'))
