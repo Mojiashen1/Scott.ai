@@ -2,6 +2,7 @@
 # final project
 
 from flask import Flask, render_template, request, flash, redirect, url_for, session
+from flask.ext.session import Session
 import os, sys
 import MySQLdb
 from helper import *
