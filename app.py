@@ -29,8 +29,9 @@ def home():
 # logout
 @app.route('/logout/', methods =['POST', 'GET'])
 def logout():
+  if 'userId' in session:
     session.pop('userId', None)
-    return redirect(url_for('home'))
+  return redirect(url_for('home'))
 
 # signup page 
 @app.route('/signup/', methods =['POST', 'GET'])
@@ -92,43 +93,51 @@ def survey():
 # select topic
 @app.route('/topic/', methods =['POST', 'GET'])
 def topic():
-    if request.method == "POST":
-        category_id = request.form['form-id']
-        return redirect(url_for('convo', id=category_id)) #user id?
-    return render_template('topic.html')
+    if 'userId' in session: 
+        if request.method == "POST":
+            category_id = request.form['form-id']
+            return redirect(url_for('convo', id=category_id)) #user id?
+        return render_template('topic.html')
+    else:
+        return redirect(url_for('home'))
 
 #start a new convo
 @app.route('/convo/<type>', methods =['POST', 'GET'])
 def convo(type):
-    if request.method == 'GET':
+  if 'userId' in session: 
+      if request.method == 'GET':
 
-      #convert type to ID
-      categories = {"school": 1, "food":2, "hobby":3}
-      typeId = categories[type]
+        #convert type to ID
+        categories = {"school": 1, "food":2, "hobby":3}
+        typeId = categories[type]
 
-      #pull questions from database by type
-      all_questions = get_questions(typeId)
-      print (all_questions);
+        #pull questions from database by type
+        all_questions = get_questions(typeId)
+        print (all_questions);
 
-      # store response in appropriate table
-      # will do later with audio file
-      # haven't set up convo id yet
-      return render_template('convo.html', all_questions = all_questions, script=(url_for("feedback", id=userId)))
+        # store response in appropriate table
+        # will do later with audio file
+        # haven't set up convo id yet
+        return render_template('convo.html', all_questions = all_questions, script=(url_for("feedback", id=userId)))
 
-    elif request.method == 'POST': #once they submit ?
-      if request.form['submit']=='submit':
-        return redirect(url_for('feedback', id=userId)) #user id?
+      elif request.method == 'POST': #once they submit ?
+        if request.form['submit']=='submit':
+          return redirect(url_for('feedback', id=userId)) #user id?
+  else: 
+      return redirect(url_for('home'))
 
 #NOT DONE
 #feedback page
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
 def feedback(id):
-
-  if request.method == 'POST':
     if 'userId' in session: 
-        userId = session['userId']
-        result = get_feedback(userId)
-        return render_template('feedback.html', feedback = result, id=userId)
+        if request.method == 'POST':
+          if 'userId' in session: 
+              userId = session['userId']
+              result = get_feedback(userId)
+              return render_template('feedback.html', feedback = result, id=userId)
+    else: 
+        return redirect(url_for('home'))
 
 if __name__ == '__main__':
   ''' main method'''
