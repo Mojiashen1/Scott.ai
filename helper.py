@@ -146,6 +146,7 @@ def login(username, password):
 	other_account = curs.fetchone()
 
 	if other_account:
+		print (other_account)
 		if other_account['password'] == hashed:
 			return ('''Success, {username} logged in.'''.format(username=username),1, found_account['userId'])
 		else:
