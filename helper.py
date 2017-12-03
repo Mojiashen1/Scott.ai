@@ -53,12 +53,12 @@ def get_profile():
 	#check if profile exists
 
 	curs.execute('select * from profile where userId = %s', [userId])
-    existing_profile = curs.fetchone()
-    print (existing_profile)
-    conn.commit()
-    curs.close()
-    conn.close()
-    return existing_profile
+        existing_profile = curs.fetchone()
+        print (existing_profile)
+        conn.commit()
+        curs.close()
+        conn.close()
+        return existing_profile
 
 def feedback(id):
 	curs.execute("select * from profile where userId = %s", [userId])
