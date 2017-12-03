@@ -91,7 +91,8 @@ def survey():
         userId = session['userId']
         if request.method == 'GET':
             data = get_profile(userId)
-            options = get_options(data['yearsLearned'])
+            yearsLearned = data['yearsLearned'] if data else ''
+            options = get_options(yearsLearned)
             print('option', options)
             return render_template('survey.html', script=url_for('survey'), data=data, options=options)
         elif request.method == 'POST':
