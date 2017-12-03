@@ -2,7 +2,7 @@
 # final project
 
 from flask import Flask, render_template, request, flash, redirect, url_for, session
-from flask.ext.session import Session
+# from flask.ext.session import Session
 import os, sys
 import MySQLdb
 from helper import *
@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.secret_key = 'youcantguessthisout'
 SESSION_TYPE = 'redis'
 app.config.from_object(__name__)
-Session(app)
+# Session(app)
 
 # make all sessions persistent until logout
 @app.before_request
