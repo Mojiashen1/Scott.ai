@@ -7,6 +7,8 @@ import MySQLdb
 from helper import *
 import dbconn2
 
+userId = 0
+
 app = Flask(__name__)
 app.secret_key = 'youcantguessthisout'
 
@@ -33,10 +35,19 @@ def signup():
     elif request.form['submit']=='login':
       desc = login(username, password)
 
+    print desc
+
     flash(desc[0])
 
     if desc[1] == 1: #if user added/logged-in, go to onboarding page
-      return redirect(url_for('survey')) #CHANGE TO GO TO ONBOARDING PAGE
+      userId = desc[2] #extract userId and store locally (will change)
+      print ("USER ID IS")
+      print userId
+
+      if request.form['submit']=='login':
+        return redirect(url_for('topic'))
+      else: 
+        return redirect(url_for('survey'))
 
     else: #remain on sign up page if not successful
       return redirect(url_for('signup'))
@@ -66,37 +77,34 @@ def topic():
 #start a new convo
 @app.route('/convo/<type>', methods =['POST', 'GET'])
 def convo(type):
-    if request.method == 'POST':
+    if request.method == 'GET':
 
-      #pull category type (hard code mapping for now)
-
-      categories = {"school": 1, "hobby":2, "food":3}
+      #convert type to ID
+      categories = {"school": 1, "food":2, "hobby":3}
       typeId = categories[type]
 
       #pull questions from database by type
       all_questions = get_questions(typeId)
-      print all_questions;
-
-      #display each question
+      print (all_questions);
 
       # store response in appropriate table
+      # will do later with audio file
+      # haven't set up convo id yet
+      return render_template('convo.html', all_questions = all_questions, script=(url_for("feedback", id=userId)))
 
-      #once done, go to feedback
-
-      #sessionid?
-      # answer = new_file(id) # start a new audio file, return a file path
-      # new_convo(id, answer) #create a new convo with the selected topic, and audio file
-      return redirect(url_for('feedback', id = session_id)) #maybe not session_id, we need to retrieve the most recent convo to a user
-    return render_template('convo.html')
+    elif request.method == 'POST': #once they submit ?
+      if request.form['submit']=='submit':
+        return redirect(url_for('feedback', id=userId)) #user id?
 
 #NOT DONE
 #feedback page
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
 def feedback(id):
-    if request.method == 'POST':
-        return redirect(url_for('topic'))
-    result = feedback(id)
-    return render_template('feedback.html', feedback = result)
+
+  if request.method == 'POST':
+    result = get_feedback(id)
+
+    return render_template('feedback.html', feedback = result, id=id)
 
 if __name__ == '__main__':
   ''' main method'''

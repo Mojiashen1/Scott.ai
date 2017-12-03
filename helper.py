@@ -46,10 +46,12 @@ def create_profile(birthday, yearsLearned, nation, lang):
 		return 'Profile created'
 
 def get_profile():
+
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
 	#check if profile exists
+
 	curs.execute('select * from profile where userId = %s', [userId])
     existing_profile = curs.fetchone()
     print (existing_profile)
@@ -59,15 +61,25 @@ def get_profile():
     return existing_profile
 
 def feedback(id):
-    pass
+	curs.execute("select * from profile where userId = %s", [userId])
+        existing_profile = curs.fetchone()
+        print existing_profile
+
+	#pull data from convos table
+	#maybe, amount of time recorded on audio
+	#append that data to results
+
+	return existing_profile
 
 def get_questions(type):
 	#establish connection
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-	curs.execute("select * from AI where categoryId == %s", [type])
-	return curs.fetchall()
+	curs.execute("select * from AI where categoryId = %s", [type])
+	results = curs.fetchall()
+	print (results)
+	return results
 
 def new_convo(id):
     pass
@@ -91,19 +103,32 @@ def create_account(name, username, password):
 
 		else:
 			#if user does not exist, insert into table (sign up)
+
+			#encrypt password
+			password = password.encode('ascii')
+
 			sql = "insert into account (name, username, password) VALUES (%s, %s, %s)"
 			data = (name, username, password)
 			curs.execute(sql, data)
 			conn.commit()
+
+			#pull user Id
+
+			curs.execute("select * from account where username = %s", [username])
+			userId = curs.fetchone()['userId']
+
 			curs.close()
 			conn.close()
-			return ('''User {username} created.'''.format(username=username),1)
+			return ('''User {username} created.'''.format(username=username),1, userId)
 	else:
 		return ("Form Incomplete. Please try again.")
 
 def login(username, password):
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
+
+	#encode password
+	password = password.encode('ascii')
 
 	curs.execute("select * from account where username = %s", [username])
 	other_account = curs.fetchone()
@@ -113,10 +138,12 @@ def login(username, password):
 
 		found_account = curs.fetchone()
 
-		if found_account['password']==password:
-			#success
-			return ('''Success, {username} logged in.'''.format(username=username),1)
-
+		if found_account:
+			if found_account['password']==password:
+				#success
+				return ('''Success, {username} logged in.'''.format(username=username),1, found_account['userId'])
+			else:
+				return ("Password does not match. Please try again.", 0)
 		else:
 			return ("Password does not match. Please try again.", 0)
 	else:

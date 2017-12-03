@@ -1,0 +1,25 @@
+{% extends "layout_2.html" %}
+
+{% block content %}
+
+<div class='container' id='survey' >
+
+<h2> Congrats! You're done! </h2>
+
+<h4> Here's how you're doing so far: </h4>
+
+<ul>
+  <li>Total Time Active: {{feedback['timeActive']}}</li>
+  <li>Total Points: {{feedback['points']}}</li>
+</ul>
+
+<!-- 
+<h4> Return to <i> topics </i> to pick a new conversation with Scott.ai, or logout of this session. </h4>
+
+<a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="../topic.html" data-toggle="modal" data-target=".bs-modal-sm">Return to Topics</a> 
+
+<a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="../index.html" data-toggle="modal" data-target=".bs-modal-sm">Logout</a>
+ -->
+
+</div>
+{% endblock %}
