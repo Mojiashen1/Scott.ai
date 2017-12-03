@@ -1,10 +1,12 @@
 SET FOREIGN_KEY_CHECKS=0; --ignore foreign key checks when initializing tables
+
 drop table if exists convos;
 drop table if exists sessions;
 drop table if exists category;
 drop table if exists AI;
 drop table if exists profile;
 drop table if exists account;
+
 SET FOREIGN_KEY_CHECKS=1;
 
 create table account( -- basic profile information to start account
@@ -34,6 +36,15 @@ create table profile( -- detailed profile info from onboarding survey
 	foreign key (userId) references account(userId) on delete cascade on update cascade
 );
 
+create table category(
+	categoryId int auto_increment not null primary key,
+	categoryType varchar(50) -- topic of conversation
+);
+
+insert into category (categoryType) values ('school');
+insert into category (categoryType) values ('food');
+insert into category (categoryType) values ('hobby');
+
 create table AI( -- stores all possible conversations
 	questionId int auto_increment not null primary key,
 	categoryId int not null, -- allows multiple questions to be grouped
@@ -50,15 +61,6 @@ insert into AI (categoryId, questionText) values (2, 'Do you like to cook? What 
 insert into AI (categoryId, questionText) values (2, 'What would you do to keep a healthy lifestyle?');
 insert into AI (categoryId, questionText) values (3, 'What do you like to do in your free time?');
 insert into AI (categoryId, questionText) values (3, "What's your favorite sports? What's the secret of being good at it?");
-
-create table category(
-	categoryId int auto_increment not null primary key,
-	categoryType varchar(50) -- topic of conversation
-);
-
-insert into category (categoryType) values ('school');
-insert into category (categoryType) values ('food');
-insert into category (categoryType) values ('hobby');
 
 create table convos( -- stores each conversation a user has
 	convoId int auto_increment not null primary key,
