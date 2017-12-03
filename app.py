@@ -100,7 +100,7 @@ def convo(type):
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
 def feedback(id):
 
-  if request.method == 'GET':
+  if request.method == 'POST':
     result = get_feedback(id)
 
     return render_template('feedback.html', feedback = result, id=id, script=(url_for("feedback", id=userId)))
