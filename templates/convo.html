@@ -47,51 +47,18 @@ h1{
 					<fieldset class="step">
 						<legend>{{question['questionText']}}</legend>
 						<p>
-							{{question['questionId']}}
-							<input id="{{question['questionId']}}" name="{{question['questionId']}}" />
+							<!-- {{question['questionId']}} -->
+							<input type = "text" id="{{question['questionId']}}" name="{{question['questionId']}}" />
 							
 						</p>
 
 					</fieldset>
 
-<!-- 					<fieldset class="step">
-						<legend>{{questionText}}</legend>
-						<p>
-							<input id="name" name="name" type="text" AUTOCOMPLETE=OFF />
-						</p>
-						
-					</fieldset>
-
-					<fieldset class="step">
-						<legend>{{questionText}}</legend>
-
-						<p>
-							<input id="name" name="name" type="text" AUTOCOMPLETE=OFF />
-
-						</p>
-
-					</fieldset>
-
-					<fieldset class="step">
-						<legend>{{questionText}}</legend>
-						<p>
-							<input id="tagname" name="tagname" type="text" AUTOCOMPLETE=OFF />
-						</p>
-					</fieldset>
-
-					<fieldset class="step">
-						<legend>{{questionText}}</legend>
-						<p>
-							<input id="lastQ" name="lastQ" type="text" AUTOCOMPLETE=OFF />
-						</p>
-
-					</fieldset> -->
-
 					{% endfor %}
 
 					<fieldset class="step">	
 						<p class="submit">
-							<button id="submit" type="submit">End Conversation</button>
+							<input type="submit" id="submit">End Conversation
 						</p>
 					</fieldset>
 
