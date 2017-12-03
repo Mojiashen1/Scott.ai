@@ -102,10 +102,9 @@ def feedback(id):
   result = get_feedback(id)
   print result
 
-  if request.method == 'POST':
-    return render_template('feedback.html', feedback = result, id=id)
+  return render_template('feedback.html', feedback = result, id=id)
 
-  if request.method == 'GET':  
+  if request.method == 'POST':  
     if request.form['submit']=='topics':
       return redirect(url_for('topic'))
 
