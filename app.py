@@ -89,7 +89,7 @@ def convo(type):
       # store response in appropriate table
       # will do later with audio file
       # haven't set up convo id yet
-      return render_template('convo.html', all_questions = all_questions, script=(url_for("feedback", id=userId)))
+      return render_template('convo.html', all_questions = all_questions, script=(url_for("convo", type=typeId)))
 
     elif request.method == 'POST': #once they submit ?
       if request.form['submit']=='submit':
