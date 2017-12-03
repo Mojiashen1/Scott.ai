@@ -52,6 +52,7 @@ def get_feedback(userId):
 
 	curs.execute("select * from profile where userId = %s", [userId])
 	results = curs.fetchone() #should only have one result
+	print results
 
 	curs.execute("select * from account where userId = %s", [userId])
 	userData = curs.fetchone() #should only have one result
