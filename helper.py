@@ -35,9 +35,13 @@ def create_profile(userId, birthday, yearsLearned, nation, lang):
                 curs.close()
                 conn.close()
                 return 'Profile update'
-    # create profile
+   
+   # create profile
 	else:
 		sql = "insert into profile (userId, birthday, yearsLearned, nation, nativeLang) VALUES (%s, %s, %s, %s, %s)"
+		
+		print ("ID is (in else statement)")
+		print (userId)
 		data = (userId, birthday, yearsLearned, nation, lang)
 		curs.execute(sql, data)
 		conn.commit()
