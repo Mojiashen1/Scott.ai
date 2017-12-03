@@ -98,12 +98,12 @@ def convo(type):
 #NOT DONE
 #feedback page
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
-def feedback(id):
+def feedback():
   result, userData = get_feedback(userId)
   print result
 
   if request.method == 'GET':
-    return render_template('feedback.html', feedback = result, name=userData['name'], id=id)
+    return render_template('feedback.html', feedback = result, id=id)
   
   elif request.method == 'POST':
 
