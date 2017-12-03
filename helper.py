@@ -52,8 +52,8 @@ def get_feedback(userId):
 
 	#check if profile exists
 	curs.execute("select * from profile where userId = %s", [userId])
-    existing_profile = curs.fetchone()
-    print existing_profile
+        existing_profile = curs.fetchone()
+        print existing_profile
 
 	#pull data from convos table
 	#maybe, amount of time recorded on audio
