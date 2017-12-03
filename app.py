@@ -2,7 +2,6 @@
 # final project
 
 from flask import Flask, render_template, request, flash, redirect, url_for, session
-# from flask.ext.session import Session
 import os, sys
 import MySQLdb
 from helper import *
@@ -14,7 +13,6 @@ app = Flask(__name__)
 app.secret_key = 'youcantguessthisout'
 SESSION_TYPE = 'redis'
 app.config.from_object(__name__)
-# Session(app)
 
 # make all sessions persistent until logout
 @app.before_request
@@ -33,7 +31,7 @@ def logout():
     session.pop('userId', None)
   return redirect(url_for('home'))
 
-# signup page 
+# signup page
 @app.route('/signup/', methods =['POST', 'GET'])
 def signup():
   if (request.method == "GET"):
@@ -59,14 +57,14 @@ def signup():
     # SUCCESFUL LOGIN/SIGN UP
     if desc[1] == 1: # if user added/logged-in, go to onboarding page
       userId = desc[2] # extract userId and store locally (will change)
-      
-      #create a new session 
+
+      #create a new session
       session['userId'] = userId
 
       if request.form['submit']=='login':
         return redirect(url_for('topic'))
 
-      else: 
+      else:
         return redirect(url_for('survey'))
 
     else: #remain on sign up page if not successful
@@ -75,11 +73,13 @@ def signup():
 # onboarding survey asking for user's basic information
 @app.route('/survey/', methods =['POST', 'GET'])
 def survey():
-    if 'userId' in session: 
+    if 'userId' in session:
         userId = session['userId']
         if request.method == 'GET':
             data = get_profile(userId)
-            return render_template('survey.html', script=url_for('survey'), data=data)
+            options = set(data['yearsLearned'])
+            options.union(['1', '2', '3', '4', '5', 'more than 5, but less than 10', 'more than 10'])
+            return render_template('survey.html', script=url_for('survey'), data=data, options=options)
         elif request.method == 'POST':
             birthday = request.form['birthday']
             yearsLearned = request.form['yearsLearned']
@@ -93,7 +93,7 @@ def survey():
 # select topic
 @app.route('/topic/', methods =['POST', 'GET'])
 def topic():
-    if 'userId' in session: 
+    if 'userId' in session:
         if request.method == "POST":
             category_id = request.form['form-id']
             return redirect(url_for('convo', id=category_id)) #user id?
@@ -104,7 +104,7 @@ def topic():
 #start a new convo
 @app.route('/convo/<type>', methods =['POST', 'GET'])
 def convo(type):
-  if 'userId' in session: 
+  if 'userId' in session:
       if request.method == 'GET':
 
         #convert type to ID
@@ -123,7 +123,7 @@ def convo(type):
       elif request.method == 'POST': #once they submit ?
         if request.form['submit']=='submit':
           return redirect(url_for('feedback')) #user id?
-  else: 
+  else:
       return redirect(url_for('home'))
 
 #NOT DONE
@@ -131,11 +131,11 @@ def convo(type):
 @app.route('/feedback/', methods =['POST', 'GET'])
 def feedback():
     if 'userId' in session:
-        userId = session['userId'] 
+        userId = session['userId']
         if request.method == 'POST':
             result = get_feedback(userId)
             return render_template('feedback.html', feedback = result)
-    else: 
+    else:
         return redirect(url_for('home'))
 
 if __name__ == '__main__':
