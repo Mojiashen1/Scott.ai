@@ -70,7 +70,7 @@ def convo(type):
     if request.method == 'GET':
 
       #convert type to ID
-      categories = {"school": 1, "hobby":2, "food":3}
+      categories = {"school": 1, "food":2, "hobby":3}
       typeId = categories[type]
 
       #pull questions from database by type
