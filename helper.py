@@ -136,16 +136,13 @@ def login(username, password):
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-	#encrpyt password
-	password = password.encode('utf-8')
-
 	curs.execute("select * from account where username = %s", [username])
 	other_account = curs.fetchone()
 
 	if other_account:
-		print (other_account)
-		hashedPassword = other_account['password']
-		if bcrypt.hashpw(password, hashedPassword) == hashedPassword:
+		hashedPassword = other_account['password'].encode('utf-8')
+
+		if bcrypt.hashpw(password.encode('utf-8'), hashedPassword) == hashedPassword:
 			return ('''Success, {username} logged in.'''.format(username=username),1, found_account['userId'])
 		else:
 			return ("Password does not match. Please try again.", 0)
