@@ -81,10 +81,10 @@ def convo(type):
       # will do later with audio file
 
       return render_template('convo.html', all_questions = all_questions, script=(url_for("convo", type=type)))
-      
+
     elif request.method == 'POST': #once they submit ?
       if request.form['submit']=='submit':
-        return redirect(url_for('convo', id=1)) #user id?
+        return redirect(url_for('feedback', id=1)) #user id?
 
 #NOT DONE
 #feedback page
