@@ -80,6 +80,10 @@ def create_account(name, username, password):
 
 		else:
 			#if user does not exist, insert into table (sign up)
+
+			#encrypt password
+			password = password.encode('ascii')
+			
 			sql = "insert into account (name, username, password) VALUES (%s, %s, %s)"
 			data = (name, username, password)
 			curs.execute(sql, data)
@@ -93,6 +97,9 @@ def create_account(name, username, password):
 def login(username, password):
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
+
+	#encode password
+	password = password.encode('ascii')
 
 	curs.execute("select * from account where username = %s", [username])
 	other_account = curs.fetchone()
