@@ -22,7 +22,7 @@ def create_profile(birthday, yearsLearned, nation, lang):
 
 	#check if profile exists
 	curs.execute("select * from profile where userId = %s", [userId])
-    existing_profile = curs.fetchone()
+        existing_profile = curs.fetchone()
 
     # update profile
 	if existing_profile:
