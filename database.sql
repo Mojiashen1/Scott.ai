@@ -1,4 +1,4 @@
-SET FOREIGN_KEY_CHECKS=0; --ignore foreign key checks when initializing tables
+SET FOREIGN_KEY_CHECKS=0; -- ignore foreign key checks when initializing tables
 
 drop table if exists convos;
 drop table if exists category;
@@ -6,7 +6,6 @@ drop table if exists sessions;
 drop table if exists AI;
 drop table if exists profile;
 drop table if exists account;
-drop table if exists convos;
 
 SET FOREIGN_KEY_CHECKS=1;
 
