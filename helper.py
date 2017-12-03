@@ -138,22 +138,16 @@ def login(username, password):
 
 	#encrpyt password
 	password = password.encode('utf-8')
+	# print (password)
 	hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+	print (hashed)
 
 	curs.execute("select * from account where username = %s", [username])
 	other_account = curs.fetchone()
 
 	if other_account:
-		curs.execute("select * from account where password = %s", [hashed])
-
-		found_account = curs.fetchone()
-
-		if found_account:
-			if found_account['password']==hashed:
-				#success
-				return ('''Success, {username} logged in.'''.format(username=username),1, found_account['userId'])
-			else:
-				return ("Password does not match. Please try again.", 0)
+		if other_account['password'] == hashed:
+			return ('''Success, {username} logged in.'''.format(username=username),1, found_account['userId'])
 		else:
 			return ("Password does not match. Please try again.", 0)
 	else:
