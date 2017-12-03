@@ -45,7 +45,7 @@ def create_profile(birthday, yearsLearned, nation, lang):
 		conn.close()
 		return 'Profile created'
 
-def feedback(id):
+def get_feedback(id):
     pass
 
 def get_questions(type):
@@ -83,7 +83,7 @@ def create_account(name, username, password):
 
 			#encrypt password
 			password = password.encode('ascii')
-			
+
 			sql = "insert into account (name, username, password) VALUES (%s, %s, %s)"
 			data = (name, username, password)
 			curs.execute(sql, data)
