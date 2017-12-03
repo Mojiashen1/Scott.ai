@@ -99,16 +99,17 @@ def convo(type):
 #feedback page
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
 def feedback(id):
-  result = get_feedback(id)
 
-  return render_template('feedback.html', feedback = result, id=id, script=(url_for("feedback", id=userId)))
+  if request.method == 'GET':
+    result = get_feedback(id)
 
-  # if request.method == 'POST':  
-  if request.form['submit']=='topics':
-    return redirect(url_for('topic'))
+    return render_template('feedback.html', feedback = result, id=id, script=(url_for("feedback", id=userId)))
 
-  elif request.form['submit']=='logout':
-    return redirect(url_for('home'))
+    if request.form['submit']=='topics':
+      return redirect(url_for('topic'))
+
+    elif request.form['submit']=='logout':
+      return redirect(url_for('home'))
 
 if __name__ == '__main__':
   ''' main method'''
