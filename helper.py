@@ -61,6 +61,9 @@ def get_profile():
         return existing_profile
 
 def get_feedback(id):
+	conn = getConn()
+	curs = conn.cursor(MySQLdb.cursors.DictCursor)
+	
 	curs.execute("select * from profile where userId = %s", [userId])
         existing_profile = curs.fetchone()
         print existing_profile
