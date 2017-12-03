@@ -82,8 +82,8 @@ def convo(type):
 
       return render_template('convo.html', all_questions = all_questions)
     elif request.method == 'POST': #once they submit ?
-
-        return render_template('convo.html')
+      if request.form['submit']=='submit':
+        return redirect(url_for('convo', id=1)) #user id?
 
 #NOT DONE
 #feedback page
