@@ -26,6 +26,12 @@ def make_session_permanent():
 def home():
     return render_template('index.html')
 
+# logout
+@app.route('/logout/', methods =['POST', 'GET'])
+def logout():
+    session.pop('userId', None)
+    return redirect(url_for('home'))
+
 # signup page 
 @app.route('/signup/', methods =['POST', 'GET'])
 def signup():
