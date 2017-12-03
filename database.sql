@@ -74,15 +74,14 @@ create table convos( -- stores each conversation a user has
 	foreign key (categoryId) references category(categoryId) on delete cascade on update cascade
 );
 
-create table sessions( #stores each persons sessions
-	sessionId int auto_increment not null primary key,
-	userId int not null,
-	-- convoId int not null, #each conversation stores one question and one answer
+-- create table sessions( #stores each persons sessions
+-- 	sessionId int auto_increment not null primary key,
+-- 	userId int not null,
+-- 	-- convoId int not null, #each conversation stores one question and one answer
 
-	foreign key (userId) references account(userId) on delete cascade on update cascade
-	-- foreign key (convoId) references convos(convoId) on delete cascade on update cascade
-);
-
+-- 	foreign key (userId) references account(userId) on delete cascade on update cascade
+-- 	-- foreign key (convoId) references convos(convoId) on delete cascade on update cascade
+-- );
 
 #erase this later:
 -- insert into account (name, username, password) values ('Mojia', 'mshen2', '1234')

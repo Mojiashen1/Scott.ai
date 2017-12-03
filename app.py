@@ -1,22 +1,31 @@
 # Mojia & Harshita
 # final project
 
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 import os, sys
 import MySQLdb
 from helper import *
 import dbconn2
 
-userId = 0
+# userId = 0
 
 app = Flask(__name__)
 app.secret_key = 'youcantguessthisout'
+SESSION_TYPE = 'redis'
+app.config.from_object(__name__)
+Session(app)
 
+# make all sessions persistent until logout
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+
+# landing page
 @app.route('/', methods =['POST', 'GET'])
 def home():
     return render_template('index.html')
 
-#harshita
+# signup page 
 @app.route('/signup/', methods =['POST', 'GET'])
 def signup():
   if (request.method == "GET"):
@@ -39,34 +48,39 @@ def signup():
 
     flash(desc[0])
 
-    if desc[1] == 1: #if user added/logged-in, go to onboarding page
-      userId = desc[2] #extract userId and store locally (will change)
-      print ("USER ID IS")
-      print userId
+    # SUCCESFUL LOGIN/SIGN UP
+    if desc[1] == 1: # if user added/logged-in, go to onboarding page
+      userId = desc[2] # extract userId and store locally (will change)
+      
+      #create a new session 
+      session['userId'] = userId
 
       if request.form['submit']=='login':
         return redirect(url_for('topic'))
+
       else: 
-        return redirect(url_for('survey', userId = userId))
+        return redirect(url_for('survey'))
 
     else: #remain on sign up page if not successful
       return redirect(url_for('signup'))
 
 # onboarding survey asking for user's basic information
-@app.route('/survey/<userId>', methods =['POST', 'GET'])
-def survey(userId):
-    if request.method == 'GET':
-        data = get_profile(userId)
-        return render_template('survey.html', script=url_for('survey'), data=data)
-    elif request.method == 'POST':
-        birthday = request.form['birthday']
-        yearsLearned = request.form['yearsLearned']
-        nation = request.form['nation']
-        lang = request.form['lang']
-        print ("IN SURVEY - APP.PY")
-        print (userId)
-        create_profile(userId, birthday, yearsLearned, nation, lang)
-        return redirect(url_for('topic'))
+@app.route('/survey', methods =['POST', 'GET'])
+def survey():
+    if 'userId' in session: 
+        userId = session['userId']
+        if request.method == 'GET':
+            data = get_profile(userId)
+            return render_template('survey.html', script=url_for('survey'), data=data)
+        elif request.method == 'POST':
+            birthday = request.form['birthday']
+            yearsLearned = request.form['yearsLearned']
+            nation = request.form['nation']
+            lang = request.form['lang']
+            create_profile(userId, birthday, yearsLearned, nation, lang)
+            return redirect(url_for('topic'))
+    else:
+        return redirect(url_for('home'))
 
 # select topic
 @app.route('/topic/', methods =['POST', 'GET'])
@@ -104,9 +118,10 @@ def convo(type):
 def feedback(id):
 
   if request.method == 'POST':
-    result = get_feedback(id)
-
-    return render_template('feedback.html', feedback = result, id=id)
+    if 'userId' in session: 
+        userId = session['userId']
+        result = get_feedback(userId)
+        return render_template('feedback.html', feedback = result, id=userId)
 
 if __name__ == '__main__':
   ''' main method'''
