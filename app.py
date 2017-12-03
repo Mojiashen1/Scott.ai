@@ -77,10 +77,11 @@ def convo(type):
       all_questions = get_questions(typeId)
       print (all_questions);
 
-
       # store response in appropriate table
+      # will do later with audio file
 
-      return render_template('convo.html', all_questions = all_questions, script=(url_for("convo", type=typeId)))
+      return render_template('convo.html', all_questions = all_questions, script=(url_for("convo", type=type)))
+      
     elif request.method == 'POST': #once they submit ?
       if request.form['submit']=='submit':
         return redirect(url_for('convo', id=1)) #user id?
