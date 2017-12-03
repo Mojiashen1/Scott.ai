@@ -22,7 +22,7 @@ def create_profile(birthday, yearsLearned, nation, lang):
 
 	#check if profile exists
 	curs.execute("select * from profile where userId = %s", [userId])
-        existing_profile = curs.fetchone()
+    existing_profile = curs.fetchone()
 
     # update profile
 	if existing_profile:
@@ -46,23 +46,20 @@ def create_profile(birthday, yearsLearned, nation, lang):
 		return 'Profile created'
 
 def get_feedback(userId):
-    #get total time spent and points
+    #establish connection
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
+	#check if profile exists
 	curs.execute("select * from profile where userId = %s", [userId])
-	results = curs.fetchone() #should only have one result
-	print results
-
-	curs.execute("select * from account where userId = %s", [userId])
-	userData = curs.fetchone() #should only have one result
-	print userData
+    existing_profile = curs.fetchone()
+    print existing_profile
 
 	#pull data from convos table
 	#maybe, amount of time recorded on audio
 	#append that data to results
 
-	return (results, userData)
+	return existing_profile
 
 def get_questions(type):
 	#establish connection
