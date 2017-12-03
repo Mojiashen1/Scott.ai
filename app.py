@@ -103,13 +103,7 @@ def feedback(id):
   if request.method == 'POST':
     result = get_feedback(id)
 
-    return render_template('feedback.html', feedback = result, id=id, script=(url_for("feedback", id=userId)))
-
-    if request.form['submit']=='topics':
-      return redirect(url_for('topic'))
-
-    elif request.form['submit']=='logout':
-      return redirect(url_for('home'))
+    return render_template('feedback.html', feedback = result, id=id)
 
 if __name__ == '__main__':
   ''' main method'''
