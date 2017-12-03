@@ -13,9 +13,9 @@ def getConn():
     return dbconn2.connect(DSN)
 
 #this should come from session
-userId = 1 #hard-coded for now, will remove
+# userId = 1 #hard-coded for now, will remove
 
-def create_profile(birthday, yearsLearned, nation, lang):
+def create_profile(userId, birthday, yearsLearned, nation, lang):
     #establish connection
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)

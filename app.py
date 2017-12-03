@@ -63,7 +63,7 @@ def survey():
         yearsLearned = request.form['yearsLearned']
         nation = request.form['nation']
         lang = request.form['lang']
-        create_profile(birthday, yearsLearned, nation, lang)
+        create_profile(userId, birthday, yearsLearned, nation, lang)
         return redirect(url_for('topic'))
 
 # select topic
