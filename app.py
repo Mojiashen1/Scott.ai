@@ -42,30 +42,44 @@ def signup():
     name = request.form['name']
     username = request.form['username']
     password = request.form['password']
-    desc = ""
-
-    if request.form['submit']=='signup':
-      desc = create_account(name, username, password)
-
-    elif request.form['submit']=='login':
-      desc = login(username, password)
-
-    print desc
+    desc = create_account(name, username, password)
 
     flash(desc[0])
 
-    # SUCCESFUL LOGIN/SIGN UP
+    # SUCCESFUL SIGN UP
+    if desc[1] == 1: # if user added/logged-in, go to onboarding page
+      userId = desc[2] # extract userId and store locally (will change)
+
+      #create a new session
+      session['userId'] = userId
+      return redirect(url_for('survey'))
+
+    else: #remain on sign up page if not successful
+      return redirect(url_for('signup'))
+
+# login page
+@app.route('/login/', methods =['POST', 'GET'])
+def login():
+  if (request.method == "GET"):
+    return render_template('login.html', script=(url_for("login")))
+
+  elif (request.method == "POST"):
+    # get information from form
+    username = request.form['username']
+    password = request.form['password']
+
+    desc = helper_login(username, password)
+
+    flash(desc[0])
+
+    # SUCCESFUL LOGIN
     if desc[1] == 1: # if user added/logged-in, go to onboarding page
       userId = desc[2] # extract userId and store locally (will change)
 
       #create a new session
       session['userId'] = userId
 
-      if request.form['submit']=='login':
-        return redirect(url_for('topic'))
-
-      else:
-        return redirect(url_for('survey'))
+      return redirect(url_for('topic'))
 
     else: #remain on sign up page if not successful
       return redirect(url_for('signup'))

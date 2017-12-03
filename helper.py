@@ -132,7 +132,7 @@ def create_account(name, username, password):
 	else:
 		return ("Form Incomplete. Please try again.", 0)
 
-def login(username, password):
+def helper_login(username, password):
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
