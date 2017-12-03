@@ -96,7 +96,7 @@ def convo(type):
 @app.route('/feedback/<id>', methods =['POST', 'GET'])
 def feedback(id):
     if request.method == 'POST':
-      return redirect(url_for('topic'))
+      return redirect(url_for('feedback'))
     
     elif request.method == 'GET':
       result = feedback(id)
