@@ -113,6 +113,7 @@ def create_account(name, username, password):
 			#if user does not exist, insert into table (sign up)
 
 			#encrypt password
+			password = password.encode('utf-8')
 			hashed = bcrypt.hashpw(password, bcrypt.gensalt())
 
 			sql = "insert into account (name, username, password) VALUES (%s, %s, %s)"
@@ -136,6 +137,7 @@ def login(username, password):
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
 	#encrpyt password
+	password = password.encode('utf-8')
 	hashed = bcrypt.hashpw(password, bcrypt.gensalt())
 
 	curs.execute("select * from account where username = %s", [username])
