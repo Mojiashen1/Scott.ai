@@ -63,6 +63,8 @@ def survey():
         yearsLearned = request.form['yearsLearned']
         nation = request.form['nation']
         lang = request.form['lang']
+        print ("IN SURVEY - APP.PY")
+        print (userId)
         create_profile(userId, birthday, yearsLearned, nation, lang)
         return redirect(url_for('topic'))
 
