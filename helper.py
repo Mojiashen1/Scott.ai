@@ -163,4 +163,5 @@ def get_options(data):
 
     #insert what the user has selected to the front of the list to return
     all_options.insert(0, data)
+    print(all_option)
     return all_options
