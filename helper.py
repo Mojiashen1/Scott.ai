@@ -163,6 +163,6 @@ def get_options(data):
                 all_options.remove(option) #remove duplicate
 
         #insert what the user has selected to the front of the list to return
-        all_optsions.insert(0, data)
-        print(all_option)
+        all_options.insert(0, data)
+        print(all_options)
     return all_options
