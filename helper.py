@@ -157,11 +157,12 @@ def get_questions(type):
 # @ params: #years learned english
 def get_options(data):
     all_options = ['1', '2', '3', '4', '5', 'more than 5, but less than 10', 'more than 10']
-    for option in all_options:
-        if option == str(data):
-            all_options.remove(option) #remove duplicate
+    if data:
+        for option in all_options:
+            if option == str(data):
+                all_options.remove(option) #remove duplicate
 
-    #insert what the user has selected to the front of the list to return
-    all_options.insert(0, data)
-    print(all_option)
+        #insert what the user has selected to the front of the list to return
+        all_optsions.insert(0, data)
+        print(all_option)
     return all_options
