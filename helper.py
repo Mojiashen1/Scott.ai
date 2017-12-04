@@ -157,7 +157,7 @@ def get_questions(type):
 # @ params: #years learned english
 def get_options(data):
     all_options = ['1', '2', '3', '4', '5', 'more than 5, but less than 10', 'more than 10']
-    if data:
+    if data != '':
         for option in all_options:
             if option == str(data):
                 all_options.remove(option) #remove duplicate

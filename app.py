@@ -152,7 +152,8 @@ def survey():
         if request.method == 'GET':
 
             data = get_profile(userId) #get profile data, if any
-            options = get_options(data['yearsLearned'])
+            yearsLearned = data['yearsLearned'] if data else ''
+            options = get_options(yearsLearned)
             # render template and fill in user's profile data
             return render_template('survey.html', script=url_for('survey'), data=data, options = options)
 
