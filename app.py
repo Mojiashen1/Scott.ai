@@ -103,11 +103,9 @@ def login():
 
   # fetch information from the form
   elif (request.method == "POST"):
-
     # get information from form
     username = request.form['username']
     password = request.form['password'] #password is encrpyted in helper.py
-
     # call helper function to check if valid login
     message, success_message, userId = helper_login(username, password)
 
@@ -117,7 +115,6 @@ def login():
     if success_message == 1:
       #create a new session
       session['userId'] = userId
-
       # since user has alreday created account before, go directly to topics page
       return redirect(url_for('topic'))
 
@@ -144,8 +141,10 @@ def survey():
 
             data = get_profile(userId)# get profile data, if any
             yearsLearned = data['yearsLearned'] if data else ''
+            print ('app, yearsLearned', yearsLearned)
             # return all the options and the index of the choice selected by the user
             options, index = get_options(yearsLearned)
+            print ('app, options', options)
             return render_template('survey.html', script=url_for('survey'), data=data, options=options, index=index)
 
         # submit changes to form
@@ -156,6 +155,7 @@ def survey():
             yearsLearned = request.form['yearsLearned']
             nation = request.form['nation']
             lang = request.form['lang']
+            print('app, in create', yearsLearned)
 
             # note that more questions will be added related to the
             # user's personal interests (favorite sports teams, hobbies, etc.)

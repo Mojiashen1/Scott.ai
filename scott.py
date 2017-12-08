@@ -120,15 +120,14 @@ def helper_login(username, password):
 # if profile doesn't exists, return None
 # @ params: userId
 def get_profile(userId):
-	conn = getConn()
-	curs = conn.cursor(MySQLdb.cursors.DictCursor)
-
-	curs.execute('select * from profile where userId = %s', [userId])
-        existing_profile = curs.fetchone()
-        conn.commit()
-        curs.close()
-        conn.close()
-        return existing_profile
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute('select * from profile where userId = %s', [userId])
+    existing_profile = curs.fetchone()
+    conn.commit()
+    curs.close()
+    conn.close()
+    return existing_profile
 
 # !!! this is not implemented yet !!!
 # get user infortion to give feedback. We are still deciding what to output from here
@@ -163,8 +162,4 @@ def get_options(data):
         for i in range(len(all_options)):
             if all_options[i] == str(data):
                 index = i
-                # all_options.remove(option) #remove duplicate
-
-        #insert what the user has selected to the front of the list to return
-        # all_options.insert(0, data)
     return (all_options, index)
