@@ -1,0 +1,51 @@
+<!-- # Mojia & Harshita
+# final project
+# draft version
+# Dec 3, 2017 -->
+<!-- this file shows all the topics of conversation a user can choose from -->
+
+{% extends "layout_2.html" %}
+
+{% block content %}
+<section id="how_it_works">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="section-heading text-uppercase">Select a Conversation Topic:</h2>
+      </div>
+    </div>
+
+    <div class="row text-center">
+      <a href="{{ url_for('convo', type='school') }}">
+        <div class="col-md-4 selection">
+          <span class="fa-stack fa-4x">
+            <img src = "../static/img/food.jpg" height=150>
+          </span>
+          <h4 class="text-muted">School</h4>
+        </div>
+      </a>
+
+      <a href="{{ url_for('convo', type='hobby') }}">
+        <div class="col-md-4 selection">
+          <span class="fa-stack fa-4x">
+            <img src = "../static/img/hobby.jpg" height=150>
+          </span>
+          <h4 class="text-muted">Hobbies</h4>
+        </div>
+      </a>
+
+      <a href="{{ url_for('convo', type='food') }}">
+        <div class="col-md-4 selection">
+          <span class="fa-stack fa-4x">
+            <img src = "../static/img/food.jpg" height=150>
+          </span>
+          <h4 class="text-muted">Food</h4>
+        </div>
+      </a>
+    </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

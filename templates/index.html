@@ -1,3 +1,10 @@
+<!-- # Mojia & Harshita
+# final project
+# draft version
+# Dec 3, 2017 -->
+<!-- this is the landing page to the application. it allows the user to sign up/login, as well as seeing how
+the application works -->
+
 {% extends "layout.html" %}
 
     {% block content %}
@@ -7,112 +14,11 @@
         <div class="intro-text">
           <div class="intro-lead-in">Dream of speaking like a native?</div>
           <div class="intro-heading">Scott.ai is your English teacher that focuses on helping you improve your speaking abilities.</div>
-          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="signup" data-toggle="modal" data-target=".bs-modal-sm">GET STARTED</a>
-          <p>Already talking to Scott? <span id='signin'>Sign in<span></p>
+          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="signup" >GET STARTED</a>
+          <p>Already talking to Scott? <span id='signin'><a href="login">Log In</a><span></p>
         </div>
       </div>
     </header>
-
-<!-- modal -->
-<div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-        <br>
-        <div class="bs-example bs-example-tabs">
-            <ul id="myTab" class="nav nav-tabs">
-              <li class="active"><a href="#signin" data-toggle="tab">Sign In</a></li>
-              <li class=""><a href="#signup" data-toggle="tab">Register</a></li>
-            </ul>
-        </div>
-      <div class="modal-body">
-        <div id="myTabContent" class="tab-content">
-        <div class="tab-pane fade active in" id="signin">
-            <form class="form-horizontal">
-            <fieldset>
-            <!-- Sign In Form -->
-            <!-- Text input-->
-            <div class="control-group">
-              <label class="control-label" for="userid">Alias:</label>
-              <div class="controls">
-                <input required="" id="userid" name="userid" type="text" class="form-control" placeholder="JoeSixpack" class="input-medium" required="">
-              </div>
-            </div>
-
-            <!-- Password input-->
-            <div class="control-group">
-              <label class="control-label" for="passwordinput">Password:</label>
-              <div class="controls">
-                <input required="" id="passwordinput" name="passwordinput" class="form-control" type="password" placeholder="********" class="input-medium">
-              </div>
-            </div>
-
-            <!-- Button -->
-            <div class="control-group">
-              <label class="control-label" for="signin"></label>
-              <div class="controls">
-                <button id="signin" name="signin" class="btn btn-success">Sign In</button>
-              </div>
-            </div>
-            </fieldset>
-            </form>
-        </div>
-        <div class="tab-pane fade" id="signup">
-            <form class="form-horizontal">
-            <fieldset>
-            <!-- Sign Up Form -->
-            <!-- Text input-->
-            <div class="control-group">
-              <label class="control-label" for="Email">Email:</label>
-              <div class="controls">
-                <input id="Email" name="Email" class="form-control" type="text" placeholder="JoeSixpack@sixpacksrus.com" class="input-large" required="">
-              </div>
-            </div>
-
-            <!-- Text input-->
-            <div class="control-group">
-              <label class="control-label" for="userid">Alias:</label>
-              <div class="controls">
-                <input id="userid" name="userid" class="form-control" type="text" placeholder="JoeSixpack" class="input-large" required="">
-              </div>
-            </div>
-
-            <!-- Password input-->
-            <div class="control-group">
-              <label class="control-label" for="password">Password:</label>
-              <div class="controls">
-                <input id="password" name="password" class="form-control" type="password" placeholder="********" class="input-large" required="">
-                <em>1-8 Characters</em>
-              </div>
-            </div>
-
-            <!-- Text input-->
-            <div class="control-group">
-              <label class="control-label" for="reenterpassword">Re-Enter Password:</label>
-              <div class="controls">
-                <input id="reenterpassword" class="form-control" name="reenterpassword" type="password" placeholder="********" class="input-large" required="">
-              </div>
-            </div>
-
-            <!-- Button -->
-            <div class="control-group">
-              <label class="control-label" for="confirmsignup"></label>
-              <div class="controls">
-                <button id="confirmsignup" name="confirmsignup" class="btn btn-success">Sign Up</button>
-              </div>
-            </div>
-            </fieldset>
-            </form>
-      </div>
-    </div>
-      </div>
-      <div class="modal-footer">
-      <center>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </center>
-      </div>
-    </div>
-  </div>
-</div>
 
     <section id="how_it_works">
       <div class="container">
@@ -165,8 +71,8 @@
     <section class="bg-light" id="sign_up">
       <div class="container">
         <h2>Try it for free</h2>
-        <p>Already taking to Scott? Sign in.</p>
-        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">GET STARTED</a>
+        <p>Already talking to Scott? <span id='signin'><a href="login">Log In</a><span></p>
+        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="signup">GET STARTED</a>
       </div>
     </section>
 {% endblock %}

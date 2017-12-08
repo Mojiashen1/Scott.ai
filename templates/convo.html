@@ -1,1 +1,68 @@
-{% extends "layout.html" %}
+<!-- # Mojia & Harshita
+# final project
+# draft version
+# Dec 3, 2017 -->
+<!-- !!!!! this page is not completed implemented yet! We will update the UI -->
+<!-- this page shows the user a list of questions and allow the user to select what questions to answer
+we will inplement audio file system to record the answers -->
+
+{% extends "layout_2.html" %}
+
+{% block content %}
+
+<head>
+	<link rel="stylesheet" href="../static/stylesheets/convos.css" type="text/css" media="screen"/>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript" src="../static/js/sliding.form.js"></script>
+</head>
+
+<body>
+	<div id="content">
+		<div id="wrapper">
+			<div id="steps">
+				<form id="formElem" name="formElem" action="{{script}}" method="POST">
+
+					<fieldset class="step">
+						<legend> Please click the questions below to begin the conversation. </legend>
+					</fieldset>
+
+					<!-- Display all questions in large text box -->
+					{% for question in all_questions %}
+					<fieldset class="step">
+						<legend>{{question['questionText']}}</legend> <!-- extract question title from input-->
+						<p>
+							<input type = "text" id="{{question['questionId']}}" name="{{question['questionId']}}" />
+						</p>
+					</fieldset>
+					{% endfor %}
+
+					<fieldset class="step">
+						<p class="submit">
+							<button type="submit" id="submit">End Conversation</button>
+						</p>
+					</fieldset>
+
+				</form>
+			</div>
+			<div id="navigation" style="display:none;">
+				<ul>
+					<li class="selected">
+
+						<!-- Add navigation buttons for all questions in UI -->
+						{% for question in all_questions %}
+						<li>
+							<a href="#">Question #{{loop.index}}</a>
+						</li>
+						{% endfor %}
+
+						<li>
+							<a href="#">Submit</a>
+						</li>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+{% endblock %}

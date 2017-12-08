@@ -8,10 +8,6 @@ body {
   overflow-x: hidden;
   font-family: 'Crimson Text','Dosis','Helvetica Neue', Helvetica, Arial, sans-serif; }
 
-/*need to fix this*/
-#survey {
-    margin-top:100px; }
-
 nav {
   margin-bottom: 500px;
 }
@@ -90,7 +86,8 @@ body {
   -webkit-tap-highlight-color: #83E4C8; }
 
 #mainNav {
-  background-color: #212529; }
+  background-color: #212529;
+  margin-bottom: 50px; }
   #mainNav .navbar-toggler {
     font-size: 12px;
     right: 0;
@@ -112,6 +109,13 @@ body {
     letter-spacing: 1px;
     color: white;
     font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+  #mainNav .navbar-nav .nav-item_2 .nav-link_2 {
+    font-size: 90%;
+    font-weight: 400;
+    padding: 0.75em 0;
+    letter-spacing: 1px;
+    color: #212529;
+    font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
     #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
       color: #83E4C8; }
 
@@ -130,6 +134,8 @@ body {
       -moz-transition: all 0.3s;
       transition: all 0.3s; }
     #mainNav .navbar-nav .nav-item .nav-link {
+      padding: 1.1em 1em !important; }
+#mainNav .navbar-nav .nav-item_2 .nav-link_2 {
       padding: 1.1em 1em !important; }
     #mainNav.navbar-shrink {
       padding-top: 0;
@@ -249,3 +255,28 @@ ul.social-buttons {
     background-color: #212529; }
     ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
       background-color: #83E4C8; }
+
+/*# added CSS here
+# Mojia & Harshita
+# final project
+# draft version
+# Dec 3, 2017*/
+
+#survey, #topic, #convo{
+  margin-top:100px;
+  margin-bottom:200px;
+}
+
+.selection{
+  margin: 40px;
+  padding: 15px;
+}
+
+.selection h4{
+  padding-top: 40px;
+  text-align: center;
+}
+
+.selection img {
+  margin: 15px;
+}

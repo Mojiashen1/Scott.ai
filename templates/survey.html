@@ -1,39 +1,58 @@
-{% extends "layout.html" %}
+<!-- # Mojia & Harshita
+# final project
+# draft version
+# Dec 3, 2017 -->
+<!-- this file allows the user to create or update a profile -->
+
+{% extends "layout_2.html" %}
 
 {% block content %}
-<div id = 'survey'>
+
+<div class='container' id='survey' >
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <h2 class="section-heading text-uppercase">Create or Update Profile</h2>
+    </div>
+  </div>
+
   <form action='{{script}}' method='POST'>
 
     <div class="form-group">
-      <label for="birthday">When is your birthday</label>
-      <input type='date' class='form-control' name='birthday' placeholder='1998-12-12'>
+      <label for="birthday">When is your birthday (YYYY/MM/DD)</label>
+      <input type='date' class='form-control' name='birthday' value="{{data['birthday']}}" placeholder='1996/12/20' required>
     </div>
 
     <div class="form-group">
       <label for="yearsLearned">How many years have you been learning English?</label>
-      <select class="form-control" name='yearsLearned'>
+      <select id = 'yearsLearned' class="form-control" name='yearsLearned'>
+        {% for option in options %}
+        <option value={{option}}>{{option}}</option>
+        {% endfor %}
+        <!-- <option selected="{{data['yearsLearned']}}">{{data['yearsLearned']}}</option>
         <option value=1>1</option>
         <option value=2>2</option>
         <option value=3>3</option>
         <option value=4>4</option>
         <option value=5>5</option>
         <option value=8>more than 5, but less than 10</option>
-        <option value=10>more than 10</option>
+        <option value=10>more than 10</option> -->
       </select>
     </div>
 
     <div class="form-group">
       <label for="nation">Which country are you from?</label>
-      <input type='text' class='form-control' name='nation' placeholder='Germany'>
+      <input type='text' class='form-control' name='nation' value="{{data['nation']}}" placeholder='Germany'>
     </div>
 
     <div class="form-group">
       <label for="lang">What's your native language?</label>
-      <input type='text' class='form-control' name='lang' placeholder='German'>
+      <input type='text' class='form-control' name='lang' value="{{data['nativeLang']}}" placeholder='German'>
     </div>
 
     <input type="submit" value = 'Submit' class="btn btn-primary">
   </form>
 </div>
+
+<br> <br>
 
 {% endblock %}
