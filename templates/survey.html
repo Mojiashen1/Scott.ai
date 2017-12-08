@@ -28,8 +28,9 @@
         {% for option in options %}
         {% if option==options[index] %}
         <option value={{option}} selected>{{option}}</option>
-        {% endif %}
+        {% else %}
         <option value={{option}}>{{option}}</option>
+        {% endif %}
         {% endfor %}
       </select>
     </div>
