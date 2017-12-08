@@ -107,11 +107,13 @@ def helper_login(username, password):
 
 		if bcrypt.hashpw(password.encode('utf-8'), hashedPassword) == hashedPassword:
 			return ('''Success, {username} logged in.'''.format(username=username),1, other_account['userId'])
+            # 1 means login sucessful
 		else:
-			return ("Password does not match. Please try again.", '')
+			return ("Password does not match. Please try again.", 0, '')
+            # 0 means login failed
 	else:
         # if user doesn't exist, create an account
-		return ('''User {username} does not exist. Please create an account. '''.format(username=username),'')
+		return ('''User {username} does not exist. Please create an account. '''.format(username=username),0, '')
 
 # get user profile
 # if profile already exists, return the profile to populate the form
@@ -136,8 +138,7 @@ def get_feedback(id):
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
 	curs.execute("select * from profile where userId = %s", [id])
-        existing_profile = curs.fetchone()
-        print existing_profile
+    existing_profile = curs.fetchone()
 
 	#pull data from convos table
 	#maybe, amount of time recorded on audio
