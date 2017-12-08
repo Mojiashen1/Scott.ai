@@ -133,10 +133,10 @@ def get_profile(userId):
 # get user infortion to give feedback. We are still deciding what to output from here
 # @ params: userId
 def get_feedback(id):
-	conn = getConn()
-	curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-	curs.execute("select * from profile where userId = %s", [id])
+    curs.execute("select * from profile where userId = %s", [id])
     existing_profile = curs.fetchone()
 
 	#pull data from convos table
