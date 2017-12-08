@@ -123,7 +123,7 @@ def get_profile(userId):
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-	curs.execute('select yearsLearned from profile where userId = %s', [userId])    
+	curs.execute('select yearsLearned from profile where userId = %s', [userId])
         existing_profile = curs.fetchone()
         conn.commit()
         curs.close()
@@ -136,15 +136,12 @@ def get_profile(userId):
 def get_feedback(id):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-
     curs.execute("select * from profile where userId = %s", [id])
     existing_profile = curs.fetchone()
-
-	#pull data from convos table
-	#maybe, amount of time recorded on audio
-	#append that data to results
-
-	return existing_profile
+    #pull data from convos table
+    #maybe, amount of time recorded on audio
+    #append that data to results
+    return existing_profile
 
 # get a list of questions to ask the user based on the category of questions selected
 # @ params: category type

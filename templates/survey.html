@@ -26,7 +26,7 @@
       <label for="yearsLearned">How many years have you been learning English?</label>
       <select id = 'yearsLearned' class="form-control" name='yearsLearned'>
         {% for option in options %}
-        {% if option is options[index] %}
+        {% if option==options[index] %}
         <option value={{option}} selected>{{option}}</option>
         {% endif %}
         <option value={{option}}>{{option}}</option>
