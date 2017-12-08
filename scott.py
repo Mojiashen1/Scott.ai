@@ -120,14 +120,15 @@ def helper_login(username, password):
 # if profile doesn't exists, return None
 # @ params: userId
 def get_profile(userId):
-    conn = getConn()
-    curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute('select yearsLearned from profile where userId = %s', [userId])
-    existing_profile = curs.fetchone()
-    conn.commit()
-    curs.close()
-    conn.close()
-    return existing_profile
+	conn = getConn()
+	curs = conn.cursor(MySQLdb.cursors.DictCursor)
+
+	curs.execute('select yearsLearned from profile where userId = %s', [userId])    
+        existing_profile = curs.fetchone()
+        conn.commit()
+        curs.close()
+        conn.close()
+        return existing_profile
 
 # !!! this is not implemented yet !!!
 # get user infortion to give feedback. We are still deciding what to output from here
