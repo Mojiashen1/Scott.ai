@@ -3,13 +3,13 @@
 -- Modified Date: December 3, 2017
 -- Scott.ai Final Project draft version
 
--- This DDL initializes the SQL database that will be used to store 
--- all relevant data to the Scott.ai app. It contains multiple 
--- tables to keep track of users, the content stored by the AI, 
+-- This DDL initializes the SQL database that will be used to store
+-- all relevant data to the Scott.ai app. It contains multiple
+-- tables to keep track of users, the content stored by the AI,
 -- and user's activity within the app. The account and profile
 -- tables are used to store user information, and are separate because
--- a user can create an account without creating a detailed profile, 
--- and can even start using the AI without their profile filled out. 
+-- a user can create an account without creating a detailed profile,
+-- and can even start using the AI without their profile filled out.
 -- The category and AI tables are used to store hard-coded questions that the
 -- AI can ask the users, and in the future, can even be added to by users
 -- of the app to crowd-source more of the content. The convos
@@ -49,9 +49,9 @@ create table account(
 -- hobbies and interests, which can be used to tailor the user's conversations
 -- with the AI. A foreign key of userId is used to link this data to
 -- account data.
-create table profile( 
+create table profile(
 	userId int not null,
-	yearsLearned int not null,
+	yearsLearned varchar(50) not null,
 	birthday Date not null,
 	nativeLang varchar(50), -- persons native language
 	nation varchar(50),
@@ -72,7 +72,7 @@ create table profile(
 
 
 -- This table stores mappings of categoryId and type, such that
--- users can later on add questions and create new categories. 
+-- users can later on add questions and create new categories.
 -- The primary key is a categoryId, which is a foreign key in the AI
 -- table, which ties questions to category.
 create table category(
@@ -86,9 +86,9 @@ insert into category (categoryType) values ('food');
 insert into category (categoryType) values ('hobby');
 
 
--- This table stores all questions that the AI can ask the user, categorized by questionId. 
+-- This table stores all questions that the AI can ask the user, categorized by questionId.
 -- Each question is also linked to a unique categoryId, which helps the user choose what
--- kinds of questions they should expect. This categoryId is a foreign key stored in the 
+-- kinds of questions they should expect. This categoryId is a foreign key stored in the
 -- category table.
 create table AI( -- stores all possible conversations
 	questionId int auto_increment not null primary key,
@@ -112,11 +112,11 @@ insert into AI (categoryId, questionText) values (3, "What's your favorite sport
 
 
 -- This table stores all conversations that users have had with the AI. Each conversation is distinct,
--- so in a single session, the user can have multiple conversatins with the AI. This table maps each 
+-- so in a single session, the user can have multiple conversatins with the AI. This table maps each
 create table convos( -- stores each conversation a user has
 	convoId int auto_increment not null primary key,
 	categoryId int not null, -- so we can join them to give feedback on user's performance for a set topic
-	userId int not null, --maps convo back to user
+	userId int not null, -- maps convo back to user
 	answerText varchar(100) not null, -- store file path for audio answer - one audio file for entire conversation
 	foreign key (categoryId) references category(categoryId) on delete cascade on update cascade,
 	foreign key (userId) references account(userId) on delete cascade on update cascade
