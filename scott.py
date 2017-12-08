@@ -138,7 +138,7 @@ def get_feedback(id):
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
 	curs.execute("select * from profile where userId = %s", [id])
-    existing_profile = curs.fetchone()
+        existing_profile = curs.fetchone()
 
 	#pull data from convos table
 	#maybe, amount of time recorded on audio
