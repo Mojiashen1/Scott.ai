@@ -64,7 +64,8 @@ def create_account(name, username, password):
 
 		if other_account:
             # we will update this later so it redirect to the login page
-			return ('''User {username} already exists. Please log in.'''.format(username=username),'')
+			return ('''User {username} already exists. Please log in.'''.format(username=username),0, '')
+            #0 means login not successful
 
 		else:
 			#if user does not exist, insert into table (sign up)
@@ -83,9 +84,11 @@ def create_account(name, username, password):
 			userId = curs.fetchone()['userId']
 			curs.close()
 			conn.close()
-			return ('''User {username} created.'''.format(username=username),1, userId) # pass back userId to start session
+			return ('''User {username} created.'''.format(username=username),1, userId)
+            # pass back userId to start session
+            # 1 means log in successful
 	else:
-		return ("Form Incomplete. Please try again.", '')
+		return ("Form Incomplete. Please try again.", 0, '')
 
 # helper function to check if password matches that in account database
 # if password match, log user in, else, flash error
@@ -118,12 +121,12 @@ def get_profile(userId):
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-	curs.execute('select * from profile where userId = %s', [userId])
-        existing_profile = curs.fetchone()
-        conn.commit()
-        curs.close()
-        conn.close()
-        return existing_profile
+	curs.execute('select yearsLearned from profile where userId = %s', [userId])
+    existing_profile = curs.fetchone()
+    conn.commit()
+    curs.close()
+    conn.close()
+    return existing_profile
 
 # !!! this is not implemented yet !!!
 # get user infortion to give feedback. We are still deciding what to output from here
@@ -157,12 +160,13 @@ def get_questions(type):
 # @ params: #years learned english
 def get_options(data):
     all_options = ['1', '2', '3', '4', '5', 'more than 5, but less than 10', 'more than 10']
+    index = 0
     if data != '':
-        for option in all_options:
-            if option == str(data):
-                all_options.remove(option) #remove duplicate
+        for i in range(len(all_options)):
+            if all_options[i] == str(data):
+                index = i
+                # all_options.remove(option) #remove duplicate
 
         #insert what the user has selected to the front of the list to return
-        all_options.insert(0, data)
-        print(all_options)
-    return all_options
+        # all_options.insert(0, data)
+    return (all_options, index)

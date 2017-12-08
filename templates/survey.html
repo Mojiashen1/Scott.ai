@@ -18,7 +18,7 @@
   <form action='{{script}}' method='POST'>
 
     <div class="form-group">
-      <label for="birthday">When is your birthday (YYYY/MM/DD)</label>
+      <label for="birthday">When is your birthday?</label>
       <input type='date' class='form-control' name='birthday' value="{{data['birthday']}}" placeholder='1996/12/20' required>
     </div>
 
@@ -26,16 +26,11 @@
       <label for="yearsLearned">How many years have you been learning English?</label>
       <select id = 'yearsLearned' class="form-control" name='yearsLearned'>
         {% for option in options %}
+        {% if option is options[index] %}
+        <option value={{option}} selected>{{option}}</option>
+        {% end if %}
         <option value={{option}}>{{option}}</option>
         {% endfor %}
-        <!-- <option selected="{{data['yearsLearned']}}">{{data['yearsLearned']}}</option>
-        <option value=1>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-        <option value=4>4</option>
-        <option value=5>5</option>
-        <option value=8>more than 5, but less than 10</option>
-        <option value=10>more than 10</option> -->
       </select>
     </div>
 

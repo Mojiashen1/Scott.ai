@@ -72,19 +72,14 @@ def signup():
 
     # call helper function to create account by checking
     # if the input is valid and writing to the database
-    desc = create_account(name, username, password)
+    message, success_message, userId = create_account(name, username, password)
 
-    flash(desc[0]) #flash the return message
+    flash(message) #flash whether sign up is successful
 
     # if sign-up is successful
-    if desc[1] == 1:
-
-      # extract userId and store locally, to be used as session
-      userId = desc[2]
-
+    if success_message == 1:
       # create a new session
       session['userId'] = userId
-
       # redirect user to onboarding page, since they are a new user
       return redirect(url_for('survey'))
 
@@ -136,7 +131,7 @@ def login():
 
 ''' Onboarding survey to get user's basic information. This page
 will be accessed following whenever a user creates a new account,
-but can also be existed later on whenever the user clicks the 'profile'
+but can also be accessed later on whenever the user clicks the 'profile'
 button on the navigation bar at any point in their use of the app.
 Will only allow user to access this page if there is a session, otherwise
 (if the user goes to the /survey/ webpage directly, not after signing in),
@@ -151,11 +146,13 @@ def survey():
         # generate survey form
         if request.method == 'GET':
 
-            data = get_profile(userId) #get profile data, if any
-            yearsLearned = data['yearsLearned'] if data else ''
-            options = get_options(yearsLearned)
+            data = get_profile(userId)# get profile data, if any
+            # yearsLearned = data['yearsLearned'] if data else ''
+            yearsLearned = data if data else ''
+            options, index = get_options(yearsLearned)
+            # return all the options and the index of the choice selected by the user
             # render template and fill in user's profile data
-            return render_template('survey.html', script=url_for('survey'), data=data, options = options)
+            return render_template('survey.html', script=url_for('survey'), data=data, options=options, index=index)
 
         # submit changes to form
         elif request.method == 'POST':
@@ -212,20 +209,16 @@ Here, the list of questions are pulled from the database using the
 conversation type ID, and are passed into the template, where each
 question is shown. Again, this only happens if a session is created --
 otherwise, redirects to homepage'''
-@app.route('/convo/<type>', methods =['POST', 'GET'])
-def convo(type):
+@app.route('/convo/<id>', methods =['POST', 'GET'])
+def convo(id):
 
   # check if session in progress (user logged in)
   if 'userId' in session:
 
       if request.method == 'GET':
 
-        #convert type to ID
-        categories = {"school": 1, "food":2, "hobby":3}
-        typeId = categories[type]
-
         #pull questions from database by type
-        all_questions = get_questions(typeId)
+        all_questions = get_questions(id)
 
         # TO DO:
         # start recording audio file once conversation is entered
@@ -253,19 +246,12 @@ to the homepage, or (in the future) go back to the topics page. Again,
 this page can only be accessed if a session is in progress.'''
 @app.route('/feedback/', methods =['POST', 'GET'])
 def feedback():
-
     # if a session is in progress
     if 'userId' in session:
-
-        # extract userId
         userId = session['userId']
-
         if request.method == 'POST':
-
-            # pull user profile (progress)
+            # pull user profile using userId (in progress)
             result = get_feedback(userId)
-
-            # render template with user's progress
             return render_template('feedback.html', feedback = result)
 
     # if no session in progress, redirect to home
@@ -274,8 +260,7 @@ def feedback():
 
 if __name__ == '__main__':
   ''' main method'''
-  # port = os.getuid()
-  port = 9000 # hardcode port for now
+  port = os.getuid()
   app.debug = True
   # Flask will print the port anyhow, but let's do so too
   print('Running on port '+str(port))
