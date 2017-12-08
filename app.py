@@ -4,7 +4,7 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 import os, sys
 import MySQLdb
-from helper import *
+import scott
 import dbconn2
 
 app = Flask(__name__)
