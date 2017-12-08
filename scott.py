@@ -134,17 +134,15 @@ def get_profile(userId):
 # get user infortion to give feedback. We are still deciding what to output from here
 # @ params: userId
 def get_feedback(id):
-	conn = getConn()
-	curs = conn.cursor(MySQLdb.cursors.DictCursor)
-
-	curs.execute("select * from profile where userId = %s", [id])
-        existing_profile = curs.fetchone()
-
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute("select * from profile where userId = %s", [id])
+    existing_profile = curs.fetchone()
 	#pull data from convos table
 	#maybe, amount of time recorded on audio
-	#append that data to results
+        #append that data to results
 
-	return existing_profile
+    return existing_profile
 
 # get a list of questions to ask the user based on the category of questions selected
 # @ params: category type
