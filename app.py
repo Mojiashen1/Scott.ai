@@ -109,16 +109,12 @@ def login():
     password = request.form['password'] #password is encrpyted in helper.py
 
     # call helper function to check if valid login
-    desc = helper_login(username, password)
+    message, success_message, userId = helper_login(username, password)
 
-    flash(desc[0]) #flash return message
+    flash(message) #flash return message
 
     # if login is successful
-    if desc[1] == 1:
-
-      # extract userId and store locally, to be used as session
-      userId = desc[2]
-
+    if success_message == 1:
       #create a new session
       session['userId'] = userId
 
@@ -147,11 +143,9 @@ def survey():
         if request.method == 'GET':
 
             data = get_profile(userId)# get profile data, if any
-            # yearsLearned = data['yearsLearned'] if data else ''
-            yearsLearned = data if data else ''
-            options, index = get_options(yearsLearned)
+            yearsLearned = data['yearsLearned'] if data else ''
             # return all the options and the index of the choice selected by the user
-            # render template and fill in user's profile data
+            options, index = get_options(yearsLearned)
             return render_template('survey.html', script=url_for('survey'), data=data, options=options, index=index)
 
         # submit changes to form

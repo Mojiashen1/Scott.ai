@@ -123,7 +123,7 @@ def get_profile(userId):
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-	curs.execute('select yearsLearned from profile where userId = %s', [userId])
+	curs.execute('select * from profile where userId = %s', [userId])
         existing_profile = curs.fetchone()
         conn.commit()
         curs.close()
