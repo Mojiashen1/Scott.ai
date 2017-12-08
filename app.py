@@ -17,8 +17,8 @@ Scott.ai final project draft version
 from flask import Flask, render_template, request, flash, redirect, url_for, session
 import os, sys
 import MySQLdb
-import scott
 import dbconn2
+from scott import *
 
 app = Flask(__name__)
 app.secret_key = 'youcantguessthisout'
