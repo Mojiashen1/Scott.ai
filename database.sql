@@ -100,14 +100,14 @@ create table AI( -- stores all possible conversations
 
 -- Hardcode an initial set of questions to the AI table. In the future, users can contribute
 -- to this and add more questions.
-insert into AI (categoryId, questionText) values (1, 'Tell me about your school. Do you like it?');
+insert into AI (categoryId, questionText) values (1, "Tell me about your school. Do you like it?");
 insert into AI (categoryId, questionText) values (1, "What's your favorite subject? Why do you like it so much?");
 insert into AI (categoryId, questionText) values (1, "What's your favorite book? What makes it so fascinating?");
-insert into AI (categoryId, questionText) values (1, 'So...what do you imagine yourself doing in 50 years?');
+insert into AI (categoryId, questionText) values (1, "So...what do you imagine yourself doing in 50 years?");
 insert into AI (categoryId, questionText) values (2, "What's your favorite dish? Describe it to be coz I want to try.");
-insert into AI (categoryId, questionText) values (2, 'Do you like to cook? What kind of food can you cook?');
-insert into AI (categoryId, questionText) values (2, 'What would you do to keep a healthy lifestyle?');
-insert into AI (categoryId, questionText) values (3, 'What do you like to do in your free time?');
+insert into AI (categoryId, questionText) values (2, "Do you like to cook? What kind of food can you cook?");
+insert into AI (categoryId, questionText) values (2, "What would you do to keep a healthy lifestyle?");
+insert into AI (categoryId, questionText) values (3, "What do you like to do in your free time?");
 insert into AI (categoryId, questionText) values (3, "What's your favorite sports? What's the secret of being good at it?");
 
 
