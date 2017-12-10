@@ -27,9 +27,9 @@
       <select id = 'yearsLearned' class="form-control" name='yearsLearned'>
         {% for option in options %}
         {% if option==options[index] %}
-        <option value={{option}} selected>{{option}}</option>
+        <option value='{{option}}' selected>{{option}}</option>
         {% else %}
-        <option value={{option}}>{{option}}</option>
+        <option value='{{option}}'>{{option}}</option>
         {% endif %}
         {% endfor %}
       </select>
