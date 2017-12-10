@@ -277,10 +277,14 @@ ul.social-buttons {
   text-align: center;
 }
 
-.selection img {
+/*.selection img {
   margin: 15px;
+}*/
+
+.error p, #error p {
+  color: #ed9aed;
 }
 
-#error p {
-  color: #ed9aed;
+h4 {
+  text-align: center;
 }
