@@ -161,8 +161,8 @@ def survey():
             # user's personal interests (favorite sports teams, hobbies, etc.)
 
             # call helper function to update or insert profile data into table
-            create_profile(userId, birthday, yearsLearned, nation, lang)
-
+            message = create_profile(userId, birthday, yearsLearned, nation, lang)
+            flash(message)
             # once profile created/updated, redirect to topic page to start convo
             return redirect(url_for('topic'))
 
