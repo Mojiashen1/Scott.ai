@@ -10,8 +10,20 @@ we will inplement audio file system to record the answers -->
 
 {% block content %}
 
-<head>
-	<link rel="stylesheet" href="../static/stylesheets/convos.css" type="text/css" media="screen"/>
+	<div class='container'>
+		{% for question in all_questions %}
+			<h4>{{question['questionText']}}</h4>
+			{% if all_questions.indexOf(question)==len(all_questions)-1 %}
+				<input type="submit" id="submit">next</button>
+			{% else %}
+				<input type="submit" id="submit">end conversation</button>
+			{% endif %}
+		{% endfor %}
+
+	</div>
+
+<!-- <head> -->
+	<!-- <link rel="stylesheet" href="../static/stylesheets/convos.css" type="text/css" media="screen"/>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script type="text/javascript" src="../static/js/sliding.form.js"></script>
 </head>
@@ -27,10 +39,10 @@ we will inplement audio file system to record the answers -->
 					</fieldset>
 
 					<!-- Display all questions in large text box -->
-					{% for question in all_questions %}
+					<!-- {% for question in all_questions %}
 					<fieldset class="step">
 						<legend>{{question['questionText']}}</legend> <!-- extract question title from input-->
-						<p>
+						<!-- <p>
 							<input type = "text" id="{{question['questionId']}}" name="{{question['questionId']}}" />
 						</p>
 					</fieldset>
@@ -49,7 +61,7 @@ we will inplement audio file system to record the answers -->
 					<li class="selected">
 
 						<!-- Add navigation buttons for all questions in UI -->
-						{% for question in all_questions %}
+						<!-- {% for question in all_questions %}
 						<li>
 							<a href="#">Question #{{loop.index}}</a>
 						</li>
@@ -64,5 +76,5 @@ we will inplement audio file system to record the answers -->
 			</div>
 		</div>
 	</div>
-</body>
+</body> -->
 {% endblock %}
