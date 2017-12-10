@@ -7,8 +7,10 @@
 we will inplement audio file system to record the answers -->
 
 {% extends "layout_2.html" %}
-
 {% block content %}
+<head>
+	<script type="text/javascript" src="../static/js/convo.js"></script>
+</head>
 
 	<div class='container' id='convo'>
 		  <div class="row">
@@ -18,7 +20,7 @@ we will inplement audio file system to record the answers -->
 		  </div>
 
 		<div>
-			{% for question in all_questions %}
+			<!-- {% for question in all_questions %} -->
 				<h4>{{all_questions[index]['questionText']}}</h4>
 				<input type="submit" value ='End Conversation' class="btn btn-primary" id='next'>
 
@@ -28,7 +30,7 @@ we will inplement audio file system to record the answers -->
 				{% else %}
 					<input type="submit" value = 'Submit' class="btn btn-primary">
 				{% endif %} -->
-			{% endfor %}
+			<!-- {% endfor %} -->
 		</div>
 
 	</div>
