@@ -152,7 +152,7 @@ def survey():
 
             # pull data from fields
             birthday = request.form['birthday']
-            yearsLearned = request.form['yearsLearned'].encode('utf-8')
+            yearsLearned = unicode(request.form['yearsLearned'])
             nation = request.form['nation']
             lang = request.form['lang']
             print('app, in create', yearsLearned)
