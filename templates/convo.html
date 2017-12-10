@@ -19,12 +19,15 @@ we will inplement audio file system to record the answers -->
 
 		<div>
 			{% for question in all_questions %}
-				<h4>{{question['questionText']}}</h4>
-				{% if all_questions.index(question)==(all_questions|length-1) %}
-					<input type="submit" name="end converstion"></input>
+				<h4>{{all_questions[index]['questionText']}}</h4>
+				<input type="submit" value ='End Conversation' class="btn btn-primary" id='next'>
+
+
+				<!-- {% if all_questions.index(question)==(all_questions|length-1) %}
+
 				{% else %}
-					<input type="submit" name="next"></input>
-				{% endif %}
+					<input type="submit" value = 'Submit' class="btn btn-primary">
+				{% endif %} -->
 			{% endfor %}
 		</div>
 

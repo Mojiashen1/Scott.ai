@@ -221,7 +221,7 @@ def convo(id):
         # increment a user's points and time spent as appropriate
 
         # render template and fill with questions pulled from database
-        return render_template('convo.html', all_questions = all_questions, script=(url_for("feedback")))
+        return render_template('convo.html', all_questions = all_questions, index=0, script=(url_for("feedback")))
 
       # go to feedback page once user submits
       elif request.method == 'POST':
