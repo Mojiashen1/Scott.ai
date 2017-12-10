@@ -249,6 +249,11 @@ def feedback():
     else:
         return redirect(url_for('home'))
 
+@app.route('/progress/', methods =['POST', 'GET'])
+def progress():
+    return render_template('progress.html')
+
+
 if __name__ == '__main__':
   ''' main method'''
   port = os.getuid()
