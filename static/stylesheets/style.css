@@ -289,3 +289,7 @@ ul.social-buttons {
 h4 {
   text-align: center;
 }
+
+#convo #next {
+  float: right;
+}
