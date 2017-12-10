@@ -1,4 +1,6 @@
+index = 0;
 $('#next').click(function(e) {
   index++;
-  console.log('hell0')
+  questions = $(h4).attr('data-question')
+  $(h4).val(questions[index]['questionText'])
 })
