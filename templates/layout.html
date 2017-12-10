@@ -50,7 +50,7 @@
 
     <!-- content -->
     <div>{% block content %}{% endblock %}</div>
-    <div class='container' id='error'>
+    <div class='container error'>
       {% with messages = get_flashed_messages() %}
         {% if messages %}
           {% for message in messages %}
