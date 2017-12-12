@@ -15,6 +15,7 @@ we will inplement audio file system to record the answers -->
 			    <h4 class="section-heading text-uppercase"></h4>
 			  </div>
 			</div>
+		<br><br>
 		<div>
 				<input type="submit" value ='Next' class="btn btn-primary" id='next'>
 		</div>
@@ -29,6 +30,10 @@ we will inplement audio file system to record the answers -->
 		$('#next').click(function(){
 			index++;
 			$('h4').text(questions[index]);
+			if (index === questions.length) {
+				$('#next').value('Submit').attr('href:"/feedback/"')
+			}
+
 		});
 	</script>
 
