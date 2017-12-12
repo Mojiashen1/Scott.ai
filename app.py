@@ -263,7 +263,7 @@ def progress():
         if request.method == 'POST':
             delete_audio(userId)
 
-    return render_template('progress.html')
+    return render_template('progress.html', points=points)
 
 
 if __name__ == '__main__':

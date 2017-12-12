@@ -188,3 +188,13 @@ def increment_point_time(userId, time_spent):
         conn.close()
         return 1 #update successful
     return 0 #update failed
+
+def get_points(userId):
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute("select points from profile where userId = %s", [userId])
+    result = curs.fetchone()
+    return result['points']
+
+def delete_audio(userId):
+    return None
