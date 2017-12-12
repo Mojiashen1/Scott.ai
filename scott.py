@@ -163,3 +163,23 @@ def get_options(data):
             if all_options[i] == str(data):
                 index = i
     return (all_options, index)
+
+def increment_point_time(userId, time_spent):
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute("select points, timeActive from profile where userId = %s", [userId])
+    existing_data = curs.fetchone()
+
+    # update profile
+	if existing_data:
+        sql = '''update profile
+        set points=%s, timeActive=%s
+        where userId = %s'''
+        points = int(existing_data[0] + time_spent*10)
+        timeActive = int(existing_data[1] + time_spent)
+        curs.execute(sql, (points, timeActive))
+        conn.commit()
+        curs.close()
+        conn.close()
+        return 1 #update successful
+    return 0 #update failed

@@ -217,6 +217,9 @@ def convo(id):
         # store audio filepath and timestamps in appropriate table (convos)
         # increment a user's points and time spent as appropriate
 
+        # time_spent is the # minutes of the new audio
+        increment_point_time(id, time_spent)
+
         # render template and fill with questions pulled from database
         return render_template('convo.html', all_questions = all_questions, index=0, script=(url_for("feedback")))
 
