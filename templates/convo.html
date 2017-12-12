@@ -8,13 +8,6 @@ we will inplement audio file system to record the answers -->
 {% extends "layout_2.html" %}
 
 {% block content %}
-<script>
-	var questions = {{questions | safe}};
-	console.log('in html, quetions', questions)
-	var index = 0;
-	$('h4').text(questions[index]);
-	$('#next').click(function(){index++;});
-</script>
 
 	<div class='container' id='convo'>
 			<div class="row">
@@ -27,6 +20,18 @@ we will inplement audio file system to record the answers -->
 		</div>
 
 	</div>
+
+	<script>
+		var questions = {{questions | safe}};
+		console.log('in html, quetions', questions)
+		var index = 0;
+
+		$('#next').click(function(){
+			index++;
+			$('h4').text(questions[index]);
+		});
+	</script>
+
 
 <!-- {% for question in all_questions %} -->
 <!-- {% if all_questions.index(question)==(all_questions|length-1) %}
