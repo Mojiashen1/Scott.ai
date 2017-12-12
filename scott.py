@@ -145,15 +145,16 @@ def get_feedback(id):
 # get a list of questions to ask the user based on the category of questions selected
 # @ params: category type
 def get_questions(type):
-	conn = getConn()
-	curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute("select questionText from AI where categoryId = %s", [type])
+    results = curs.fetchall()
 
-	curs.execute("select questionText from AI where categoryId = %s", [type])
-	results = curs.fetchall()
     all_questions = []
     #take out the questionText from objects into an array to return
     for question in results:
         all_questions.append(question['questionText'])
+        
 	return all_questions
 
 # helper function to get all the options to display the form field years learned english
