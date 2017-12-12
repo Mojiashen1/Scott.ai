@@ -150,7 +150,11 @@ def get_questions(type):
 
 	curs.execute("select questionText from AI where categoryId = %s", [type])
 	results = curs.fetchall()
-	return results
+    all_questions = []
+    #take out the questionText from objects into an array to return
+    for question in results:
+        all_questions.append(question['questionText'])
+	return all_questions
 
 # helper function to get all the options to display the form field years learned english
 # this default to the option the user has selected in the past
