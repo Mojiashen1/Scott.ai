@@ -218,6 +218,7 @@ def convo(id):
         # increment a user's points and time spent as appropriate
 
         # time_spent is the # minutes of the new audio
+        time_spent = 1
         increment_point_time(id, time_spent)
 
         # render template and fill with questions pulled from database
@@ -254,6 +255,13 @@ def feedback():
 
 @app.route('/progress/', methods =['POST', 'GET'])
 def progress():
+    if 'userId' in session:
+        userId = session['userId']
+        points = get_points(userId)
+
+        if request.method == 'POST':
+            delete_audio(userId)
+
     return render_template('progress.html')
 
 
