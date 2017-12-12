@@ -7,6 +7,7 @@
 we will inplement audio file system to record the answers -->
 {% extends "layout_2.html" %}
 
+{% block content %}
 <script>
 	var questions = {{questions | safe}};
 	console.log('in html, quetions', questions)
@@ -14,8 +15,6 @@ we will inplement audio file system to record the answers -->
 	$('h4').text(questions[index]);
 	$('#next').click(function(){index++;});
 </script>
-
-{% block content %}
 
 	<div class='container' id='convo'>
 			<div class="row">
