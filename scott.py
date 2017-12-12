@@ -154,7 +154,7 @@ def get_questions(type):
     #take out the questionText from objects into an array to return
     for question in results:
         all_questions.append(question['questionText'])
-        
+    print('in scott', all_questions)
 	return all_questions
 
 # helper function to get all the options to display the form field years learned english

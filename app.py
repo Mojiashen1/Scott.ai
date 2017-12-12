@@ -211,7 +211,6 @@ def convo(id):
         #pull questions from database by type
         all_questions = get_questions(id)
         questions = json.dumps(all_questions)
-        print(questions)
 
         # TO DO:
         # start recording audio file once conversation is entered
