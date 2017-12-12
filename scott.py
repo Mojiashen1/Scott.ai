@@ -196,5 +196,21 @@ def get_points(userId):
     result = curs.fetchone()
     return result['points']
 
-def delete_audio(userId):
+def get_convos(userId):
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute("select categoryId, audio, feedback from profile where userId = %s", [userId])
+    result = curs.fetchall()
+    return result
+
+def get_audio():
     return None
+
+def delete_audio(userId, convoId):
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute("delete from convos where convoId = %s and userId = %s", [convoId, userId])
+    result = curs.fetchone()
+    if result:
+        return 1 #delete successful
+    return 0 #delete failed

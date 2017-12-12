@@ -256,12 +256,14 @@ def feedback():
 
 @app.route('/progress/', methods =['POST', 'GET'])
 def progress():
-    if 'userId' in session:
-        userId = session['userId']
-        points = get_points(userId)
-
-        if request.method == 'POST':
-            delete_audio(userId)
+    # if 'userId' in session:
+    #     userId = session['userId']
+    #     points = get_points(userId)
+    #     data = get_convos(userId)
+    #
+    #     if request.method == 'POST':
+    #         convoId = request.form['convoId']
+    #         delete_audio(userId, convoId)
 
     return render_template('progress.html', points=points)
 
