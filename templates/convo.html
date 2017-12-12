@@ -6,6 +6,14 @@
 <!-- this page shows the user a list of questions and allow the user to select what questions to answer
 we will inplement audio file system to record the answers -->
 
+<script>
+	var questions = {{all_questions}};
+	var index = 0;
+	$('h4').text(questions[index]);
+	$('#next').click(function(){index++;});
+
+</script>
+
 {% extends "layout_2.html" %}
 {% block content %}
 

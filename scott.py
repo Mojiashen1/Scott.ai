@@ -7,7 +7,7 @@
 import sys
 import MySQLdb
 import dbconn2
-from flask import flash
+from flask import flash, json
 import bcrypt
 
 # Connects to the db
