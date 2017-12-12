@@ -30,8 +30,8 @@ we will inplement audio file system to record the answers -->
 		$('#next').click(function(){
 			index++;
 			$('h4').text(questions[index]);
-			if (index === questions.length) {
-				$('#next').val('Submit').attr('href:"/feedback/"')
+			if (index === questions.length-1) {
+				$('#next').val('Submit').attr('href', "/feedback/");
 			}
 
 		});
