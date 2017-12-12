@@ -177,7 +177,7 @@ def increment_point_time(userId, time_spent):
         where userId = %s'''
         points = int(existing_data['points'] + time_spent*10)
         timeActive = int(existing_data['timeActive'] + time_spent)
-        curs.execute(sql, (points, timeActive))
+        curs.execute(sql, (points, timeActive, userId))
         conn.commit()
         curs.close()
         conn.close()
