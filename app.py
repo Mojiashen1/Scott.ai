@@ -256,7 +256,8 @@ def progress():
 
 if __name__ == '__main__':
   ''' main method'''
-  port = os.getuid()
+  # port = os.getuid()
+  port = 10000
   app.debug = True
   # Flask will print the port anyhow, but let's do so too
   print('Running on port '+str(port))
