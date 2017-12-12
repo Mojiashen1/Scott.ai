@@ -210,6 +210,7 @@ def convo(id):
 
         #pull questions from database by type
         all_questions = get_questions(id)
+        questions = json.dumps(all_questions)
 
         # TO DO:
         # start recording audio file once conversation is entered
@@ -217,8 +218,12 @@ def convo(id):
         # store audio filepath and timestamps in appropriate table (convos)
         # increment a user's points and time spent as appropriate
 
+        # time_spent is the # minutes of the new audio
+        time_spent = 1
+        increment_point_time(id, time_spent)
+
         # render template and fill with questions pulled from database
-        return render_template('convo.html', all_questions = all_questions, index=0, script=(url_for("feedback")))
+        return render_template('convo.html', questions = questions, script=(url_for("feedback")))
 
       # go to feedback page once user submits
       elif request.method == 'POST':
@@ -251,13 +256,22 @@ def feedback():
 
 @app.route('/progress/', methods =['POST', 'GET'])
 def progress():
-    return render_template('progress.html')
+    # if 'userId' in session:
+    #     userId = session['userId']
+    #     points = get_points(userId)
+    #     data = get_convos(userId)
+    #
+    #     if request.method == 'POST':
+    #         convoId = request.form['convoId']
+    #         delete_audio(userId, convoId)
+
+    return render_template('progress.html', points=points)
 
 
 if __name__ == '__main__':
   ''' main method'''
   # port = os.getuid()
-  port = 10000
+  port = 9999
   app.debug = True
   # Flask will print the port anyhow, but let's do so too
   print('Running on port '+str(port))

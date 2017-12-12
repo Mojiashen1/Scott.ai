@@ -5,23 +5,38 @@
 <!-- !!!!! this page is not completed implemented yet! We will update the UI -->
 <!-- this page shows the user a list of questions and allow the user to select what questions to answer
 we will inplement audio file system to record the answers -->
-
 {% extends "layout_2.html" %}
+
 {% block content %}
 
 	<div class='container' id='convo'>
-		  <!-- <div class="row">
-		    <div class="col-lg-12 text-center">
-		      <h2 class="section-heading text-uppercase"></h2>
-		    </div>
-		  </div> -->
-
+			<div class="row">
+			  <div class="col-lg-12 text-center">
+			    <h4 class="section-heading text-uppercase"></h4>
+			  </div>
+			</div>
+		<br><br>
 		<div>
-				<h4 data-question="{{all_questions}}">{{all_questions[index]['questionText']}}</h4>
 				<input type="submit" value ='Next' class="btn btn-primary" id='next'>
 		</div>
 
 	</div>
+
+	<script>
+		var questions = {{questions | safe}};
+		console.log('in html, quetions', questions)
+		var index = 0;
+		$('h4').text(questions[index]);
+		$('#next').click(function(){
+			index++;
+			$('h4').text(questions[index]);
+			if (index === questions.length) {
+				$('#next').val('End Conversation');
+				window.location.href='/feedback/';
+			}
+		});
+	</script>
+
 
 <!-- {% for question in all_questions %} -->
 <!-- {% if all_questions.index(question)==(all_questions|length-1) %}

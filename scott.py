@@ -7,7 +7,7 @@
 import sys
 import MySQLdb
 import dbconn2
-from flask import flash
+from flask import flash, json
 import bcrypt
 
 # Connects to the db
@@ -145,12 +145,17 @@ def get_feedback(id):
 # get a list of questions to ask the user based on the category of questions selected
 # @ params: category type
 def get_questions(type):
-	conn = getConn()
-	curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute("select questionText from AI where categoryId = %s", [type])
+    results = curs.fetchall()
 
-	curs.execute("select * from AI where categoryId = %s", [type])
-	results = curs.fetchall()
-	return results
+    all_questions = []
+    #take out the questionText from objects into an array to return
+    for question in results:
+        all_questions.append(question['questionText'])
+    print('in scott', all_questions)
+    return all_questions
 
 # helper function to get all the options to display the form field years learned english
 # this default to the option the user has selected in the past
@@ -163,3 +168,49 @@ def get_options(data):
             if all_options[i] == str(data):
                 index = i
     return (all_options, index)
+
+def increment_point_time(userId, time_spent):
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute("select points, timeActive from profile where userId = %s", [userId])
+    existing_data = curs.fetchone()
+
+    # update profile
+    if existing_data:
+        sql = '''update profile
+        set points=%s, timeActive=%s
+        where userId = %s'''
+        points = int(existing_data['points'] + time_spent*10)
+        timeActive = int(existing_data['timeActive'] + time_spent)
+        curs.execute(sql, (points, timeActive, userId))
+        conn.commit()
+        curs.close()
+        conn.close()
+        return 1 #update successful
+    return 0 #update failed
+
+def get_points(userId):
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute("select points from profile where userId = %s", [userId])
+    result = curs.fetchone()
+    return result['points']
+
+def get_convos(userId):
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute("select categoryId, audio, feedback from profile where userId = %s", [userId])
+    result = curs.fetchall()
+    return result
+
+def get_audio():
+    return None
+
+def delete_audio(userId, convoId):
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute("delete from convos where convoId = %s and userId = %s", [convoId, userId])
+    result = curs.fetchone()
+    if result:
+        return 1 #delete successful
+    return 0 #delete failed
