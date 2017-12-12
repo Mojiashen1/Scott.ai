@@ -7,7 +7,8 @@
 we will inplement audio file system to record the answers -->
 
 <script>
-	var questions = json.parse({{all_questions}});
+	var questions = json.parse({{questions}});
+	print('in html, ', questions)
 	var index = 0;
 	$('h4').text(questions[index]);
 	$('#next').click(function(){index++;});

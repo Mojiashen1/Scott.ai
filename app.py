@@ -211,6 +211,7 @@ def convo(id):
         #pull questions from database by type
         all_questions = get_questions(id)
         questions = json.dumps(all_questions)
+        print(questions)
 
         # TO DO:
         # start recording audio file once conversation is entered
@@ -223,7 +224,7 @@ def convo(id):
         increment_point_time(id, time_spent)
 
         # render template and fill with questions pulled from database
-        return render_template('convo.html', all_questions = questions, script=(url_for("feedback")))
+        return render_template('convo.html', questions = questions, script=(url_for("feedback")))
 
       # go to feedback page once user submits
       elif request.method == 'POST':
