@@ -148,7 +148,7 @@ def get_questions(type):
 	conn = getConn()
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-	curs.execute("select * from AI where categoryId = %s", [type])
+	curs.execute("select questionText from AI where categoryId = %s", [type])
 	results = curs.fetchall()
 	return results
 
