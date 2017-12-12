@@ -25,7 +25,7 @@ we will inplement audio file system to record the answers -->
 		var questions = {{questions | safe}};
 		console.log('in html, quetions', questions)
 		var index = 0;
-
+		$('h4').text(questions[index]);
 		$('#next').click(function(){
 			index++;
 			$('h4').text(questions[index]);
