@@ -269,7 +269,6 @@ def progress():
         data = get_convos(userId)
 
         if request.method == 'POST':
-            print('yessss')
             convoId = request.form['convoId']
             print('here!!!', convoId)
             # delete_audio(userId, convoId)
