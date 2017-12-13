@@ -218,7 +218,7 @@ def convo(id):
         # render template and fill with questions pulled from database
         convoId = 0
 
-        return render_template('convo.html', questions = questions, script=(url_for('feedback', convoId=convoId)))
+        return render_template('convo.html', questions = questions, script=(url_for('convo', id=id)))
 
       # go to feedback page once user submits
       elif request.method == 'POST':
