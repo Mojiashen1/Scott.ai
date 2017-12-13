@@ -58,15 +58,16 @@ we will inplement audio file system to record the answers -->
 
 		    processor.onaudioprocess = function(e) {
 		      // Do something with the data, i.e Convert this to WAV
-		      console.log(e.inputBuffer);
+		      // console.log(e.inputBuffer);
+					stream = new mediaStream();
+					track = stream.getAudioTracks()
+					console.log(track)
 		    };
 		  };
 
 		  navigator.mediaDevices.getUserMedia({ audio: true, video: false })
 		      .then(handleSuccess);
-			stream = new mediaStream();
-			track = stream.getAudioTracks()
-			console.log(track)
+
 	</script>
 
 {% endblock %}
