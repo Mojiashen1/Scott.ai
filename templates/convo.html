@@ -33,13 +33,14 @@ we will inplement audio file system to record the answers -->
 			index++;
 			$('h4').text(questions[index]);
 			if (index === questions.length) {
-				$('#next').text('End Conversation');
+				$('#next').text('End Conversation').attr('href', '/feedback');
 			}
 			if (index === questions.length+1) {
+
 				$.ajax({
 	            url: '/feedback/',
 	            data: convoId,
-	            // type: 'POST',
+	            type: 'POST',
 	            success: function(response) {
 	                console.log(response);
 	            },
