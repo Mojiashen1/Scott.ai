@@ -245,8 +245,8 @@ feedback page, whih displays their total time spent thus far and
 number of points earned. From this page, the user can log out, or return
 to the homepage, or (in the future) go back to the topics page. Again,
 this page can only be accessed if a session is in progress.'''
-@app.route('/feedback/', methods =['POST', 'GET']) #<convoId>
-def feedback(): #convoId
+@app.route('/feedback/<convoId>', methods =['POST', 'GET'])
+def feedback(convoId):
     # if a session is in progress
     if 'userId' in session:
         userId = session['userId']
@@ -254,6 +254,7 @@ def feedback(): #convoId
         data = get_user_data(userId)
         convoId = 1 #hardcoded
         feedback = get_feedback(userId, convoId)
+        print('inside feedback', feedback)
         return render_template('feedback.html', data = data, feedback=feedback)
 
     # if no session in progress, redirect to home
