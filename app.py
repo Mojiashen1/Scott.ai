@@ -223,10 +223,12 @@ def convo(id):
       # go to feedback page once user submits
       elif request.method == 'POST':
         if request.form['submit']=='submit':
+            print('hi i am here')
             audio_path = ''
             audio_length = 1 # minutes of the new audio
             feedback = create_feedback(userId, audio_path)
             convoId = create_convo(id, userId, audio_path, feedback)
+            print('feedback', feedback, convoId)
 
             increment_point_time(id, audio_length)
 
