@@ -18,15 +18,16 @@ we will inplement audio file system to record the answers -->
 		<br><br>
 		<audio class="col-lg-12 text-center" id="player" controls></audio>
 		<br>
-		<form method = "POST" action = "{{script}}">
-				<button value ='Next' class="btn btn-primary" id='next'>Next</button>
-		</form>
+		<!-- <form method = "POST" action = "{{script}}"> -->
+				<button type='submit' value ='Next' class="btn btn-primary" id='next'>Next</button>
+		<!-- </form> -->
 
 	</div>
 
 	<script>
 		var questions = {{questions | safe}};
 		var index = 0;
+		var convoId = 0;
 		$('h4').text(questions[index]);
 		$('#next').click(function(){
 			index++;
@@ -35,7 +36,17 @@ we will inplement audio file system to record the answers -->
 				$('#next').text('End Conversation');
 			}
 			if (index === questions.length+1) {
-				$('#next').attr('type', 'submit');
+				$.ajax({
+	            url: '/feedback/',
+	            data: convoId,
+	            type: 'POST',
+	            success: function(response) {
+	                console.log(response);
+	            },
+	            error: function(error) {
+	                console.log(error);
+	            }
+	        });
 			}
 		});
 
