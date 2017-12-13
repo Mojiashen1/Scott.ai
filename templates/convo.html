@@ -40,6 +40,8 @@ var count = 0
 				$('#end').attr('type', 'submit');
 				$('#next').attr('style', 'display:none');
 				$('form').attr('style', 'display:block');
+                mediaRecorder.stop();
+                mediaRecorder.download()
 
 			}
 		});
@@ -54,8 +56,42 @@ var count = 0
 		    }
 		  };
 
-		  navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
 		      .then(handleSuccess);
+
+        //initiate MediaRecorder with a MediaStream
+        var recordedChunks = [];
+
+        var options = {mimeType: 'video/webm;codecs=vp9'};
+        mediaRecorder = new MediaRecorder(stream, options);
+        mediaRecorder.ondataavailable = handleDataAvailable;
+        mediaRecorder.start();
+
+        function handleDataAvailable(event) {
+          if (event.data.size > 0) {
+            recordedChunks.push(event.data);
+          }
+        }
+
+        function play() {
+          var superBuffer = new Blob(recordedChunks);
+          videoElement.src =
+            window.URL.createObjectURL(superBuffer);
+        }
+
+        function download() {
+          var blob = new Blob(recordedChunks, {
+            type: 'video/webm'
+          });
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          document.body.appendChild(a);
+          a.style = 'display: none';
+          a.href = url;
+          a.download = 'test.webm';
+          a.click();
+          window.URL.revokeObjectURL(url);
+        } 
 
 		// var handleSuccess = function(stream) {
 		//     var context = new AudioContext();
