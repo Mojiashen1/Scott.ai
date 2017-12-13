@@ -205,6 +205,7 @@ def convo(id):
 
   # check if session in progress (user logged in)
   if 'userId' in session:
+      userId = session['userId']
       if request.method == 'GET':
         #pull questions from database by type
         all_questions = get_questions(id)
