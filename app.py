@@ -258,14 +258,14 @@ def feedback(convoId):
 def progress():
     if 'userId' in session:
         userId = session['userId']
-        points = get_points(userId)
+        points = get_user_data(userId)
         data = get_convos(userId)
 
         # if request.method == 'POST':
             # convoId = request.form['convoId']
             # delete_audio(userId, convoId)
 
-        return render_template('progress.html', points=points, data=data)
+        return render_template('progress.html', points=points['points'], data=data)
 
 
 if __name__ == '__main__':
