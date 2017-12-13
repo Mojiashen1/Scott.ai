@@ -37,12 +37,11 @@ we will inplement audio file system to record the answers -->
 			}
 			if (index === questions.length+1) {
 				$.ajax({
-	            url: '/feedback/'+convoId,
+	            url: '/feedback/',
 	            data: convoId,
 	            type: 'POST',
 	            success: function(response) {
 	                console.log(response);
-									console.log('not working')
 	            },
 	            error: function(error) {
 	                console.log(error);
