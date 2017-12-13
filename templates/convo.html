@@ -16,9 +16,9 @@ we will inplement audio file system to record the answers -->
 			  </div>
 			</div>
 		<br><br>
-		<div>
-				<input type="submit" value ='Next' class="btn btn-primary" id='next'>
-		</div>
+		<form method = "POST" action = "{{script}}">
+				<button value ='Next' class="btn btn-primary" id='next'></button>
+		</form>
 
 	</div>
 
@@ -30,8 +30,7 @@ we will inplement audio file system to record the answers -->
 			index++;
 			$('h4').text(questions[index]);
 			if (index === questions.length) {
-				$('#next').val('End Conversation');
-				window.location.href='./feedback/';
+				$('#next').val('End Conversation').attr('type', 'submit');
 			}
 		});
 	</script>
