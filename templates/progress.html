@@ -31,10 +31,10 @@
   <tbody>
     {% for i in range(data | length) %}
     <tr>
-      <th scope="row">i</th>
-      <td>data[i]['categoryType']</td>
-      <td>data[i]['audio']</td>
-      <td>data[i]['feedback']</td>
+      <th scope="row">{{i}}</th>
+      <td>{{data[i]['categoryType']}}</td>
+      <td>{{data[i]['audio']}}</td>
+      <td>{{data[i]['feedback']}}</td>
     </tr>
     {% endfor %}
   </tbody>
