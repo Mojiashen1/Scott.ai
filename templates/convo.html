@@ -37,16 +37,16 @@ we will inplement audio file system to record the answers -->
 
 		var player = document.getElementById('player');
 
-		var handleSuccess = function(stream) {
-			if (window.URL) {
-				player.src = window.URL.createObjectURL(stream);
-			} else {
-				player.src = stream;
-			}
-		};
-
-		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-				.then(handleSuccess);
+		// var handleSuccess = function(stream) {
+		// 	if (window.URL) {
+		// 		player.src = window.URL.createObjectURL(stream);
+		// 	} else {
+		// 		player.src = stream;
+		// 	}
+		// };
+		//
+		// navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+		// 		.then(handleSuccess);
 
 		var handleSuccess = function(stream) {
 		    var context = new AudioContext();
@@ -58,12 +58,12 @@ we will inplement audio file system to record the answers -->
 
 		    processor.onaudioprocess = function(e) {
 		      // Do something with the data, i.e Convert this to WAV
-		      console.log(e);
+		      console.log(e.inputBuffer);
 		    };
 		  };
 
-		  // navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-		  //     .then(handleSuccess);
+		  navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+		      .then(handleSuccess);
 	</script>
 
 {% endblock %}
