@@ -205,6 +205,7 @@ def convo(id):
 
   # check if session in progress (user logged in)
   if 'userId' in session:
+      userId = session['userId']
       if request.method == 'GET':
         #pull questions from database by type
         all_questions = get_questions(id)
@@ -218,17 +219,14 @@ def convo(id):
         # render template and fill with questions pulled from database
         convoId = 0
 
-        return render_template('convo.html', questions = questions, script=(url_for('feedback', convoId=convoId)))
+        return render_template('convo.html', questions = questions, script=(url_for('convo', id=id)))
 
       # go to feedback page once user submits
       elif request.method == 'POST':
-        if request.form['submit']=='submit':
-            print('hi i am here')
             audio_path = ''
             audio_length = 1 # minutes of the new audio
             feedback = create_feedback(userId, audio_path)
             convoId = create_convo(id, userId, audio_path, feedback)
-            print('feedback', feedback, convoId)
 
             increment_point_time(id, audio_length)
 
@@ -244,8 +242,8 @@ feedback page, whih displays their total time spent thus far and
 number of points earned. From this page, the user can log out, or return
 to the homepage, or (in the future) go back to the topics page. Again,
 this page can only be accessed if a session is in progress.'''
-@app.route('/feedback/', methods =['POST', 'GET']) #<convoId>
-def feedback(): #convoId
+@app.route('/feedback/<convoId>', methods =['POST', 'GET'])
+def feedback(convoId):
     # if a session is in progress
     if 'userId' in session:
         userId = session['userId']
@@ -253,6 +251,7 @@ def feedback(): #convoId
         data = get_user_data(userId)
         convoId = 1 #hardcoded
         feedback = get_feedback(userId, convoId)
+        print('inside feedback', feedback)
         return render_template('feedback.html', data = data, feedback=feedback)
 
     # if no session in progress, redirect to home
@@ -266,11 +265,12 @@ def progress():
         points = get_user_data(userId)
         data = get_convos(userId)
 
-        # if request.method == 'POST':
-            # convoId = request.form['convoId']
+        if request.method == 'POST':
+            convoId = request.form['convoId']
+            print('here!!!', convoId)
             # delete_audio(userId, convoId)
 
-        return render_template('progress.html', points=points['points'], data=data)
+        return render_template('progress.html', points=points['points'], data=data, script=url_for('progress'))
 
 
 if __name__ == '__main__':
