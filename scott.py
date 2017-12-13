@@ -8,7 +8,7 @@ import sys
 import MySQLdb
 import dbconn2
 from flask import flash, json
-import bcrypt
+import bcrypt, random
 
 # Connects to the db
 def getConn():
