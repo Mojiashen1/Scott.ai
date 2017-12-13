@@ -135,12 +135,20 @@ def get_profile(userId):
 def get_feedback(id):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute("select * from profile where userId = %s", [id])
+    curs.execute("select timeActive, points from profile where userId = %s", [id])
     existing_profile = curs.fetchone()
     #pull data from convos table
     #maybe, amount of time recorded on audio
     #append that data to results
     return existing_profile
+
+def calculate_score():
+    scores = ['GREAT WORK! You can start to challenge yourself more on the diversity of your vocabulary.',
+    'GOOD IMPROVEMENT ON THE ACCENT, WAY TO GO',
+    'GREAT! Try to pay more attention to your past tenses.',
+    'THANKS FOR CHATTING WITH ME! I love chatting with you.',
+    'You are sounding like a native now']
+    return scores[random.randint(0,1)*scores.length]
 
 # get a list of questions to ask the user based on the category of questions selected
 # @ params: category type

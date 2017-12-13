@@ -246,8 +246,9 @@ def feedback():
     if 'userId' in session:
         userId = session['userId']
         # pull user profile using userId (in progress)
-        result = get_feedback(userId)
-        return render_template('feedback.html', feedback = result)
+        data = get_feedback(userId)
+        feedback = calculate_score()
+        return render_template('feedback.html', data = data, feedback=feedback)
 
     # if no session in progress, redirect to home
     else:
