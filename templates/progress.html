@@ -31,10 +31,16 @@
   <tbody>
     {% for i in range(data | length) %}
     <tr>
-      <th scope="row">{{i}}</th>
+      <th scope="row">{{i+1}}</th>
       <td>{{data[i]['categoryType']}}</td>
       <td>{{data[i]['audio']}}</td>
       <td>{{data[i]['feedback']}}</td>
+      <td>
+        <form method = "POST" action = "{{script}}">
+          <input type='text' name='categoryId' style='display:none'>{{data[i]['categoryId']}}</input>
+          <button type='submit' class="btn btn-primary">Delete</button>
+        </form>
+      </td>
     </tr>
     {% endfor %}
   </tbody>
