@@ -54,18 +54,19 @@ var count = 0
 		    } else {
 		      player.src = stream;
 		    }
+
+            //initiate MediaRecorder with a MediaStream
+            var recordedChunks = [];
+
+            var options = {mimeType: 'video/webm;codecs=vp9'};
+            mediaRecorder = new MediaRecorder(stream, options);
+            mediaRecorder.ondataavailable = handleDataAvailable;
+            mediaRecorder.start();
 		  };
 
 		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
 		      .then(handleSuccess);
 
-        //initiate MediaRecorder with a MediaStream
-        var recordedChunks = [];
-
-        var options = {mimeType: 'video/webm;codecs=vp9'};
-        mediaRecorder = new MediaRecorder(stream, options);
-        mediaRecorder.ondataavailable = handleDataAvailable;
-        mediaRecorder.start();
 
         function handleDataAvailable(event) {
           if (event.data.size > 0) {
