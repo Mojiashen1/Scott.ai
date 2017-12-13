@@ -36,7 +36,8 @@ var count = 0
 			index++;
 			$('h4').text(questions[index]);
 			if (index === questions.length) {
-				$('form').attr('style', 'display:block')
+				$('form').attr('style', 'display:block');
+				$('$next').attr('style', 'display:none');
 				// $('#end').attr('type', 'submit');
 				// $('#next').text('End Conversation')
 				// $('a').attr('href', '/feedback');
