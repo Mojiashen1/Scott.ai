@@ -222,7 +222,7 @@ def convo(id):
 
       # go to feedback page once user submits
       elif request.method == 'POST':
-        if request.form['submit']=='submit':
+        # if request.form['submit']=='submit':
             print('hi i am here')
             audio_path = ''
             audio_length = 1 # minutes of the new audio
