@@ -216,7 +216,9 @@ def convo(id):
         # store audio filepath and timestamps in appropriate table (convos)
 
         # render template and fill with questions pulled from database
-        return render_template('convo.html', questions = questions) #, script=(url_for("feedback")
+        convoId = 0
+
+        return render_template('convo.html', questions = questions, script=(url_for('feedback', convoId=convoId)))
 
       # go to feedback page once user submits
       elif request.method == 'POST':
