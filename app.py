@@ -228,7 +228,7 @@ def convo(id):
 
             increment_point_time(id, audio_length)
 
-          return redirect(url_for('feedback', convoId=convoId))
+            return redirect(url_for('feedback', convoId=convoId))
 
   # redirect to home page if user not logged in
   else:
