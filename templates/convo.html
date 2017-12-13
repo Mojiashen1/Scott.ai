@@ -38,17 +38,18 @@ we will inplement audio file system to record the answers -->
 		var player = document.getElementById('player');
 
 		// var handleSuccess = function(stream) {
-		// 	if (window.URL) {
-		// 		player.src = window.URL.createObjectURL(stream);
-		// 	} else {
-		// 		player.src = stream;
-		// 	}
+		//
 		// };
 		//
 		// navigator.mediaDevices.getUserMedia({ audio: true, video: false })
 		// 		.then(handleSuccess);
 
 		var handleSuccess = function(stream) {
+				if (window.URL) {
+					player.src = window.URL.createObjectURL(stream);
+				} else {
+					player.src = stream;
+				}
 		    var context = new AudioContext();
 		    var source = context.createMediaStreamSource(stream);
 		    var processor = context.createScriptProcessor(1024, 1, 1);
