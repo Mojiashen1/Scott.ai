@@ -269,11 +269,12 @@ def progress():
         data = get_convos(userId)
 
         if request.method == 'POST':
+            print('yessss')
             convoId = request.form['convoId']
             print('here!!!', convoId)
             # delete_audio(userId, convoId)
 
-        return render_template('progress.html', points=points['points'], data=data, script=(url_for('progress')))
+        return render_template('progress.html', points=points['points'], data=data, script=url_for('progress'))
 
 
 if __name__ == '__main__':
