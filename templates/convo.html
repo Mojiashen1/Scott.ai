@@ -21,8 +21,8 @@ var count = 0
 		<audio class="text-center" id="player" controls></audio>
 		<br>
 		<button type='submit' value ='Next' class="btn btn-primary" id='next'>Next</button>
-		<form method = "POST" action = "{{script}}">
-				<button type='hidden' value ='Next' class="btn btn-primary" id='end'>End Conversation</button>
+		<form method = "POST" action = "{{script}}" style='display:hidden'>
+				<button type='submit' value ='Next' class="btn btn-primary" id='end'>End Conversation</button>
 		</form>
 
 	</div>
@@ -36,7 +36,8 @@ var count = 0
 			index++;
 			$('h4').text(questions[index]);
 			if (index === questions.length) {
-				$('#end').attr('type', 'submit');
+				$('form').attr('style', 'display:block')
+				// $('#end').attr('type', 'submit');
 				// $('#next').text('End Conversation')
 				// $('a').attr('href', '/feedback');
 			}
