@@ -205,9 +205,7 @@ def convo(id):
 
   # check if session in progress (user logged in)
   if 'userId' in session:
-
       if request.method == 'GET':
-
         #pull questions from database by type
         all_questions = get_questions(id)
         questions = json.dumps(all_questions)
@@ -216,19 +214,23 @@ def convo(id):
         # start recording audio file once conversation is entered
         # show a timer for the duration of each conversation question
         # store audio filepath and timestamps in appropriate table (convos)
-        # increment a user's points and time spent as appropriate
-
-        # time_spent is the # minutes of the new audio
-        time_spent = 1
-        increment_point_time(id, time_spent)
 
         # render template and fill with questions pulled from database
-        return render_template('convo.html', questions = questions, script=(url_for("feedback")))
+        convoId = 0
+
+        return render_template('convo.html', questions = questions, script=(url_for('feedback', convoId=convoId)))
 
       # go to feedback page once user submits
       elif request.method == 'POST':
         if request.form['submit']=='submit':
-          return redirect(url_for('feedback'))
+            audio_path = ''
+            audio_length = 1 # minutes of the new audio
+            feedback = create_feedback(userId, audio_path)
+            convoId = create_convo(id, userId, audio_path, feedback)
+
+            increment_point_time(id, audio_length)
+
+            return redirect(url_for('feedback', convoId=convoId))
 
   # redirect to home page if user not logged in
   else:
@@ -240,15 +242,16 @@ feedback page, whih displays their total time spent thus far and
 number of points earned. From this page, the user can log out, or return
 to the homepage, or (in the future) go back to the topics page. Again,
 this page can only be accessed if a session is in progress.'''
-@app.route('/feedback/', methods =['POST', 'GET'])
-def feedback():
+@app.route('/feedback/', methods =['POST', 'GET']) #<convoId>
+def feedback(): #convoId
     # if a session is in progress
     if 'userId' in session:
         userId = session['userId']
-        if request.method == 'POST':
-            # pull user profile using userId (in progress)
-            result = get_feedback(userId)
-            return render_template('feedback.html', feedback = result)
+        # pull user profile using userId (in progress)
+        data = get_user_data(userId)
+        convoId = 1 #hardcoded
+        feedback = get_feedback(userId, convoId)
+        return render_template('feedback.html', data = data, feedback=feedback)
 
     # if no session in progress, redirect to home
     else:
@@ -256,16 +259,16 @@ def feedback():
 
 @app.route('/progress/', methods =['POST', 'GET'])
 def progress():
-    # if 'userId' in session:
-    #     userId = session['userId']
-    #     points = get_points(userId)
-    #     data = get_convos(userId)
-    #
-    #     if request.method == 'POST':
-    #         convoId = request.form['convoId']
-    #         delete_audio(userId, convoId)
+    if 'userId' in session:
+        userId = session['userId']
+        points = get_user_data(userId)
+        data = get_convos(userId)
 
-    return render_template('progress.html', points=points)
+        # if request.method == 'POST':
+            # convoId = request.form['convoId']
+            # delete_audio(userId, convoId)
+
+        return render_template('progress.html', points=points['points'], data=data)
 
 
 if __name__ == '__main__':
@@ -275,4 +278,4 @@ if __name__ == '__main__':
   app.debug = True
   # Flask will print the port anyhow, but let's do so too
   print('Running on port '+str(port))
-  app.run('0.0.0.0',port)
+  app.run('0.0.0.0',port, ssl_context='adhoc')

@@ -12,93 +12,65 @@ we will inplement audio file system to record the answers -->
 	<div class='container' id='convo'>
 			<div class="row">
 			  <div class="col-lg-12 text-center">
-			    <h4 class="section-heading text-uppercase"></h4>
+			    <h4 class="section-heading"></h4>
 			  </div>
 			</div>
 		<br><br>
-		<div>
-				<input type="submit" value ='Next' class="btn btn-primary" id='next'>
-		</div>
+		<audio class="col-lg-12 text-center" id="player" controls></audio>
+		<br>
+		<!-- <form method = "POST" action = "{{script}}"> -->
+				<a><button type='submit' value ='Next' class="btn btn-primary" id='next'>Next</button></a>
+		<!-- </form> -->
 
 	</div>
 
 	<script>
 		var questions = {{questions | safe}};
-		console.log('in html, quetions', questions)
 		var index = 0;
+		var convoId = 0;
 		$('h4').text(questions[index]);
 		$('#next').click(function(){
 			index++;
 			$('h4').text(questions[index]);
 			if (index === questions.length) {
-				$('#next').val('End Conversation');
-				window.location.href='/feedback/';
+				$('#next').text('End Conversation')
+				$('a').attr('href', '/feedback');
 			}
 		});
+
+		var player = document.getElementById('player');
+
+		var handleSuccess = function(stream) {
+		    if (window.URL) {
+		      player.src = window.URL.createObjectURL(stream);
+		    } else {
+		      player.src = stream;
+		    }
+		  };
+
+		  navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+		      .then(handleSuccess);
+
+		// var handleSuccess = function(stream) {
+		//     var context = new AudioContext();
+		//     var source = context.createMediaStreamSource(stream);
+		//     var processor = context.createScriptProcessor(1024, 1, 1);
+		//
+		//     source.connect(processor);
+		//     processor.connect(context.destination);
+		//
+		//     processor.onaudioprocess = function(e) {
+		//       // Do something with the data, i.e Convert this to WAV
+		//       // console.log(e.inputBuffer);
+		// 			stream = new mediaStream();
+		// 			track = stream.getAudioTracks()
+		// 			console.log(track)
+		//     };
+		//   };
+		//
+		//   navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+		//       .then(handleSuccess);
+
 	</script>
 
-
-<!-- {% for question in all_questions %} -->
-<!-- {% if all_questions.index(question)==(all_questions|length-1) %}
-
-{% else %}
-	<input type="submit" value = 'Submit' class="btn btn-primary">
-{% endif %} -->
-<!-- {% endfor %} -->
-
-<!-- <head> -->
-	<!-- <link rel="stylesheet" href="../static/stylesheets/convos.css" type="text/css" media="screen"/>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	<script type="text/javascript" src="../static/js/sliding.form.js"></script>
-</head>
-
-<body>
-	<div id="content">
-		<div id="wrapper">
-			<div id="steps">
-				<form id="formElem" name="formElem" action="{{script}}" method="POST">
-
-					<fieldset class="step">
-						<legend> Please click the questions below to begin the conversation. </legend>
-					</fieldset>
-
-					<!-- Display all questions in large text box -->
-					<!-- {% for question in all_questions %}
-					<fieldset class="step">
-						<legend>{{question['questionText']}}</legend> <!-- extract question title from input-->
-						<!-- <p>
-							<input type = "text" id="{{question['questionId']}}" name="{{question['questionId']}}" />
-						</p>
-					</fieldset>
-					{% endfor %}
-
-					<fieldset class="step">
-						<p class="submit">
-							<button type="submit" id="submit">End Conversation</button>
-						</p>
-					</fieldset>
-
-				</form>
-			</div>
-			<div id="navigation" style="display:none;">
-				<ul>
-					<li class="selected">
-
-						<!-- Add navigation buttons for all questions in UI -->
-						<!-- {% for question in all_questions %}
-						<li>
-							<a href="#">Question #{{loop.index}}</a>
-						</li>
-						{% endfor %}
-
-						<li>
-							<a href="#">Submit</a>
-						</li>
-					</li>
-
-				</ul>
-			</div>
-		</div>
-	</div>
-</body> -->
 {% endblock %}

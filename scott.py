@@ -8,7 +8,7 @@ import sys
 import MySQLdb
 import dbconn2
 from flask import flash, json
-import bcrypt
+import bcrypt, random
 
 # Connects to the db
 def getConn():
@@ -132,15 +132,35 @@ def get_profile(userId):
 # !!! this is not implemented yet !!!
 # get user infortion to give feedback. We are still deciding what to output from here
 # @ params: userId
-def get_feedback(id):
+def get_user_data(id):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute("select * from profile where userId = %s", [id])
+    curs.execute("select timeActive, points from profile where userId = %s", [id])
     existing_profile = curs.fetchone()
-    #pull data from convos table
-    #maybe, amount of time recorded on audio
-    #append that data to results
     return existing_profile
+
+def create_convo(categoryId, userId, audio_path, feedback):
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    sql = "insert into convos (categoryId, userId, audio, feedback) VALUES (%s, %s, %s, %s)"
+    data = (categoryId, userId, audio_path, feedback)
+    curs.execute(sql, data)
+    curs.execute('select convoId from convos where categoryId=%s and userId=%s', (categoryId, userId))
+    return curs.fetchone()
+
+def create_feedback(userId, audio_path):
+    scores = ['GREAT WORK! You can start to challenge yourself more on the diversity of your vocabulary.',
+    'GOOD IMPROVEMENT ON THE ACCENT, WAY TO GO',
+    'GREAT! Try to pay more attention to your past tenses.',
+    'THANKS FOR CHATTING WITH ME! I love chatting with you.',
+    'You are sounding like a native now!']
+    return scores[random.randint(0,len(scores)-1)]
+
+def get_feedback(userId, convoId):
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute("select feedback from convos where userId = %s and convoId = %s", (userId, convoId))
+    return curs.fetchall()
 
 # get a list of questions to ask the user based on the category of questions selected
 # @ params: category type
@@ -154,7 +174,6 @@ def get_questions(type):
     #take out the questionText from objects into an array to return
     for question in results:
         all_questions.append(question['questionText'])
-    print('in scott', all_questions)
     return all_questions
 
 # helper function to get all the options to display the form field years learned english
@@ -189,18 +208,13 @@ def increment_point_time(userId, time_spent):
         return 1 #update successful
     return 0 #update failed
 
-def get_points(userId):
-    conn = getConn()
-    curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute("select points from profile where userId = %s", [userId])
-    result = curs.fetchone()
-    return result['points']
-
 def get_convos(userId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute("select categoryId, audio, feedback from profile where userId = %s", [userId])
+    curs.execute('''select categoryType, audio, feedback from convos inner join category using
+    (categoryId) where userId = %s''', [userId])
     result = curs.fetchall()
+
     return result
 
 def get_audio():
