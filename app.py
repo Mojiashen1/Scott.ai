@@ -245,10 +245,9 @@ def feedback():
     # if a session is in progress
     if 'userId' in session:
         userId = session['userId']
-        if request.method == 'POST':
-            # pull user profile using userId (in progress)
-            result = get_feedback(userId)
-            return render_template('feedback.html', feedback = result)
+        # pull user profile using userId (in progress)
+        result = get_feedback(userId)
+        return render_template('feedback.html', feedback = result)
 
     # if no session in progress, redirect to home
     else:
