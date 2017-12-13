@@ -275,4 +275,4 @@ if __name__ == '__main__':
   app.debug = True
   # Flask will print the port anyhow, but let's do so too
   print('Running on port '+str(port))
-  app.run('0.0.0.0',port)
+  app.run('0.0.0.0',port, ssl_context='adhoc')
