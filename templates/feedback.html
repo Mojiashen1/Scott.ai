@@ -10,10 +10,13 @@
 {% block content %}
 
 <div class='container' id='survey' >
-
-  <h2> Congrats! You're done! </h2>
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <h2 class="section-heading text-uppercase">Congrats! You're done!</h2>
+    </div>
+  </div>
   <br>
-  <h5> Feedback: <b>{{feedback}}</b></h5>
+  <h5> Feedback: <em>{{feedback['feedback']}}</em></h5>
 
   <br>
   <h5> Here's how you're doing so far: </h5>
