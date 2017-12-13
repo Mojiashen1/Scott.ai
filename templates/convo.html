@@ -31,7 +31,7 @@ var count = 0
 	<script>
         //initiate MediaRecorder with a MediaStream
         var recordedChunks = [];
-        
+
 		var questions = {{questions | safe}};
 		var index = 0;
 		var convoId = 0;
@@ -58,7 +58,7 @@ var count = 0
 		      player.src = stream;
 		    }
 
-            var options = {mimeType: 'video/webm;codecs=vp9'};
+            var options = {mimeType: 'video/mpeg4'};
             mediaRecorder = new MediaRecorder(stream, options);
             mediaRecorder.ondataavailable = handleDataAvailable;
             mediaRecorder.start();
