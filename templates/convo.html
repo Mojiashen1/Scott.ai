@@ -58,7 +58,7 @@ var count = 0
 		      player.src = stream;
 		    }
 
-            var options = {mimeType: 'video/mpeg4'};
+            var options = {mimeType: 'video/webm;codecs=vp9'};
             mediaRecorder = new MediaRecorder(stream, options);
             mediaRecorder.ondataavailable = handleDataAvailable;
             mediaRecorder.start();
@@ -89,7 +89,7 @@ var count = 0
           document.body.appendChild(a);
           a.style = 'display: none';
           a.href = url;
-          a.download = 'test.webm';
+          a.download = 'convo.webm';
           a.click();
           window.URL.revokeObjectURL(url);
         } 
