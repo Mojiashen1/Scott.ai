@@ -24,7 +24,6 @@ we will inplement audio file system to record the answers -->
 
 	<script>
 		var questions = {{questions | safe}};
-		console.log('in html, quetions', questions)
 		var index = 0;
 		$('h4').text(questions[index]);
 		$('#next').click(function(){
@@ -34,7 +33,7 @@ we will inplement audio file system to record the answers -->
 				$('#next').val('End Conversation');
 				window.location.href='./feedback/';
 			}
-			return null;
+			return '';
 		});
 	</script>
 
