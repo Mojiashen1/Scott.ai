@@ -148,7 +148,7 @@ def calculate_score():
     'GREAT! Try to pay more attention to your past tenses.',
     'THANKS FOR CHATTING WITH ME! I love chatting with you.',
     'You are sounding like a native now']
-    return scores[random.randint(0,1)*scores.length]
+    return scores[random.randint(0,1)*len(scores)]
 
 # get a list of questions to ask the user based on the category of questions selected
 # @ params: category type
