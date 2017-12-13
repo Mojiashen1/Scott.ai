@@ -37,13 +37,6 @@ we will inplement audio file system to record the answers -->
 
 		var player = document.getElementById('player');
 
-		// var handleSuccess = function(stream) {
-		//
-		// };
-		//
-		// navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-		// 		.then(handleSuccess);
-
 		var handleSuccess = function(stream) {
 				if (window.URL) {
 					player.src = window.URL.createObjectURL(stream);
@@ -65,6 +58,9 @@ we will inplement audio file system to record the answers -->
 
 		  navigator.mediaDevices.getUserMedia({ audio: true, video: false })
 		      .then(handleSuccess);
+			stream = new mediaStream();
+			track = stream.getAudioTracks()
+			console.log(track)
 	</script>
 
 {% endblock %}
