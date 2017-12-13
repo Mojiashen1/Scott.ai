@@ -32,7 +32,10 @@ we will inplement audio file system to record the answers -->
 			index++;
 			$('h4').text(questions[index]);
 			if (index === questions.length) {
-				$('#next').text('End Conversation').attr('type', 'submit');
+				$('#next').text('End Conversation');
+			}
+			if (index === questions.length+1) {
+				$('#next').attr('type', 'submit');
 			}
 		});
 
