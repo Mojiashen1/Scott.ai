@@ -246,6 +246,7 @@ def feedback(convoId):
     # if a session is in progress
     if 'userId' in session:
         userId = session['userId']
+        print('userId in feedback', userId)
         # pull user profile using userId (in progress)
         data = get_user_data(userId)
         feedback = get_feedback(convoId, userId)

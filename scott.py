@@ -202,7 +202,7 @@ def increment_point_time(userId, time_spent):
         where userId = %s'''
         points = int(int(existing_data['points']) + time_spent*10)
         timeActive = int(int(existing_data['timeActive']) + time_spent)
-        curs.execute(sql, (points, timeActive, userId))
+        curs.execute(sql, (int(points), int(timeActive), userId))
 
         curs.execute("select points, timeActive from profile where userId = %s", [userId])
         existing_data = curs.fetchone()
