@@ -263,8 +263,9 @@ def audiofile():
         print ("request form", request.form)
         # file_val = request.files['blob']
         # print file_val
+        return ''
 
-    return None
+    return ''
 
 @app.route('/progress/', methods =['POST', 'GET'])
 def progress():
