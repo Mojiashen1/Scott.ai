@@ -36,6 +36,10 @@ var count = 0
               recBuffersL = [],
               recBuffersR = [];
 
+        //access raw data from microphone
+        var context = new AudioContext();
+            // var source = context.createMediaStreamSource(stream);
+
         var source = context.createBufferSource();
 
         //populate all questions
@@ -69,9 +73,7 @@ var count = 0
 
             console.log('this is stream', stream)
 
-            //access raw data from microphone
-            var context = new AudioContext();
-            // var source = context.createMediaStreamSource(stream);
+            
 
 
             // create a ScriptProcessorNode
