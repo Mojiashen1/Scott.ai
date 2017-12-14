@@ -129,7 +129,6 @@ def get_profile(userId):
     conn.close()
     return existing_profile
 
-# !!! this is not implemented yet !!!
 # get user infortion to give feedback. We are still deciding what to output from here
 # @ params: userId
 def get_user_data(id):
@@ -214,7 +213,7 @@ def get_convos(convoId):
     curs.execute('''select categoryId, categoryType, audio, feedback from convos inner join category using
     (categoryId) where convoId = %s''', [convoId])
     result = curs.fetchall()
-
+    print result
     return result
 
 def get_audio():
