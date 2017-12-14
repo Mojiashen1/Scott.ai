@@ -265,6 +265,8 @@ def progress():
         points = get_user_data(userId)
         data = get_convos(userId)
 
+        print ("WAHOOO")
+
         if request.method == 'GET':
             if request.form['submit'] == 'delete':
                 print ("WOOHOOOOO")
