@@ -214,7 +214,6 @@ def get_convos(userId):
     curs.execute('''select categoryId, categoryType, audio, feedback from convos inner join category using
     (categoryId) where userId = %s''', [userId])
     result = curs.fetchall()
-
     return result
 
 def get_audio():
