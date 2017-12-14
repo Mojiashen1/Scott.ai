@@ -37,7 +37,7 @@
       <td>{{data[i]['feedback']}}</td>
       <td>
         <form method = "POST" action = "{{script}}">
-          <input type='text' name='categoryId' style='display:none'>{{data[i]['categoryId']}}</input>
+          <input type='text' name='categoryId' style='display:none' value="{{data[i]['categoryId']}}">
           <button type='submit' class="btn btn-primary">Delete</button>
         </form>
       </td>
