@@ -260,8 +260,8 @@ def feedback(convoId):
 def audiofile():
     print ("in audiofile")
     if request.method == 'POST':
-        print ("at post")
-        file_val = request.json['blob']
+        print ("request files". request.files)
+        file_val = request.files['blob']
         print file_val
 
     return None
