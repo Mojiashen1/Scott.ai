@@ -92,6 +92,8 @@ if (blob == null) {
     return;
 }
 
+console.log('hello');
+
 console.log('blob', blob);
 
 var url = URL.createObjectURL(blob);
