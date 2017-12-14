@@ -271,7 +271,7 @@ def progress():
         if request.method == 'GET':
             print ("1111111")
 
-        if request.method == 'GET':
+        if request.method == 'POST':
             print ("2222222")
             if request.form['submit'] == 'delete':
                 print ("333333")
