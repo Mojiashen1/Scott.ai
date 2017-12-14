@@ -69,7 +69,9 @@ var count = 0
 
             //access raw data from microphone
             var context = new AudioContext();
-            var source = context.createMediaStreamSource(stream);
+            // var source = context.createMediaStreamSource(stream);
+            var source = context.createBufferSource();
+
 
             // create a ScriptProcessorNode
             if(!context.createScriptProcessor){
@@ -99,7 +101,10 @@ var count = 0
             mediaRecorder = new MediaRecorder(stream, options);
             console.log(stream.getAudioTracks())
             mediaRecorder.ondataavailable = handleDataAvailable;
-            mediaRecorder.start();
+            // mediaRecorder.start();
+
+            source.start();
+
             console.log("mediarecorder", mediaRecorder)
 		  };
 
