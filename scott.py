@@ -157,10 +157,9 @@ def create_feedback(userId, audio_path):
     return scores[random.randint(0,len(scores)-1)]
 
 def get_feedback(userId, convoId):
-    print ("convo id is ", convoId)
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute("select feedback from convos where convoId = %s", (convoId))
+    curs.execute("select feedback from convos where userId = %s and convoId = %s", (userId, convoId))
     return curs.fetchone()
 
 # get a list of questions to ask the user based on the category of questions selected
@@ -195,7 +194,7 @@ def increment_point_time(userId, time_spent):
     curs.execute("select points, timeActive from profile where userId = %s", [userId])
     existing_data = curs.fetchone()
 
-    # update profile 
+    # update profile
     if existing_data:
         sql = '''update profile
         set points=%s, timeActive=%s
