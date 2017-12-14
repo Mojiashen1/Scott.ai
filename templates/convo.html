@@ -38,7 +38,7 @@ var count = 0
 
         //access raw data from microphone
         var context = new AudioContext();
-            // var source = context.createMediaStreamSource(stream);
+        // var source = context.createMediaStreamSource(stream);
 
         var source = context.createBufferSource();
 
@@ -90,8 +90,8 @@ var count = 0
             // listen to the audio data, and record into the buffer
             node.onaudioprocess = function(e){
                 // console.log(e.inputBuffer);
-                // recordedChunks.push(e.data); //not working? 
-                console.log('e', e);
+                recordedChunks.push(e.inputBuffer.getChanneldata(0)); //not working? 
+                //console.log('e', e);
                 // console.log("e.data", e.inputBuffer.getChannelData());
                 recBuffersL.push(e.inputBuffer.getChannelData(0));
                 recBuffersR.push(e.inputBuffer.getChannelData(1));
