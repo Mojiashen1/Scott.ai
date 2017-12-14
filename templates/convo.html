@@ -125,7 +125,7 @@ var count = 0
 		$('#player').click(function(e) {
             navigator.mediaDevices.getUserMedia({ audio: true, video: false })
 		      .then(handleSuccess);
-          };
+          });
 
 
         function handleDataAvailable(event) {
