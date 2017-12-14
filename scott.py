@@ -160,7 +160,7 @@ def get_feedback(convoId, userId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute("select feedback from convos where convoId = %s and userId = %s", (convoId, userId))
-    return curs.fetchone()
+    return curs.all()
 
 # get a list of questions to ask the user based on the category of questions selected
 # @ params: category type
