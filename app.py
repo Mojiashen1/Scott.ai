@@ -265,19 +265,20 @@ def progress():
         points = get_user_data(userId)
         data = get_convos(userId)
 
-        if request.form['submit'] == 'delete':
-            print ("WOOHOOOOO")
-            print (userId)
-            print (convoId)
-            delete_audio(userId) #delete using convo primary key
-    
-            #re render template
-            points = get_user_data(userId)
-            data = get_convos(userId)
+        if request.method == 'POST':
+            if request.form['submit'] == 'delete':
+                print ("WOOHOOOOO")
+                print (userId)
+                print (convoId)
+                delete_audio(userId) #delete using convo primary key
+        
+                #re render template
+                points = get_user_data(userId)
+                data = get_convos(userId)
 
-            return render_template('progress.html', 
-              points=points['points'], 
-              data=data, script=url_for('progress'))
+                return render_template('progress.html', 
+                  points=points['points'], 
+                  data=data, script=url_for('progress'))
 
 
         # if request.method == 'POST':
