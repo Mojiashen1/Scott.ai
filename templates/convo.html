@@ -36,6 +36,8 @@ var count = 0
               recBuffersL = [],
               recBuffersR = [];
 
+        var source = context.createBufferSource();
+
         //populate all questions
 		var questions = {{questions | safe}};
 		var index = 0;
@@ -48,7 +50,7 @@ var count = 0
 				$('#end').attr('type', 'submit');
 				$('#next').attr('style', 'display:none');
 				$('form').attr('style', 'display:block');
-                mediaRecorder.stop();
+                source.stop();
                 download()
 
 			}
@@ -70,7 +72,6 @@ var count = 0
             //access raw data from microphone
             var context = new AudioContext();
             // var source = context.createMediaStreamSource(stream);
-            var source = context.createBufferSource();
 
 
             // create a ScriptProcessorNode
