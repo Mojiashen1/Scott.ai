@@ -92,7 +92,9 @@ var count = 0
                 //console.log('e', e);
                 // console.log("e.data", e.inputBuffer.getChannelData());
                 recBuffersL.push(e.inputBuffer.getChannelData(0));
-                recBuffersR.push(e.inputBuffer.getChannelData(1));
+                // recBuffersR.push(e.inputBuffer.getChannelData(1));
+                recordedChunks.push(e.inputBuffer.getChannelData(1));
+                
 
                 // console.log
                 recLength += e.inputBuffer.getChannelData(0).length;
