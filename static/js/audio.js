@@ -1,3 +1,4 @@
+        console.log("start");
         var startRecordingButton = document.getElementById("startRecordingButton");
         var stopRecordingButton = document.getElementById("end");
         var leftchannel = [];
@@ -47,64 +48,65 @@ function (e) {
     console.error(e);
 });
     });
-        stopRecordingButton.addEventListener("click", function () {
-// stop recording
-recorder.disconnect(context.destination);
-mediaStream.disconnect(recorder);
-// we flat the left and right channels down
-// Float32Array[] => Float32Array
-var leftBuffer = flattenArray(leftchannel, recordingLength);
-var rightBuffer = flattenArray(rightchannel, recordingLength);
-// we interleave both channels together
-// [left[0],right[0],left[1],right[1],...]
-var interleaved = interleave(leftBuffer, rightBuffer);
-// we create our wav file
-var buffer = new ArrayBuffer(44 + interleaved.length * 2);
-var view = new DataView(buffer);
-// RIFF chunk descriptor
-writeUTFBytes(view, 0, 'RIFF');
-view.setUint32(4, 44 + interleaved.length * 2, true);
-writeUTFBytes(view, 8, 'WAVE');
-// FMT sub-chunk
-writeUTFBytes(view, 12, 'fmt ');
-view.setUint32(16, 16, true); // chunkSize
-view.setUint16(20, 1, true); // wFormatTag
-view.setUint16(22, 2, true); // wChannels: stereo (2 channels)
-view.setUint32(24, sampleRate, true); // dwSamplesPerSec
-view.setUint32(28, sampleRate * 4, true); // dwAvgBytesPerSec
-view.setUint16(32, 4, true); // wBlockAlign
-view.setUint16(34, 16, true); // wBitsPerSample
-// data sub-chunk
-writeUTFBytes(view, 36, 'data');
-view.setUint32(40, interleaved.length * 2, true);
-// write the PCM samples
-var index = 44;
-var volume = 1;
-for (var i = 0; i < interleaved.length; i++) {
-    view.setInt16(index, interleaved[i] * (0x7FFF * volume), true);
-    index += 2;
-}
-// our final blob
-blob = new Blob([view], { type: 'audio/wav' });
+        
+stopRecordingButton.addEventListener("click", function () {
+    // stop recording
+    recorder.disconnect(context.destination);
+    mediaStream.disconnect(recorder);
+    // we flat the left and right channels down
+    // Float32Array[] => Float32Array
+    var leftBuffer = flattenArray(leftchannel, recordingLength);
+    var rightBuffer = flattenArray(rightchannel, recordingLength);
+    // we interleave both channels together
+    // [left[0],right[0],left[1],right[1],...]
+    var interleaved = interleave(leftBuffer, rightBuffer);
+    // we create our wav file
+    var buffer = new ArrayBuffer(44 + interleaved.length * 2);
+    var view = new DataView(buffer);
+    // RIFF chunk descriptor
+    writeUTFBytes(view, 0, 'RIFF');
+    view.setUint32(4, 44 + interleaved.length * 2, true);
+    writeUTFBytes(view, 8, 'WAVE');
+    // FMT sub-chunk
+    writeUTFBytes(view, 12, 'fmt ');
+    view.setUint32(16, 16, true); // chunkSize
+    view.setUint16(20, 1, true); // wFormatTag
+    view.setUint16(22, 2, true); // wChannels: stereo (2 channels)
+    view.setUint32(24, sampleRate, true); // dwSamplesPerSec
+    view.setUint32(28, sampleRate * 4, true); // dwAvgBytesPerSec
+    view.setUint16(32, 4, true); // wBlockAlign
+    view.setUint16(34, 16, true); // wBitsPerSample
+    // data sub-chunk
+    writeUTFBytes(view, 36, 'data');
+    view.setUint32(40, interleaved.length * 2, true);
+    // write the PCM samples
+    var index = 44;
+    var volume = 1;
+    for (var i = 0; i < interleaved.length; i++) {
+        view.setInt16(index, interleaved[i] * (0x7FFF * volume), true);
+        index += 2;
+    }
+    // our final blob
+    blob = new Blob([view], { type: 'audio/wav' });
 
-//add functionality of download to end of stop button
-if (blob == null) {
-    return;
-}
+    //add functionality of download to end of stop button
+    if (blob == null) {
+        return;
+    }
 
-console.log('hello');
+    console.log('hello');
 
-console.log('blob', blob);
+    console.log('blob', blob);
 
-var url = URL.createObjectURL(blob);
-var a = document.createElement("a");
-document.body.appendChild(a);
-a.style = "display: none";
-a.href = url;
-console.log('a',a);
-a.download = "convo.wav";
-a.click();
-window.URL.revokeObjectURL(url);
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style = "display: none";
+    a.href = url;
+    console.log('a',a);
+    a.download = "convo.wav";
+    a.click();
+    window.URL.revokeObjectURL(url);
 
 });
 
