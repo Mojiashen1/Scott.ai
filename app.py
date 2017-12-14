@@ -227,7 +227,7 @@ def convo(id):
             audio_length = 1 # minutes of the new audio
             feedback = create_feedback(userId, audio_path)
             convoId = create_convo(id, userId, audio_path, feedback)
-            increment_point_time(id, audio_length)
+            increment_point_time(userId, audio_length)
 
             return redirect(url_for('feedback', convoId=convoId['convoId']))
 
