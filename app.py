@@ -265,6 +265,7 @@ def progress():
         userId = session['userId']
         points = get_user_data(userId)
         data = get_convos(userId)
+        print (userId)
         print (points)
         print (data)
 
