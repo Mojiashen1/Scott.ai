@@ -157,6 +157,7 @@ def create_feedback(userId, audio_path):
     return scores[random.randint(0,len(scores)-1)]
 
 def get_feedback(userId, convoId):
+    print ("convo id is ", convoId)
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute("select feedback from convos where convoId = %s", (convoId))
