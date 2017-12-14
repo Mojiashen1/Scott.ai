@@ -263,7 +263,7 @@ def audiofile():
     print ("in audiofile")
     if request.method == 'POST': 
         print ("at post")
-        file_val = request.files['file']
+        file_val = request.json['blob']
         print file_val
 
     return None
