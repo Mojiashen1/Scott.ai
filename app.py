@@ -250,7 +250,7 @@ def feedback(convoId):
         # pull user profile using userId (in progress)
         data = get_user_data(userId)
         convoId = 1 #hardcoded
-        feedback = get_feedback(convoId)
+        feedback = get_feedback(convoId, userId)
         print('inside feedback', feedback)
         return render_template('feedback.html', data = data, feedback=feedback)
 
@@ -275,9 +275,7 @@ def progress():
 
 
 if __name__ == '__main__':
-  ''' main method'''
-  # port = os.getuid()
-  port = 9999
+  port = os.getuid()
   app.debug = True
   # Flask will print the port anyhow, but let's do so too
   print('Running on port '+str(port))
