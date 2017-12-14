@@ -88,6 +88,7 @@ stopRecordingButton.addEventListener("click", function () {
     }
     // our final blob
     blob = new Blob([view], { type: 'audio/wav' });
+    console.log('this is blob', blob)
 
     //add functionality of download to end of stop button
     if (blob == null) {
@@ -115,7 +116,7 @@ stopRecordingButton.addEventListener("click", function () {
     document.body.appendChild(a);
     a.style = "display: none";
     a.href = url;
-    console.log('a',a);
+    // console.log('a',a);
     a.download = "convo.wav";
     a.click();
     window.URL.revokeObjectURL(url);
