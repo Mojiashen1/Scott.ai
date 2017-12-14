@@ -87,7 +87,7 @@ stopRecordingButton.addEventListener("click", function () {
         index += 2;
     }
     // our final blob
-    blob = new Blob([view], { type: 'audio/wav' });
+    var blob = new Blob([view], { type: 'audio/wav' });
     console.log('this is blob', blob)
 
     //add functionality of download to end of stop button
