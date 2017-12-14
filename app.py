@@ -250,7 +250,7 @@ def feedback(convoId):
         # pull user profile using userId (in progress)
         data = get_user_data(userId)
         convoId = 1 #hardcoded
-        feedback = get_feedback(userId, convoId)
+        feedback = get_feedback(convoId)
         print('inside feedback', feedback)
         return render_template('feedback.html', data = data, feedback=feedback)
 
@@ -265,54 +265,6 @@ def progress():
         points = get_user_data(userId)
         data = get_convos(userId)
 
-        print ("WAHOOO")
-
-
-        if request.method == 'GET':
-            print ("1111111")
-
-        if request.method == 'POST':
-            print ("2222222")
-            print (request.form['submit'])
-            if request.form['submit']:
-                print ("333333")
-                print (userId)
-                convoId = request.form['convoId']
-                print ("44444")
-                print (convoId)
-                delete_audio(convoId) #delete using convo primary key
-
-                #re render template
-                points = get_user_data(userId)
-                data = get_convos(userId)
-
-                return render_template('progress.html',
-                  points=points['points'],
-                  data=data, script=url_for('progress'))
-
-            return render_template('progress.html',
-            points=points['points'],
-            data=data, script=url_for('progress'))
-
-
-        # if request.method == 'POST':
-        #     convoId = request.form['convoId']
-        #     print('here!!!', convoId)
-
-        #     if request.form['submit'] == 'delete':
-        #         print ("WOOHOOOOO")
-        #         print (userId)
-        #         print (convoId)
-        #         delete_audio(userId) #delete using convo primary key
-
-        #         #re render template
-        #         points = get_user_data(userId)
-        #         data = get_convos(userId)
-
-        #         return render_template('progress.html',
-        #         points=points['points'],
-        #         data=data, script=url_for('progress'))
-
         return render_template('progress.html',
           points=points['points'],
           data=data, script=url_for('progress'))
@@ -324,8 +276,7 @@ def progress():
 
 if __name__ == '__main__':
   ''' main method'''
-  # port = os.getuid()
-  port = 9999
+  port = os.getuid()
   app.debug = True
   # Flask will print the port anyhow, but let's do so too
   print('Running on port '+str(port))
