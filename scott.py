@@ -137,7 +137,7 @@ def get_user_data(userId):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute("select timeActive, points from profile where userId = %s", [userId])
     existing_profile = curs.fetchone()
-    print('user data', existing_profile)
+    print('user data', existing_profile, userId)
     return existing_profile
 
 def create_convo(categoryId, userId, audio_path, feedback):
@@ -203,6 +203,10 @@ def increment_point_time(userId, time_spent):
         points = int(int(existing_data['points']) + time_spent*10)
         timeActive = int(int(existing_data['timeActive']) + time_spent)
         curs.execute(sql, (points, timeActive, userId))
+
+        curs.execute("select points, timeActive from profile where userId = %s", [userId])
+        existing_data = curs.fetchone()
+        print('when updating data', existing_data)
         conn.commit()
         curs.close()
         conn.close()
