@@ -262,7 +262,7 @@ def audiofile():
         userId = session['userId']
         if request.method == 'POST':
             audio = request.files['blob']
-            save_audio(convoId, audio)
+            # save_audio(convoId, audio)
             return ''
     return ''
 
