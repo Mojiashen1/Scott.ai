@@ -18,7 +18,12 @@ var count = 0
 			  </div>
 			</div>
 		<br><br>
-		<audio class="text-center" id="player" controls></audio>
+
+        <button id="startRecordingButton">Start recording</button>
+        <button id="stopRecordingButton">Stop recording</button>
+        <button id="playButton">Play</button>
+        <button id="downloadButton">Download</button>
+
 		<br>
 		<button type='submit' value ='Next' class="btn btn-primary" id='next'>Next</button>
 
@@ -29,18 +34,6 @@ var count = 0
 	</div>
 
 	<script>
-        //initiate MediaRecorder with a MediaStream
-        var recordedChunks = [];
-
-        var recLength =  0,
-              recBuffersL = [],
-              recBuffersR = [];
-
-        //access raw data from microphone
-        var context = new AudioContext();
-        // var source = context.createMediaStreamSource(stream);
-
-        var source = context.createBufferSource();
 
         //populate all questions
 		var questions = {{questions | safe}};
@@ -54,143 +47,148 @@ var count = 0
 				$('#end').attr('type', 'submit');
 				$('#next').attr('style', 'display:none');
 				$('form').attr('style', 'display:block');
-                source.stop();
-
-                console.log("recordedchunks", recordedChunks);
-                console.log("recordedL", recBuffersL);
-                console.log("R", recBuffersR);
-                download()
 
 			}
 		});
 
-		var player = document.getElementById('player');
-
-		var handleSuccess = function(stream) {
-
-            //acquire access to microphone
-		    if (window.URL) {
-		      player.src = window.URL.createObjectURL(stream);
-		    } else {
-		      player.src = stream;
-		    }
-
-            console.log('this is stream', stream)
-
-        
-            // create a ScriptProcessorNode
-            if(!context.createScriptProcessor){
-               node = context.createJavaScriptNode(4096, 2, 2);
-            } else {
-               node = context.createScriptProcessor(4096, 2, 2);
+        var startRecordingButton = document.getElementById("startRecordingButton");
+        var stopRecordingButton = document.getElementById("stopRecordingButton");
+        var playButton = document.getElementById("playButton");
+        var downloadButton = document.getElementById("downloadButton");
+        var leftchannel = [];
+        var rightchannel = [];
+        var recorder = null;
+        var recordingLength = 0;
+        var volume = null;
+        var mediaStream = null;
+        var sampleRate = 44100;
+        var context = null;
+        var blob = null;
+        startRecordingButton.addEventListener("click", function () {
+            // Initialize recorder
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+            navigator.getUserMedia(
+            {
+                audio: true
+            },
+            function (e) {
+                console.log("user consent");
+                // creates the audio context
+                window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                context = new AudioContext();
+                // creates an audio node from the microphone incoming stream
+                mediaStream = context.createMediaStreamSource(e);
+                // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createScriptProcessor
+                // bufferSize: the onaudioprocess event is called when the buffer is full
+                var bufferSize = 2048;
+                var numberOfInputChannels = 2;
+                var numberOfOutputChannels = 2;
+                if (context.createScriptProcessor) {
+                    recorder = context.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+                } else {
+                    recorder = context.createJavaScriptNode(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+                }
+                recorder.onaudioprocess = function (e) {
+                    leftchannel.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+                    rightchannel.push(new Float32Array(e.inputBuffer.getChannelData(1)));
+                    recordingLength += bufferSize;
+                }
+                // we connect the recorder
+                mediaStream.connect(recorder);
+                recorder.connect(context.destination);
+            },
+                        function (e) {
+                            console.error(e);
+                        });
+        });
+        stopRecordingButton.addEventListener("click", function () {
+            // stop recording
+            recorder.disconnect(context.destination);
+            mediaStream.disconnect(recorder);
+            // we flat the left and right channels down
+            // Float32Array[] => Float32Array
+            var leftBuffer = flattenArray(leftchannel, recordingLength);
+            var rightBuffer = flattenArray(rightchannel, recordingLength);
+            // we interleave both channels together
+            // [left[0],right[0],left[1],right[1],...]
+            var interleaved = interleave(leftBuffer, rightBuffer);
+            // we create our wav file
+            var buffer = new ArrayBuffer(44 + interleaved.length * 2);
+            var view = new DataView(buffer);
+            // RIFF chunk descriptor
+            writeUTFBytes(view, 0, 'RIFF');
+            view.setUint32(4, 44 + interleaved.length * 2, true);
+            writeUTFBytes(view, 8, 'WAVE');
+            // FMT sub-chunk
+            writeUTFBytes(view, 12, 'fmt ');
+            view.setUint32(16, 16, true); // chunkSize
+            view.setUint16(20, 1, true); // wFormatTag
+            view.setUint16(22, 2, true); // wChannels: stereo (2 channels)
+            view.setUint32(24, sampleRate, true); // dwSamplesPerSec
+            view.setUint32(28, sampleRate * 4, true); // dwAvgBytesPerSec
+            view.setUint16(32, 4, true); // wBlockAlign
+            view.setUint16(34, 16, true); // wBitsPerSample
+            // data sub-chunk
+            writeUTFBytes(view, 36, 'data');
+            view.setUint32(40, interleaved.length * 2, true);
+            // write the PCM samples
+            var index = 44;
+            var volume = 1;
+            for (var i = 0; i < interleaved.length; i++) {
+                view.setInt16(index, interleaved[i] * (0x7FFF * volume), true);
+                index += 2;
             }
-
-            // listen to the audio data, and record into the buffer
-            node.onaudioprocess = function(e){
-                // console.log(e.inputBuffer);
-                // recordedChunks.push(e.inputBuffer.getChanneldata(0)); //not working? 
-                //console.log('e', e);
-                // console.log("e.data", e.inputBuffer.getChannelData());
-                // recBuffersL.push(e.inputBuffer.getChannelData(0));
-                // recBuffersR.push(e.inputBuffer.getChannelData(1));
-                recordedChunks.push(e.inputBuffer.getChannelData(1));
-                
-
-                // console.log
-                recLength += e.inputBuffer.getChannelData(0).length;
+            // our final blob
+            blob = new Blob([view], { type: 'audio/wav' });
+        });
+        playButton.addEventListener("click", function () {
+            if (blob == null) {
+                return;
             }
-
-            // connect the ScriptProcessorNode with the input audio
-            source.connect(node);
-            // if the ScriptProcessorNode is not connected to an output 
-            //the "onaudioprocess" event is not triggered in chrome
-            node.connect(context.destination);
-
-            console.log('this is context.d', context.destination);
-            console.log('this is are node', node);
-
-            var options = {mimeType: 'video/webm;codecs=vp9'};
-            mediaRecorder = new MediaRecorder(stream, options);
-            console.log(stream.getAudioTracks())
-            mediaRecorder.ondataavailable = handleDataAvailable;
-            // mediaRecorder.start();
-
-            source.start();
-
-            // console.log("recordedchunks", recordedChunks);
-            // console.log("recordedL", recBuffersL);
-            // console.log("R", recBuffersR);
-
-            console.log("mediarecorder", mediaRecorder)
-		  };
-
-		// $('#player').click(function(e) {
-            
-            navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-		      .then(handleSuccess);
-          // });
-
-
-        function handleDataAvailable(event) {
-            console.log("in handledataavail", event);
-            console.log("input buffer", )
-          if (event.data.size > 0) {
-            //not sure which is more useful
-            recordedChunks.push(event.data); //not working? 
-
-            // recBuffersL.push(event.inputBuffer.getChannelData(0));
-            // recBuffersR.push(event.inputBuffer.getChannelData(1));
-          }
+            var url = window.URL.createObjectURL(blob);
+            var audio = new Audio(url);
+            audio.play();
+        });
+        downloadButton.addEventListener("click", function () {
+            if (blob == null) {
+                return;
+            }
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            a.href = url;
+            a.download = "sample.wav";
+            a.click();
+            window.URL.revokeObjectURL(url);
+        });
+        function flattenArray(channelBuffer, recordingLength) {
+            var result = new Float32Array(recordingLength);
+            var offset = 0;
+            for (var i = 0; i < channelBuffer.length; i++) {
+                var buffer = channelBuffer[i];
+                result.set(buffer, offset);
+                offset += buffer.length;
+            }
+            return result;
+        }
+        function interleave(leftChannel, rightChannel) {
+            var length = leftChannel.length + rightChannel.length;
+            var result = new Float32Array(length);
+            var inputIndex = 0;
+            for (var index = 0; index < length;) {
+                result[index++] = leftChannel[inputIndex];
+                result[index++] = rightChannel[inputIndex];
+                inputIndex++;
+            }
+            return result;
+        }
+        function writeUTFBytes(view, offset, string) {
+            for (var i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
         }
 
-        //plays concatenated audio snippets (useful for progress or feedback page)
-        function play() {
-          var superBuffer = new Blob(recordedChunks);
-          videoElement.src =
-            window.URL.createObjectURL(superBuffer);
-        }
-
-        //helper method downloads Blob to downloads
-        //Q  -  how to pass back to Python script to store in SQL ? 
-        function download() {
-          var blob = new Blob(recordedChunks, {
-            type: 'video/webm'
-          });
-
-          //send to flask via ajax request
-          //jquery ajax post request to some route and in flask app, look for that 
-          //jquery.post()
-          //jquery.ajax() can handle post request (look at documentation) 
-
-          var url = URL.createObjectURL(blob);
-          var a = document.createElement('a');
-          document.body.appendChild(a);
-          a.style = 'display: none';
-          a.href = url;
-          a.download = 'convo.webm';
-          a.click();
-          window.URL.revokeObjectURL(url);
-        } 
-
-		// var handleSuccess = function(stream) {
-		//     var context = new AudioContext();
-		//     var source = context.createMediaStreamSource(stream);
-		//     var processor = context.createScriptProcessor(1024, 1, 1);
-		//
-		//     source.connect(processor);
-		//     processor.connect(context.destination);
-		//
-		//     processor.onaudioprocess = function(e) {
-		//       // Do something with the data, i.e Convert this to WAV
-		//       // console.log(e.inputBuffer);
-		// 			stream = new mediaStream();
-		// 			track = stream.getAudioTracks()
-		// 			console.log(track)
-		//     };
-		//   };
-		//
-		//   navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-		//       .then(handleSuccess);
 
 	</script>
 
