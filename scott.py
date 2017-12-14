@@ -221,6 +221,7 @@ def get_audio():
     return None
 
 def delete_audio(userId, convoId):
+    print("HELLOOOOOO")
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute("delete from convos where convoId = %s", [convoId])
