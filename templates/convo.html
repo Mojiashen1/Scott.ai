@@ -32,10 +32,11 @@ var count = 0
         //initiate MediaRecorder with a MediaStream
         var recordedChunks = [];
 
-        var recLength = 0,
+        var recLength =  0,
               recBuffersL = [],
               recBuffersR = [];
 
+        //populate all questions
 		var questions = {{questions | safe}};
 		var index = 0;
 		var convoId = 0;
@@ -85,7 +86,8 @@ var count = 0
 
             // connect the ScriptProcessorNode with the input audio
             source.connect(node);
-            // if the ScriptProcessorNode is not connected to an output the "onaudioprocess" event is not triggered in chrome
+            // if the ScriptProcessorNode is not connected to an output 
+            //the "onaudioprocess" event is not triggered in chrome
             node.connect(context.destination);
 
             var options = {mimeType: 'video/webm;codecs=vp9'};
@@ -100,6 +102,7 @@ var count = 0
 
 
         function handleDataAvailable(event) {
+            console.log(event);
           if (event.data.size > 0) {
             //not sure which is more useful
             recordedChunks.push(event.data); //not working? 
