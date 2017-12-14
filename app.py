@@ -277,15 +277,15 @@ def progress():
                 convoId = request.form['convoId']
                 print ("44444")
                 print (convoId)
-                delete_audio(convoId) #delete using convo primary key
+                # delete_audio(convoId) #delete using convo primary key
         
                 #re render template
                 points = get_user_data(userId)
                 data = get_convos(userId)
 
-                return render_template('progress.html', 
-                  points=points['points'], 
-                  data=data, script=url_for('progress'))
+                # return render_template('progress.html', 
+                  # points=points['points'], 
+                  # data=data, script=url_for('progress'))
 
             return render_template('progress.html', 
             points=points['points'], 
