@@ -249,7 +249,7 @@ def feedback(convoId):
         userId = session['userId']
         # pull user profile using userId (in progress)
         data = get_user_data(userId)
-        feedback = get_feedback(convoId, userId)
+        feedback = get_feedback(convoId['convoId'], userId)
         print ('user', userId)
         print ('convoId', convoId)
         print('inside feedback', feedback)
