@@ -29,12 +29,12 @@ var count = 0
 	</div>
 
 	<script>
-        //initiate MediaRecorder with a MediaStream
-        var recordedChunks = [];
+    //initiate MediaRecorder with a MediaStream
+    var recordedChunks = [];
 
-        var recLength = 0,
-              recBuffersL = [],
-              recBuffersR = [];
+    var recLength = 0,
+    var recBuffersL = [],
+    var recBuffersR = [];
 
 		var questions = {{questions | safe}};
 		var index = 0;
@@ -102,7 +102,7 @@ var count = 0
         function handleDataAvailable(event) {
           if (event.data.size > 0) {
             //not sure which is more useful
-            recordedChunks.push(event.data); //not working? 
+            recordedChunks.push(event.data); //not working?
 
             recBuffersL.push(event.inputBuffer.getChannelData(0));
             recBuffersR.push(event.inputBuffer.getChannelData(1));
@@ -117,16 +117,16 @@ var count = 0
         }
 
         //helper method downloads Blob to downloads
-        //Q  -  how to pass back to Python script to store in SQL ? 
+        //Q  -  how to pass back to Python script to store in SQL ?
         function download() {
           var blob = new Blob(recordedChunks, {
             type: 'video/webm'
           });
 
           //send to flask via ajax request
-          //jquery ajax post request to some route and in flask app, look for that 
+          //jquery ajax post request to some route and in flask app, look for that
           //jquery.post()
-          //jquery.ajax() can handle post request (look at documentation) 
+          //jquery.ajax() can handle post request (look at documentation)
 
           var url = URL.createObjectURL(blob);
           var a = document.createElement('a');
@@ -136,7 +136,7 @@ var count = 0
           a.download = 'convo.webm';
           a.click();
           window.URL.revokeObjectURL(url);
-        } 
+        }
 
 		// var handleSuccess = function(stream) {
 		//     var context = new AudioContext();
