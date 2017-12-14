@@ -94,11 +94,15 @@ stopRecordingButton.addEventListener("click", function () {
         return;
     }
 
+    var form = new FormData();
+    form.append('blob', blob, 'blobbbbbb');
+    form.append('title', 'this is title');
+
     //post file to route
     $.ajax({
       type: "POST",
       url: '/audiofile/',
-      data: {'blob':blob},
+      data: form,
       processData: false,
       contentType: false,
       dataType: 'audio/wav',
