@@ -155,10 +155,10 @@ def create_feedback(userId, audio_path):
     'You are sounding like a native now!']
     return scores[random.randint(0,len(scores)-1)]
 
-def get_feedback(userId, convoId):
+def get_feedback(convoId, userId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute("select feedback from convos where userId = %s and convoId = %s", (userId, convoId))
+    curs.execute("select feedback from convos where convoId = %s and userId = %s", (convoId, userId))
     return curs.fetchone()
 
 # get a list of questions to ask the user based on the category of questions selected

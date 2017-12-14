@@ -227,10 +227,9 @@ def convo(id):
             audio_length = 1 # minutes of the new audio
             feedback = create_feedback(userId, audio_path)
             convoId = create_convo(id, userId, audio_path, feedback)
-
             increment_point_time(id, audio_length)
 
-            return redirect(url_for('feedback', convoId=convoId))
+            return redirect(url_for('feedback', convoId=convoId['convoId']))
 
   # redirect to home page if user not logged in
   else:
@@ -249,9 +248,9 @@ def feedback(convoId):
         userId = session['userId']
         # pull user profile using userId (in progress)
         data = get_user_data(userId)
-        print (data)
-        convoId = 1 #hardcoded
-        feedback = get_feedback(userId, convoId)
+        feedback = get_feedback(convoId, userId)
+        print ('user', userId)
+        print ('convoId', convoId)
         print('inside feedback', feedback)
         return render_template('feedback.html', data = data, feedback=feedback)
 
@@ -272,7 +271,6 @@ def progress():
         if request.method == 'GET':
             print ("HELO")
             print ("2222222")
-
             return render_template('progress.html', 
             points=points['points'], 
             data=data, script=url_for('progress'))
@@ -320,52 +318,22 @@ def progress():
     #     #         convoId = request.form['convoId']
     #     #         print ("44444")
     #     #         print (convoId)
-    #     #         delete_audio(convoId) #delete using convo primary key
+    #     #         delete_audio(convoId) #delete using convo primary ke
         
-    #     #         #re render template
-    #     #         points = get_user_data(userId)
-    #     #         data = get_convos(userId)
 
-    #     #         return render_template('progress.html', 
-    #     #           points=points['points'], 
-    #     #           data=data, script=url_for('progress'))
+        return render_template('progress.html',
+          points=points['points'],
+          data=data, script=url_for('progress'))
 
-    #     #     return render_template('progress.html', 
-    #     #     points=points['points'], 
-    #     #     data=data, script=url_for('progress'))
-
-
-    #     # if request.method == 'POST':
-    #     #     convoId = request.form['convoId']
-    #     #     print('here!!!', convoId)
-
-    #     #     if request.form['submit'] == 'delete':
-    #     #         print ("WOOHOOOOO")
-    #     #         print (userId)
-    #     #         print (convoId)
-    #     #         delete_audio(userId) #delete using convo primary key
-    
-    #     #         #re render template
-    #     #         points = get_user_data(userId)
-    #     #         data = get_convos(userId)
-
-    #     #         return render_template('progress.html', 
-    #     #         points=points['points'], 
-    #     #         data=data, script=url_for('progress'))
-
-    #     return render_template('progress.html', 
-    #       points=points['points'], 
-    #       data=data, script=url_for('progress'))
-
-    # # if no session in progress, redirect to home
-    # else:
-    #     return redirect(url_for('home'))
+    # if no session in progress, redirect to home
+    else:
+        return redirect(url_for('home'))
 
 
 if __name__ == '__main__':
   ''' main method'''
-  # port = os.getuid()
-  port = 9999
+  port = os.getuid()
+  # port = 9999
   app.debug = True
   # Flask will print the port anyhow, but let's do so too
   print('Running on port '+str(port))
