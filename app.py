@@ -267,7 +267,12 @@ def progress():
 
         print ("WAHOOO")
 
+
         if request.method == 'GET':
+            print ("WAHHOO")
+
+        if request.method == 'GET':
+            print ("WAHOOO")
             if request.form['submit'] == 'delete':
                 print ("WOOHOOOOO")
                 print (userId)
