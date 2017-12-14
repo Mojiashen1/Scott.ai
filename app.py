@@ -260,7 +260,7 @@ def feedback(convoId):
 def audiofile():
     print ("in audiofile")
     print('all values', request.form.values())
-    print ("request form", request.form.get('blob'))
+    print ("files", request.files['blob'])
     if request.method == 'POST':
 
         # file_val = request.files['blob']
