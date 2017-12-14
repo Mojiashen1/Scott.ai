@@ -264,13 +264,8 @@ def progress():
         userId = session['userId']
         points = get_user_data(userId)
         data = get_convos(userId)
-        print (userId)
-        print (points)
-        print (data)
 
         if request.method == 'GET':
-            print ("HELO")
-            print ("2222222")
             return render_template('progress.html', 
             points=points['points'], 
             data=data, script=url_for('progress'))
@@ -278,13 +273,11 @@ def progress():
         elif request.method == 'POST':
             print ("YOOO")
             convoId = request.form['convoId']
-            print('here!!!', convoId)
 
             if request.form['submit'] == 'delete':
-                print ("333333")
+                print ("hello")
                 print (userId)
                 convoId = request.form['convoId']
-                print ("44444")
                 print (convoId)
                 # delete_audio(convoId) #delete using convo primary key
         
@@ -296,34 +289,6 @@ def progress():
                   points=points['points'], 
                   data=data, script=url_for('progress'))
             # delete_audio(userId, convoId)
-
-        return render_template('progress.html', points=points['points'], data=data, script=url_for('progress'))
-
-    # if 'userId' in session:
-    #     userId = session['userId']
-    #     points = get_user_data(userId)
-    #     data = get_convos(userId)
-
-    #     print ("WAHOOO")
-
-
-    #     # if request.method == 'GET':
-    #     #     print ("1111111")
-
-    #     # if request.method == 'POST':
-    #     #     print ("2222222")
-    #     #     if request.form['submit'] == 'delete':
-    #     #         print ("333333")
-    #     #         print (userId)
-    #     #         convoId = request.form['convoId']
-    #     #         print ("44444")
-    #     #         print (convoId)
-    #     #         delete_audio(convoId) #delete using convo primary ke
-        
-
-        return render_template('progress.html',
-          points=points['points'],
-          data=data, script=url_for('progress'))
 
     # if no session in progress, redirect to home
     else:
