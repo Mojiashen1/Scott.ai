@@ -227,10 +227,10 @@ def convo(id):
             audio_length = 1 # minutes of the new audio
             feedback = create_feedback(userId, audio_path)
             convoId = create_convo(id, userId, audio_path, feedback)
-            print ('convoId here', convoId)
+            print ('convoId here', type(convoId))
             increment_point_time(id, audio_length)
 
-            return redirect(url_for('feedback', convoId=convoId))
+            return redirect(url_for('feedback', convoId=convoId['convoId']))
 
   # redirect to home page if user not logged in
   else:
