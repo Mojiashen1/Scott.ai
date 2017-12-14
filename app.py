@@ -227,7 +227,7 @@ def convo(id):
             audio_length = 1 # minutes of the new audio
             feedback = create_feedback(userId, audio_path)
             convoId = create_convo(id, userId, audio_path, feedback)
-
+            print ('convoId here', convoId)
             increment_point_time(id, audio_length)
 
             return redirect(url_for('feedback', convoId=convoId))
@@ -249,7 +249,7 @@ def feedback(convoId):
         userId = session['userId']
         # pull user profile using userId (in progress)
         data = get_user_data(userId)
-        feedback = get_feedback(convoId['convoId'], userId)
+        feedback = get_feedback(convoId, userId)
         print ('user', userId)
         print ('convoId', convoId)
         print('inside feedback', feedback)
