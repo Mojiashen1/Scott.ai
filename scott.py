@@ -199,7 +199,7 @@ def increment_point_time(userId, time_spent):
     # update profile
     if existing_data:
         sql = '''update profile
-        set points=%s, timeActive=%s
+        set points=%d, timeActive=%d
         where userId = %s'''
         points = int(existing_data['points'] + time_spent*10)
         timeActive = int(existing_data['timeActive'] + time_spent)
