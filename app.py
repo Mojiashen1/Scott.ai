@@ -260,7 +260,9 @@ def feedback(convoId):
 
 @app.route('/audiofile/', methods = ['POST', 'GET'])
 def audiofile():
+    print ("in audiofile")
     if request.method == 'POST': 
+        print ("at post")
         file_val = request.files['file']
         print file_val
 
