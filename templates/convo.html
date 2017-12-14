@@ -89,6 +89,7 @@ var count = 0
 
             var options = {mimeType: 'video/webm;codecs=vp9'};
             mediaRecorder = new MediaRecorder(stream, options);
+            console.log(stream.getAudioTracks())
             mediaRecorder.ondataavailable = handleDataAvailable;
             mediaRecorder.start();
 		  };
@@ -99,18 +100,23 @@ var count = 0
 
         function handleDataAvailable(event) {
           if (event.data.size > 0) {
-            recordedChunks.push(event.data);
+            //not sure which is more useful
+            recordedChunks.push(event.data); //not working? 
+
             recBuffersL.push(e.inputBuffer.getChannelData(0));
             recBuffersR.push(e.inputBuffer.getChannelData(1));
           }
         }
 
+        //plays concatenated audio snippets (useful for progress or feedback page)
         function play() {
           var superBuffer = new Blob(recordedChunks);
           videoElement.src =
             window.URL.createObjectURL(superBuffer);
         }
 
+        //helper method downloads Blob to downloads
+        //Q  -  how to pass back to Python script to store in SQL ? 
         function download() {
           var blob = new Blob(recordedChunks, {
             type: 'video/webm'
