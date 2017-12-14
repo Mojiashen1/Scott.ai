@@ -154,7 +154,8 @@ var count = 0
             document.body.appendChild(a);
             a.style = "display: none";
             a.href = url;
-            a.download = "sample.wav";
+            console.log('a',a);
+            a.download = "convo.wav";
             a.click();
             window.URL.revokeObjectURL(url);
 
