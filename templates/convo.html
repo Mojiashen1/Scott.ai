@@ -19,7 +19,7 @@ var count = 0
 			</div>
 		<br><br>
 
-        <audio class="text-center" id="player" controls> </audio>
+        <!-- <audio class="text-center" id="player" controls> </audio> -->
 
         <button id="startRecordingButton">Start recording</button>
         <button id="stopRecordingButton">Stop recording</button>
@@ -54,8 +54,8 @@ var count = 0
 		});
 
         // var player = document.getElementById('player');
-        var startRecordingButton = document.getElementById("player");
-        var stopRecordingButton = document.getElementById("stopRecordingButton");
+        var startRecordingButton = document.getElementById("startRecordingButton");
+        var stopRecordingButton = document.getElementById("end");
         var playButton = document.getElementById("playButton");
         var downloadButton = document.getElementById("downloadButton");
         var leftchannel = [];
@@ -76,7 +76,6 @@ var count = 0
             },
             function (e) {
 
-                startRecordingButton.src = window.URL.createObjectURL(e);
                 console.log("user consent");
                 // creates the audio context
                 window.AudioContext = window.AudioContext || window.webkitAudioContext;
