@@ -270,6 +270,8 @@ def progress():
             print('here!!!', convoId)
 
             if request.form['submit'] == 'delete':
+                print (userId)
+                print (convoId)
                 delete_audio(userId) #delete using convo primary key
     
                 #re render template
@@ -283,6 +285,10 @@ def progress():
         return render_template('progress.html', 
           points=points['points'], 
           data=data, script=url_for('progress'))
+
+    # if no session in progress, redirect to home
+    else:
+        return redirect(url_for('home'))
 
 
 if __name__ == '__main__':
