@@ -160,7 +160,7 @@ def get_feedback(convoId, userId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute("select feedback from convos where convoId = %s and userId = %s", (convoId, userId))
-    return curs.fetchall()
+    return curs.fetchone()
 
 # get a list of questions to ask the user based on the category of questions selected
 # @ params: category type
@@ -208,11 +208,11 @@ def increment_point_time(userId, time_spent):
         return 1 #update successful
     return 0 #update failed
 
-def get_convos(convoId):
+def get_convos(userId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('''select categoryId, categoryType, audio, feedback from convos inner join category using
-    (categoryId) where convoId = %s''', [convoId])
+    (categoryId) where userId = %s''', [userId])
     result = curs.fetchall()
 
     return result
