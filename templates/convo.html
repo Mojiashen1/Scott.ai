@@ -32,6 +32,10 @@ var count = 0
         //initiate MediaRecorder with a MediaStream
         var recordedChunks = [];
 
+        var recLength = 0,
+              recBuffersL = [],
+              recBuffersR = [];
+
 		var questions = {{questions | safe}};
 		var index = 0;
 		var convoId = 0;
@@ -63,10 +67,6 @@ var count = 0
             //access raw data from microphone
             var context = new AudioContext();
             var source = context.createMediaStreamSource(stream);
-
-            var recLength = 0,
-              recBuffersL = [],
-              recBuffersR = [];
 
             // create a ScriptProcessorNode
             if(!context.createScriptProcessor){
@@ -100,6 +100,8 @@ var count = 0
         function handleDataAvailable(event) {
           if (event.data.size > 0) {
             recordedChunks.push(event.data);
+            recBuffersL.push(e.inputBuffer.getChannelData(0));
+            recBuffersR.push(e.inputBuffer.getChannelData(1));
           }
         }
 
