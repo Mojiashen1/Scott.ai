@@ -227,7 +227,11 @@ def convo(id):
             audio_length = 1 # minutes of the new audio
             feedback = create_feedback(userId, audio_path)
             convoId = create_convo(id, userId, audio_path, feedback)
+<<<<<<< HEAD
             increment_point_time(userId, audio_length)
+=======
+            increment_point_time(id, audio_length)
+>>>>>>> 8436504312e27d7801fc776e987186fd6e530009
 
             return redirect(url_for('feedback', convoId=convoId['convoId']))
 
@@ -256,6 +260,16 @@ def feedback(convoId):
     else:
         return redirect(url_for('home'))
 
+@app.route('/audiofile/', methods = ['POST', 'GET'])
+def audiofile():
+    print ("in audiofile")
+    if request.method == 'POST': 
+        print ("at post")
+        file_val = request.json['blob']
+        print file_val
+
+    return None
+
 @app.route('/progress/', methods =['POST', 'GET'])
 def progress():
     if 'userId' in session:
@@ -263,9 +277,30 @@ def progress():
         points = get_user_data(userId)
         data = get_convos(userId)
 
-        return render_template('progress.html',
-          points=points['points'],
-          data=data, script=url_for('progress'))
+        if request.method == 'GET':
+            return render_template('progress.html', 
+            points=points['points'], 
+            data=data, script=url_for('progress'))
+
+        elif request.method == 'POST':
+            print ("YOOO")
+            convoId = request.form['convoId']
+
+            if request.form['submit'] == 'delete':
+                print ("hello")
+                print (userId)
+                convoId = request.form['convoId']
+                print (convoId)
+                # delete_audio(convoId) #delete using convo primary key
+        
+                #re render template
+                points = get_user_data(userId)
+                data = get_convos(userId)
+
+                return render_template('progress.html', 
+                  points=points['points'], 
+                  data=data, script=url_for('progress'))
+            # delete_audio(userId, convoId)
 
     # if no session in progress, redirect to home
     else:
@@ -277,4 +312,4 @@ if __name__ == '__main__':
   app.debug = True
   # Flask will print the port anyhow, but let's do so too
   print('Running on port '+str(port))
-  app.run('0.0.0.0',port, ssl_context='adhoc')
+  app.run('0.0.0.0',8000, ssl_context='adhoc')

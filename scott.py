@@ -129,7 +129,6 @@ def get_profile(userId):
     conn.close()
     return existing_profile
 
-# !!! this is not implemented yet !!!
 # get user infortion to give feedback. We are still deciding what to output from here
 # @ params: userId
 def get_user_data(userId):

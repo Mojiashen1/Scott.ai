@@ -32,13 +32,17 @@ we will inplement audio file system to record the answers -->
 			<button type='submit' value ='Next' class="btn btn-primary" id='next'>Next</button>
 		</div>
 
-		<form method = "POST" action = "{{script}}" style='display:none'>
+		<!-- <form method = "POST" action = "{{script}}" style='display:none'> -->
 				<button type='submit' value ='Next' class="btn btn-primary" id='end'>End Conversation</button>
-		</form>
+		<!-- </form> -->
 
 	</div>
 
 	<script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8436504312e27d7801fc776e987186fd6e530009
 		var questions = {{questions | safe}};
 		var index = 0;
 		var convoId = 0;
@@ -50,9 +54,6 @@ we will inplement audio file system to record the answers -->
 				$('#end').attr('type', 'submit');
 				$('#next').attr('style', 'display:none');
 				$('form').attr('style', 'display:block');
-                mediaRecorder.stop();
-                download()
-
 			}
 		});
 	</script>
