@@ -102,13 +102,14 @@ var count = 0
 
 
         function handleDataAvailable(event) {
+            console.log("in handledataavail")
             console.log(event);
           if (event.data.size > 0) {
             //not sure which is more useful
             recordedChunks.push(event.data); //not working? 
 
-            recBuffersL.push(event.inputBuffer.getChannelData(0));
-            recBuffersR.push(event.inputBuffer.getChannelData(1));
+            // recBuffersL.push(event.inputBuffer.getChannelData(0));
+            // recBuffersR.push(event.inputBuffer.getChannelData(1));
           }
         }
 
