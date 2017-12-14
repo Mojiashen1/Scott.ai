@@ -53,6 +53,7 @@ var count = 0
 			}
 		});
 
+        // var player = document.getElementById('player');
         var startRecordingButton = document.getElementById("player");
         var stopRecordingButton = document.getElementById("stopRecordingButton");
         var playButton = document.getElementById("playButton");
@@ -74,6 +75,8 @@ var count = 0
                 audio: true
             },
             function (e) {
+
+                startRecordingButton.src = window.URL.createObjectURL(e);
                 console.log("user consent");
                 // creates the audio context
                 window.AudioContext = window.AudioContext || window.webkitAudioContext;
