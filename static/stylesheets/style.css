@@ -127,7 +127,6 @@ body {
     -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
     transition: padding-top 0.3s, padding-bottom 0.3s;
     border: none;
-    color: white;
     background-color: transparent; }
     #mainNav .navbar-brand {
       font-size: 1.75em;
@@ -137,7 +136,8 @@ body {
     #mainNav .navbar-nav .nav-item .nav-link {
       padding: 1.1em 1em !important; }
 #mainNav .navbar-nav .nav-item_2 .nav-link_2 {
-      padding: 1.1em 1em !important; }
+      padding: 1.1em 1em !important; 
+      color: white;}
     #mainNav.navbar-shrink {
       padding-top: 0;
       padding-bottom: 0;
