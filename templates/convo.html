@@ -77,9 +77,10 @@ var count = 0
 
             // listen to the audio data, and record into the buffer
             node.onaudioprocess = function(e){
-              recBuffersL.push(e.inputBuffer.getChannelData(0));
-              recBuffersR.push(e.inputBuffer.getChannelData(1));
-              recLength += e.inputBuffer.getChannelData(0).length;
+                console.log(e.inputBuffer);
+                recBuffersL.push(e.inputBuffer.getChannelData(0));
+                recBuffersR.push(e.inputBuffer.getChannelData(1));
+                recLength += e.inputBuffer.getChannelData(0).length;
             }
 
             // connect the ScriptProcessorNode with the input audio
