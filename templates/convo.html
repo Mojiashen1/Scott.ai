@@ -55,6 +55,10 @@ var count = 0
 				$('#next').attr('style', 'display:none');
 				$('form').attr('style', 'display:block');
                 source.stop();
+
+                console.log("recordedchunks", recordedChunks);
+                console.log("recordedL", recBuffersL);
+                console.log("R", recBuffersR);
                 download()
 
 			}
@@ -108,9 +112,9 @@ var count = 0
 
             source.start();
 
-            console.log("recordedchunks", recordedChunks);
-            console.log("recordedL", recBuffersL);
-            console.log("R", recBuffersR);
+            // console.log("recordedchunks", recordedChunks);
+            // console.log("recordedL", recBuffersL);
+            // console.log("R", recBuffersR);
 
             console.log("mediarecorder", mediaRecorder)
 		  };
