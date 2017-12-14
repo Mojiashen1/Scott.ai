@@ -287,6 +287,10 @@ def progress():
                   points=points['points'], 
                   data=data, script=url_for('progress'))
 
+            return render_template('progress.html', 
+            points=points['points'], 
+            data=data, script=url_for('progress'))
+
 
         # if request.method == 'POST':
         #     convoId = request.form['convoId']
