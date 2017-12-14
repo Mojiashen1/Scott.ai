@@ -259,7 +259,7 @@ def feedback(convoId):
 @app.route('/audiofile/', methods = ['POST', 'GET'])
 def audiofile():
     print ("in audiofile")
-    print ("request form", request.form['blob'])
+    print ("request form", request.form)
     if request.method == 'POST':
 
         # file_val = request.files['blob']
