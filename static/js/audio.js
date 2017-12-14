@@ -91,6 +91,9 @@ blob = new Blob([view], { type: 'audio/wav' });
 if (blob == null) {
     return;
 }
+
+console.log('blob', blob);
+
 var url = URL.createObjectURL(blob);
 var a = document.createElement("a");
 document.body.appendChild(a);
