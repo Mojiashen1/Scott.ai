@@ -20,12 +20,13 @@ var count = 0
 		<br><br>
 
 		<div class="col-lg-7 text-center">
-
-    	<button id="startRecordingButton" class="btn btn-primary"><i class="fa fa-microphone" aria-hidden="true"></i>Start Recording</button>
+    	<button id="startRecordingButton" class="btn btn-primary"><i class="fa fa-microphone" aria-hidden="true"></i>  Start Recording</button>
 		</div>
 
 		<br>
-		<button type='submit' value ='Next' class="btn btn-primary" id='next'>Next</button>
+		<div class="col-lg-12 text-center">
+			<button type='submit' value ='Next' class="btn btn-primary" id='next'>Next</button>
+		</div>
 
 		<form method = "POST" action = "{{script}}" style='display:none'>
 				<button type='submit' value ='Next' class="btn btn-primary" id='end'>End Conversation</button>
