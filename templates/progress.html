@@ -39,7 +39,7 @@
         <form method = "POST" action = "{{script}}">
           <input type='text' name='categoryId' style='display:none'>{{data[i]['categoryId']}}</input>
 
-          <button type='submit' name="submit"class="btn btn-primary" value="delete">Delete</button>
+          <button type='submit' name="submit"class="btn btn-primary" value="{{data[i]['convoId']}}">Delete</button>
         </form>
       </td>
     </tr>

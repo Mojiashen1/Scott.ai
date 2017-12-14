@@ -273,7 +273,7 @@ def progress():
 
         if request.method == 'POST':
             print ("2222222")
-            if request.form['submit'] == 'delete':
+            if request.form['submit']:
                 print ("333333")
                 print (userId)
                 convoId = request.form['convoId']

@@ -208,11 +208,11 @@ def increment_point_time(userId, time_spent):
         return 1 #update successful
     return 0 #update failed
 
-def get_convos(userId):
+def get_convos(convoId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('''select categoryId, categoryType, audio, feedback from convos inner join category using
-    (categoryId) where userId = %s''', [userId])
+    (categoryId) where convoId = %s''', [convoId])
     result = curs.fetchall()
 
     return result
