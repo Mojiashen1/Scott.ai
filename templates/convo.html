@@ -59,11 +59,11 @@ var count = 0
 		var handleSuccess = function(stream) {
 
             //acquire access to microphone
-		    if (window.URL) {
-		      player.src = window.URL.createObjectURL(stream);
-		    } else {
-		      player.src = stream;
-		    }
+		    // if (window.URL) {
+		    //   player.src = window.URL.createObjectURL(stream);
+		    // } else {
+		    //   player.src = stream;
+		    // }
 
             console.log('this is stream', stream)
 
