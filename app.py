@@ -268,30 +268,30 @@ def progress():
         print ("WAHOOO")
 
 
-        if request.method == 'GET':
-            print ("1111111")
+        # if request.method == 'GET':
+        #     print ("1111111")
 
-        if request.method == 'POST':
-            print ("2222222")
-            if request.form['submit'] == 'delete':
-                print ("333333")
-                print (userId)
-                convoId = request.form['convoId']
-                print ("44444")
-                print (convoId)
-                delete_audio(convoId) #delete using convo primary key
+        # if request.method == 'POST':
+        #     print ("2222222")
+        #     if request.form['submit'] == 'delete':
+        #         print ("333333")
+        #         print (userId)
+        #         convoId = request.form['convoId']
+        #         print ("44444")
+        #         print (convoId)
+        #         delete_audio(convoId) #delete using convo primary key
         
-                #re render template
-                points = get_user_data(userId)
-                data = get_convos(userId)
+        #         #re render template
+        #         points = get_user_data(userId)
+        #         data = get_convos(userId)
 
-                return render_template('progress.html', 
-                  points=points['points'], 
-                  data=data, script=url_for('progress'))
+        #         return render_template('progress.html', 
+        #           points=points['points'], 
+        #           data=data, script=url_for('progress'))
 
-            return render_template('progress.html', 
-            points=points['points'], 
-            data=data, script=url_for('progress'))
+        #     return render_template('progress.html', 
+        #     points=points['points'], 
+        #     data=data, script=url_for('progress'))
 
 
         # if request.method == 'POST':
