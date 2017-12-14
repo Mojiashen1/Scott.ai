@@ -273,6 +273,7 @@ def progress():
 
         if request.method == 'POST':
             print ("2222222")
+            print (request.form['submit'])
             if request.form['submit']:
                 print ("333333")
                 print (userId)
