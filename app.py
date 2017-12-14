@@ -250,7 +250,7 @@ def feedback(convoId):
         # pull user profile using userId (in progress)
         data = get_user_data(userId)
         convoId = 1 #hardcoded
-        feedback = get_feedback(userId, convoId)
+        feedback = get_feedback(convoId)
         print('inside feedback', feedback)
         return render_template('feedback.html', data = data, feedback=feedback)
 
