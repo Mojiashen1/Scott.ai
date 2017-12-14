@@ -269,12 +269,12 @@ def progress():
 
 
         if request.method == 'GET':
-            print ("WAHHOO")
+            print ("1111111")
 
         if request.method == 'GET':
-            print ("WAHOOO")
+            print ("2222222")
             if request.form['submit'] == 'delete':
-                print ("WOOHOOOOO")
+                print ("333333")
                 print (userId)
                 print (convoId)
                 delete_audio(userId) #delete using convo primary key
