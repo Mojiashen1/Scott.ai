@@ -88,7 +88,6 @@ stopRecordingButton.addEventListener("click", function () {
     }
     // our final blob
     var blob = new Blob([view], { type: 'audio/wav' });
-    console.log('this is blob', blob)
 
     //add functionality of download to end of stop button
     if (blob == null) {
@@ -96,9 +95,7 @@ stopRecordingButton.addEventListener("click", function () {
     }
 
     var form = new FormData();
-    form.append('blob', blob);
-    // form.append('title', 'this is title');
-    console.log('this is the form data', form.values())
+    form.append('blob', blob, 'title');
 
     //post file to route
     $.ajax({
