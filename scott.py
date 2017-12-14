@@ -206,7 +206,7 @@ def increment_point_time(userId, time_spent):
 
         curs.execute("select points, timeActive from profile where userId = %s", [userId])
         existing_data = curs.fetchone()
-        print('when updating data', existing_data)
+        print('when updating data', existing_data['points'], existing_data['timeActive'])
         conn.commit()
         curs.close()
         conn.close()
