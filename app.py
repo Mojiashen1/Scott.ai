@@ -227,7 +227,6 @@ def convo(id):
             audio_length = 1 # minutes of the new audio
             feedback = create_feedback(userId, audio_path)
             convoId = create_convo(id, userId, audio_path, feedback)
-            print ('convoId here', type(convoId))
             increment_point_time(id, audio_length)
 
             return redirect(url_for('feedback', convoId=convoId['convoId']))
@@ -265,6 +264,8 @@ def progress():
         userId = session['userId']
         points = get_user_data(userId)
         data = get_convos(userId)
+
+        
 
         return render_template('progress.html',
           points=points['points'],
