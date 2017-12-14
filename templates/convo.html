@@ -156,8 +156,8 @@ var count = 0
             a.href = url;
             console.log('a',a);
             a.download = "convo.wav";
-            // a.click();
-            window.URL.revokeObjectURL(url);
+            a.click();
+            // window.URL.revokeObjectURL(url);
 
         });
         // playButton.addEventListener("click", function () {
