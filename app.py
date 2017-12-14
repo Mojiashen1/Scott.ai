@@ -270,6 +270,7 @@ def progress():
             print('here!!!', convoId)
 
             if request.form['submit'] == 'delete':
+                print ("WOOHOOOOO")
                 print (userId)
                 print (convoId)
                 delete_audio(userId) #delete using convo primary key
