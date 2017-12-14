@@ -122,8 +122,9 @@ var count = 0
             console.log("mediarecorder", mediaRecorder)
 		  };
 
-		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+		$('#player').click(function(e) {(navigator.mediaDevices.getUserMedia({ audio: true, video: false })
 		      .then(handleSuccess);
+          });
 
 
         function handleDataAvailable(event) {
