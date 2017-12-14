@@ -29,12 +29,12 @@ var count = 0
 	</div>
 
 	<script>
-    //initiate MediaRecorder with a MediaStream
-    var recordedChunks = [];
+      //initiate MediaRecorder with a MediaStream
+      var recordedChunks = [];
 
-    var recLength = 0,
-    var recBuffersL = [],
-    var recBuffersR = [];
+      var recLength = 0,
+      recBuffersL = [],
+      recBuffersR = [];
 
 		var questions = {{questions | safe}};
 		var index = 0;
@@ -137,26 +137,6 @@ var count = 0
           a.click();
           window.URL.revokeObjectURL(url);
         }
-
-		// var handleSuccess = function(stream) {
-		//     var context = new AudioContext();
-		//     var source = context.createMediaStreamSource(stream);
-		//     var processor = context.createScriptProcessor(1024, 1, 1);
-		//
-		//     source.connect(processor);
-		//     processor.connect(context.destination);
-		//
-		//     processor.onaudioprocess = function(e) {
-		//       // Do something with the data, i.e Convert this to WAV
-		//       // console.log(e.inputBuffer);
-		// 			stream = new mediaStream();
-		// 			track = stream.getAudioTracks()
-		// 			console.log(track)
-		//     };
-		//   };
-		//
-		//   navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-		//       .then(handleSuccess);
 
 	</script>
 
