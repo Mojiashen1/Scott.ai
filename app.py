@@ -277,7 +277,7 @@ def progress():
             data=data, script=url_for('progress'))
 
         elif request.method == 'POST':
-
+            print ("YOOO")
             convoId = request.form['convoId']
             print('here!!!', convoId)
 
