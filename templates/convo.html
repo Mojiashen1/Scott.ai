@@ -91,19 +91,21 @@ var count = 0
             mediaRecorder = new MediaRecorder(stream, options);
             mediaRecorder.ondataavailable = handleDataAvailable;
             mediaRecorder.start();
-		  };
 
-		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-		      .then(handleSuccess);
-
-
-        function handleDataAvailable(event) {
+            function handleDataAvailable(event) {
           if (event.data.size > 0) {
             recordedChunks.push(event.data);
             recBuffersL.push(e.inputBuffer.getChannelData(0));
             recBuffersR.push(e.inputBuffer.getChannelData(1));
           }
         }
+		  };
+
+		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+		      .then(handleSuccess);
+
+
+        
 
         function play() {
           var superBuffer = new Blob(recordedChunks);
