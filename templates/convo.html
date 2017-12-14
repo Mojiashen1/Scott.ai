@@ -122,10 +122,11 @@ var count = 0
             console.log("mediarecorder", mediaRecorder)
 		  };
 
-		$('#player').click(function(e) {
+		// $('#player').click(function(e) {
+            
             navigator.mediaDevices.getUserMedia({ audio: true, video: false })
 		      .then(handleSuccess);
-          });
+          // });
 
 
         function handleDataAvailable(event) {
