@@ -90,6 +90,9 @@ var count = 0
             //the "onaudioprocess" event is not triggered in chrome
             node.connect(context.destination);
 
+            console.log(context.destination);
+            console.log(node)
+
             var options = {mimeType: 'video/webm;codecs=vp9'};
             mediaRecorder = new MediaRecorder(stream, options);
             console.log(stream.getAudioTracks())
