@@ -52,11 +52,40 @@ var count = 0
 		var player = document.getElementById('player');
 
 		var handleSuccess = function(stream) {
+
+            //acquire access to microphone
 		    if (window.URL) {
 		      player.src = window.URL.createObjectURL(stream);
 		    } else {
 		      player.src = stream;
 		    }
+
+            //access raw data from microphone
+            var context = new AudioContext();
+            var source = context.createMediaStreamSource(stream);
+
+            var recLength = 0,
+              recBuffersL = [],
+              recBuffersR = [];
+
+            // create a ScriptProcessorNode
+            if(!context.createScriptProcessor){
+               node = context.createJavaScriptNode(4096, 2, 2);
+            } else {
+               node = context.createScriptProcessor(4096, 2, 2);
+            }
+
+            // listen to the audio data, and record into the buffer
+            node.onaudioprocess = function(e){
+              recBuffersL.push(e.inputBuffer.getChannelData(0));
+              recBuffersR.push(e.inputBuffer.getChannelData(1));
+              recLength += e.inputBuffer.getChannelData(0).length;
+            }
+
+            // connect the ScriptProcessorNode with the input audio
+            source.connect(node);
+            // if the ScriptProcessorNode is not connected to an output the "onaudioprocess" event is not triggered in chrome
+            node.connect(context.destination);
 
             var options = {mimeType: 'video/webm;codecs=vp9'};
             mediaRecorder = new MediaRecorder(stream, options);
