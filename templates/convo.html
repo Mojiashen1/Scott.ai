@@ -77,9 +77,7 @@ var count = 0
 
             console.log('this is stream', stream)
 
-            
-
-
+        
             // create a ScriptProcessorNode
             if(!context.createScriptProcessor){
                node = context.createJavaScriptNode(4096, 2, 2);
@@ -90,11 +88,13 @@ var count = 0
             // listen to the audio data, and record into the buffer
             node.onaudioprocess = function(e){
                 // console.log(e.inputBuffer);
-                recordedChunks.push(e.inputBuffer.getChanneldata(0)); //not working? 
+                // recordedChunks.push(e.inputBuffer.getChanneldata(0)); //not working? 
                 //console.log('e', e);
                 // console.log("e.data", e.inputBuffer.getChannelData());
                 recBuffersL.push(e.inputBuffer.getChannelData(0));
                 recBuffersR.push(e.inputBuffer.getChannelData(1));
+
+                // console.log
                 recLength += e.inputBuffer.getChannelData(0).length;
             }
 
