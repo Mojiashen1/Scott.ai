@@ -87,7 +87,6 @@ stopRecordingButton.addEventListener("click", function () {
         index += 2;
     }
     // our final blob
-    console.log('i am herererererere')
     var blob = new Blob([view], { type: 'audio/wav' });
     console.log('this is blob', blob)
 
