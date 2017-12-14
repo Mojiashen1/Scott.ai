@@ -265,7 +265,7 @@ def progress():
         userId = session['userId']
         points = get_user_data(userId)
         data = get_convos(userId)
-
+        print (points)
         print (data)
 
         if request.method == 'GET':
