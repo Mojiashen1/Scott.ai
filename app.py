@@ -265,7 +265,7 @@ def progress():
         points = get_user_data(userId)
         data = get_convos(userId)
 
-        if request.method == 'POST':
+        if request.method == 'GET':
             convoId = request.form['convoId']
             print('here!!!', convoId)
 
