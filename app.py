@@ -277,6 +277,7 @@ def progress():
                 print ("333333")
                 print (userId)
                 convoId = request.form['convoId']
+                print ("44444")
                 print (convoId)
                 delete_audio(convoId) #delete using convo primary key
         
