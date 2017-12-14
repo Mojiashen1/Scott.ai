@@ -48,7 +48,7 @@ function (e) {
     console.error(e);
 });
     });
-        
+
 stopRecordingButton.addEventListener("click", function () {
     // stop recording
     recorder.disconnect(context.destination);
@@ -96,7 +96,7 @@ stopRecordingButton.addEventListener("click", function () {
 
     //post file to route
     $.ajax({
-      type: "POST",
+      type: "GET",
       url: '/audiofile/',
       data: {'blob':blob},
       processData: false,
