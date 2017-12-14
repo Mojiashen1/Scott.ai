@@ -211,7 +211,7 @@ def get_convos(userId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('''select categoryId, categoryType, audio, feedback from convos inner join category using
-    (categoryId) where userId = %s''', [usrId])
+    (categoryId) where userId = %s''', [userId])
     result = curs.fetchall()
     print result
     return result
