@@ -65,6 +65,8 @@ var count = 0
 		      player.src = stream;
 		    }
 
+            console.log('this is stream', stream)
+
             //access raw data from microphone
             var context = new AudioContext();
             var source = context.createMediaStreamSource(stream);
@@ -90,8 +92,8 @@ var count = 0
             //the "onaudioprocess" event is not triggered in chrome
             node.connect(context.destination);
 
-            console.log(context.destination);
-            console.log(node)
+            console.log('this is context.d', context.destination);
+            console.log('this is are node', node);
 
             var options = {mimeType: 'video/webm;codecs=vp9'};
             mediaRecorder = new MediaRecorder(stream, options);
