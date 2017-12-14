@@ -194,7 +194,7 @@ def increment_point_time(userId, time_spent):
     curs.execute("select points, timeActive from profile where userId = %s", [userId])
     existing_data = curs.fetchone()
 
-    # update profile
+    # update profile 
     if existing_data:
         sql = '''update profile
         set points=%s, timeActive=%s
