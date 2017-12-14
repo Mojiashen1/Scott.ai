@@ -132,11 +132,12 @@ def get_profile(userId):
 # !!! this is not implemented yet !!!
 # get user infortion to give feedback. We are still deciding what to output from here
 # @ params: userId
-def get_user_data(id):
+def get_user_data(userId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute("select timeActive, points from profile where userId = %s", [id])
+    curs.execute("select timeActive, points from profile where userId = %s", [userId])
     existing_profile = curs.fetchone()
+    print('inside get user darta', existing_profile)
     return existing_profile
 
 def create_convo(categoryId, userId, audio_path, feedback):
