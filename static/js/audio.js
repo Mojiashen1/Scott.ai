@@ -87,6 +87,7 @@ stopRecordingButton.addEventListener("click", function () {
         index += 2;
     }
     // our final blob
+    console.log('i am herererererere')
     var blob = new Blob([view], { type: 'audio/wav' });
     console.log('this is blob', blob)
 
@@ -116,7 +117,6 @@ stopRecordingButton.addEventListener("click", function () {
     document.body.appendChild(a);
     a.style = "display: none";
     a.href = url;
-    // console.log('a',a);
     a.download = "convo.wav";
     a.click();
     window.URL.revokeObjectURL(url);
