@@ -95,12 +95,12 @@ stopRecordingButton.addEventListener("click", function () {
     }
 
     //post file to route
-    // $.ajax({
-    //   type: "POST",
-    //   url: '/audiofile',
-    //   data: blob,
-    //   success: function(e){console.log("success");}
-    // });
+    $.ajax({
+      type: "POST",
+      url: '/audiofile',
+      data: blob,
+      success: function(e){console.log("success");}
+    });
 
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");

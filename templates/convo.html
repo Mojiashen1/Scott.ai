@@ -33,12 +33,6 @@ we will inplement audio file system to record the answers -->
 	</div>
 
 	<script>
-      //initiate MediaRecorder with a MediaStream
-      var recordedChunks = [];
-
-      var recLength = 0,
-      recBuffersL = [],
-      recBuffersR = [];
 
 		var questions = {{questions | safe}};
 		var index = 0;
@@ -51,9 +45,6 @@ we will inplement audio file system to record the answers -->
 				$('#end').attr('type', 'submit');
 				$('#next').attr('style', 'display:none');
 				$('form').attr('style', 'display:block');
-                mediaRecorder.stop();
-                download()
-
 			}
 		});
 
