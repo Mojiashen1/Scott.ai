@@ -223,7 +223,7 @@ def get_audio():
 def delete_audio(userId, convoId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute("delete from convos where convoId = %s and userId = %s", [convoId, userId])
+    curs.execute("delete from convos where convoId = %s", [convoId])
     result = curs.fetchone()
     if result:
         return 1 #delete successful

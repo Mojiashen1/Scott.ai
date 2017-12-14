@@ -268,7 +268,9 @@ def progress():
         if request.method == 'POST':
             convoId = request.form['convoId']
             print('here!!!', convoId)
-            # delete_audio(userId, convoId)
+
+          if request.form['submit'] == 'delete':
+            delete_audio(userId) #delete using convo primary key
 
         return render_template('progress.html', 
           points=points['points'], 
