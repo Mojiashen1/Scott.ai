@@ -271,6 +271,14 @@ def progress():
 
           if request.form['submit'] == 'delete':
             delete_audio(userId) #delete using convo primary key
+  
+            #re render template
+            points = get_user_data(userId)
+            data = get_convos(userId)
+            
+            return render_template('progress.html', 
+            points=points['points'], 
+            data=data, script=url_for('progress'))
 
         return render_template('progress.html', 
           points=points['points'], 
