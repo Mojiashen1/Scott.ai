@@ -258,6 +258,14 @@ def feedback(convoId):
     else:
         return redirect(url_for('home'))
 
+@app.route('/audiofile/', methods = ['POST', 'GET'])
+def audiofile():
+    if request.method == 'POST': 
+        file_val = request.files['file']
+        print file_val
+
+    return None
+
 @app.route('/progress/', methods =['POST', 'GET'])
 def progress():
     if 'userId' in session:

@@ -94,19 +94,23 @@ stopRecordingButton.addEventListener("click", function () {
         return;
     }
 
-    console.log('hello');
+    //post file to route
+    $.ajax({
+      type: "POST",
+      url: '/audiofile',
+      data: blob,
+      success: function(e){console.log("success");}
+    });
 
-    console.log('blob', blob);
-
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement("a");
-    document.body.appendChild(a);
-    a.style = "display: none";
-    a.href = url;
-    console.log('a',a);
-    a.download = "convo.wav";
-    a.click();
-    window.URL.revokeObjectURL(url);
+    // var url = URL.createObjectURL(blob);
+    // var a = document.createElement("a");
+    // document.body.appendChild(a);
+    // a.style = "display: none";
+    // a.href = url;
+    // console.log('a',a);
+    // a.download = "convo.wav";
+    // a.click();
+    // window.URL.revokeObjectURL(url);
 
 });
 
