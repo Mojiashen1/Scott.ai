@@ -98,7 +98,7 @@ stopRecordingButton.addEventListener("click", function () {
     var form = new FormData();
     form.append('blob', blob);
     // form.append('title', 'this is title');
-    console.log('this is the form data', form)
+    console.log('this is the form data', form.values())
 
     //post file to route
     $.ajax({
