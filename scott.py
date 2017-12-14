@@ -193,6 +193,7 @@ def increment_point_time(userId, time_spent):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute("select points, timeActive from profile where userId = %s", [userId])
     existing_data = curs.fetchone()
+    print('orginal time', existing_data['timeActive'])
 
     # update profile
     if existing_data:
@@ -201,6 +202,7 @@ def increment_point_time(userId, time_spent):
         where userId = %s'''
         points = int(existing_data['points'] + time_spent*10)
         timeActive = int(existing_data['timeActive'] + time_spent)
+        print('time after changing', timeActive)
         curs.execute(sql, (points, timeActive, userId))
         conn.commit()
         curs.close()
