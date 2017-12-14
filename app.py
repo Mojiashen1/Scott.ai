@@ -271,6 +271,16 @@ def progress():
         if request.method == 'GET':
             print ("HELO")
             print ("2222222")
+
+            return render_template('progress.html', 
+            points=points['points'], 
+            data=data, script=url_for('progress'))
+
+        elif request.method == 'POST':
+
+            convoId = request.form['convoId']
+            print('here!!!', convoId)
+
             if request.form['submit'] == 'delete':
                 print ("333333")
                 print (userId)
@@ -283,17 +293,9 @@ def progress():
                 points = get_user_data(userId)
                 data = get_convos(userId)
 
-                # return render_template('progress.html', 
-                  # points=points['points'], 
-                  # data=data, script=url_for('progress'))
-
-            return render_template('progress.html', 
-            points=points['points'], 
-            data=data, script=url_for('progress'))
-
-        if request.method == 'POST':
-            convoId = request.form['convoId']
-            print('here!!!', convoId)
+                return render_template('progress.html', 
+                  points=points['points'], 
+                  data=data, script=url_for('progress'))
             # delete_audio(userId, convoId)
 
         return render_template('progress.html', points=points['points'], data=data, script=url_for('progress'))
