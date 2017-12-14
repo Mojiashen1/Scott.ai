@@ -276,8 +276,9 @@ def progress():
             if request.form['submit'] == 'delete':
                 print ("333333")
                 print (userId)
+                convoId = request.form['convoId']
                 print (convoId)
-                delete_audio(userId) #delete using convo primary key
+                delete_audio(convoId) #delete using convo primary key
         
                 #re render template
                 points = get_user_data(userId)
