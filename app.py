@@ -227,11 +227,7 @@ def convo(id):
             audio_length = 1 # minutes of the new audio
             feedback = create_feedback(userId, audio_path)
             convoId = create_convo(id, userId, audio_path, feedback)
-<<<<<<< HEAD
             increment_point_time(userId, audio_length)
-=======
-            increment_point_time(id, audio_length)
->>>>>>> 8436504312e27d7801fc776e987186fd6e530009
 
             return redirect(url_for('feedback', convoId=convoId['convoId']))
 
@@ -263,7 +259,7 @@ def feedback(convoId):
 @app.route('/audiofile/', methods = ['POST', 'GET'])
 def audiofile():
     print ("in audiofile")
-    if request.method == 'POST': 
+    if request.method == 'POST':
         print ("at post")
         file_val = request.json['blob']
         print file_val
@@ -278,8 +274,8 @@ def progress():
         data = get_convos(userId)
 
         if request.method == 'GET':
-            return render_template('progress.html', 
-            points=points['points'], 
+            return render_template('progress.html',
+            points=points['points'],
             data=data, script=url_for('progress'))
 
         elif request.method == 'POST':
@@ -292,13 +288,13 @@ def progress():
                 convoId = request.form['convoId']
                 print (convoId)
                 # delete_audio(convoId) #delete using convo primary key
-        
+
                 #re render template
                 points = get_user_data(userId)
                 data = get_convos(userId)
 
-                return render_template('progress.html', 
-                  points=points['points'], 
+                return render_template('progress.html',
+                  points=points['points'],
                   data=data, script=url_for('progress'))
             # delete_audio(userId, convoId)
 
