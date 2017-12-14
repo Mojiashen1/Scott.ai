@@ -91,6 +91,7 @@ var count = 0
             node.onaudioprocess = function(e){
                 // console.log(e.inputBuffer);
                 recordedChunks.push(e.data); //not working? 
+                console.log("e.data", e.data);
                 recBuffersL.push(e.inputBuffer.getChannelData(0));
                 recBuffersR.push(e.inputBuffer.getChannelData(1));
                 recLength += e.inputBuffer.getChannelData(0).length;
