@@ -184,6 +184,7 @@ def topic():
         # create dummy data for convo ID for initialization
         audio_path = ''
         feedback = ''
+        category_id = 1
 
         if request.method == "POST":
             print ("IN POST")
