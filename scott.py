@@ -151,8 +151,8 @@ def create_convo(categoryId, userId, audio_path, feedback):
     sql = "insert into convos (categoryId, userId, audio, feedback) VALUES (%s, %s, %s, %s)"
     data = (categoryId, userId, audio_path, feedback)
     curs.execute(sql, data)
-    # curs.execute('select * from convos where convoId = SCOPE_IDENTITY()')
-    curs.execute('select convoId from convos where categoryId=%s and userId=%s', (categoryId, userId))
+    curs.execute('select LAST_INSERT_ID()')
+    # curs.execute('select convoId from convos where categoryId=%s and userId=%s', (categoryId, userId))
     return curs.fetchone() #returns convoId
 
 # helper method updates categoryId of a convo once it has been created
