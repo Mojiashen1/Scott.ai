@@ -222,7 +222,7 @@ def convo(id): #id is category id!!
   # check if session in progress (user logged in)
   if 'userId' in session:
       userId = session['userId']
-      id = 1
+      # id = 1
       
       if request.method == 'GET':
         #pull questions from database by type
