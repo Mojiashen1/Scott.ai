@@ -311,9 +311,9 @@ def progress():
                 print data
 		
 		#refresh page with new data
-                # return render_template('progress.html',
-                  # points=points['points'],
-                  # data=data, script=url_for('progress'))
+                return render_template('progress.html',
+                  points=points['points'],
+                  data=data, script=url_for('progress'))
             # delete_audio(userId, convoId)
 
     # if no session in progress, redirect to home
