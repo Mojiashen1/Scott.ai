@@ -127,7 +127,7 @@ stopRecordingButton.addEventListener("click", function () {
     var form = new FormData();
     // form.append('blob', blob, 'title');
 
-    form.append('filename', 'convo.wav');
+    form.append('fname', 'convo.wav');
     form.append('data', blob);
 
     console.log('form is', form)
