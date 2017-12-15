@@ -187,13 +187,14 @@ def topic():
         category_id = 1
 
         if request.method == "POST":
+            print ("IN POST")
 
-            convoId = request.form['convoId']
+            convoId = request.form['convoId']['convoId']
             print ("created convo", convoId)
             
             update_categoryId(category_id, convoId, userId)
 
-            return redirect(url_for('convo', id = category_id, convoId = convoId))
+            return redirect(url_for('convo', id = category_id, convoId = convoId['convoId']))
 
         elif request.method == "GET":
             print ("in get")
