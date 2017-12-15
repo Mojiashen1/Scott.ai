@@ -256,9 +256,11 @@ def get_convos(userId):
 # tihs is yet to be imlemented, but will take an audio input, and add it to the SQL database
 # according to the userId and convoID, such that the audio can be retrieved later.
 def save_audio(convoId, userid, audiofile):
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute('update convos set audio = %s where convoId = %s and userId=%s', (audiofile, convoId, userId))
+    return curs.fetchone()
 
-
-    return None
 
 # this helper function deletes an entry from the convos table givecn some convoID, and
 # is meant to be used when the user is not happy with the audio recording for a 

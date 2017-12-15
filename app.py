@@ -317,8 +317,12 @@ def audiofile(userId, convoId):
         # not working yet
         file = request.files['blob']
 
-        save_audio(convoId, userId, file)
-        return ''
+        result = save_audio(convoId, userId, file)
+
+        if result: 
+            return 1
+        else:
+            return 0
     return ''
 
 ''' The progress page shows the user's progress thus far when
