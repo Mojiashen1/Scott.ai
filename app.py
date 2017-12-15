@@ -309,6 +309,8 @@ def audiofile(userId, convoId):
         print request.base_url
         print "in audiofile"
 
+        print (request.files)
+
         # not working yet
         file = request.files['blob']
         print file.filename
