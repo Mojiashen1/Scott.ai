@@ -308,11 +308,14 @@ def audiofile(userId, convoId):
     if 'userId' in session:
         print request.base_url
         print "in audiofile"
+
+        #get the file posted to this route
         if request.method == 'GET':
             print "HERE"
             # not working yet
-            audio = request.files['blob']
-            print (audio)
+            file = request.files['blob']
+
+            print file.filename
             # save_audio(convoId, audio)
             return ''
     return ''
