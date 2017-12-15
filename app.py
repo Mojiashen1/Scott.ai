@@ -294,10 +294,9 @@ def feedback(convoId):
 by the AJAX script after audio recording, and will call a 
 helper function in scott.py to take the file, and save it to the server
 using the user ID and convoID. Not yet implemented.'''
-@app.route('/audiofile/', methods = ['POST', 'GET'])
-def audiofile():
+@app.route('/audiofile/<userId>/<convoId>/', methods = ['POST', 'GET'])
+def audiofile(userId, convoId):
     if 'userId' in session:
-        userId = session['userId']
         print request.url_rule
         print "in audiofile"
         if request.method == 'POST':
