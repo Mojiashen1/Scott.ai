@@ -219,6 +219,8 @@ otherwise, redirects to homepage'''
 @app.route('/convo/<id>', methods =['POST', 'GET'])
 def convo(id): #id is category id!! 
 
+  print request.base_url
+
   # check if session in progress (user logged in)
   if 'userId' in session:
       userId = session['userId']
