@@ -252,5 +252,5 @@ def delete_audio(userId, convoId):
     curs.execute("delete from convos where convoId = %s and userId = %s", (convoId, userId))
     result = curs.fetchone()
     if result:
-        return get_convos(userId) #return updated data
+        return 1
     return 0 #delete failed

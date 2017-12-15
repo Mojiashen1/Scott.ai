@@ -304,12 +304,14 @@ def progress():
                 new_data = delete_audio(userId, convoId) #delete using convo primary key
 
                 #continue if success
-                if new_data != 0: 
+                if new_data == 1:
+
+                  data = get_convos(userId)
   		
   		            #refresh page with new data
                   return render_template('progress.html',
                     points=points['points'],
-                    data=new_data, script=url_for('progress'))
+                    data=data, script=url_for('progress'))
 
                 #if delete was not successful
                 else:
