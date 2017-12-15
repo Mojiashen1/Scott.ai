@@ -255,7 +255,7 @@ def get_convos(userId):
 
 # tihs is yet to be imlemented, but will take an audio input, and add it to the SQL database
 # according to the userId and convoID, such that the audio can be retrieved later.
-def save_audio(convoId, userid, audiofile):
+def save_audio(convoId, userId, audiofile):
     print ("in save audio")
     print ("audio file is ", audiofile)
 
