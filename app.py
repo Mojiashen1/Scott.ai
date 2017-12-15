@@ -194,11 +194,12 @@ def topic():
             
             update_categoryId(category_id, convoId, userId)
 
-            return redirect(url_for('convo', id = category_id, convoId = convoId))
+            return redirect(url_for('convo', id = category_id, convoId = convoId['convoId']))
 
         elif request.method == "GET":
             print ("in get")
             convoId = create_convo(category_id, userId, audio_path, feedback)
+            print ("convoId in get is", convoId)
             return render_template('topic.html', convoId = convoId, script=(url_for('topic')))
     else:
         return redirect(url_for('home'))
