@@ -309,13 +309,15 @@ def audiofile(userId, convoId):
         print request.base_url
         print "in audiofile"
 
+        # it actaully reaches this when end convo is clicked 
+
         # request.files is empty!! 
-        print (request.files)
+        print (request.files['blob'])
 
         # not working yet
         file = request.files['blob']
-        print file.filename
-        # save_audio(convoId, audio)
+
+        save_audio(convoId, userId, file)
         return ''
     return ''
 
