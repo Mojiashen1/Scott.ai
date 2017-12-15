@@ -267,6 +267,7 @@ def audiofile():
         if request.method == 'POST':
             # not working yet
             audio = request.files['blob']
+            print (audio)
             # save_audio(convoId, audio)
             return ''
     return ''
