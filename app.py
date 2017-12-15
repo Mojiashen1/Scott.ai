@@ -215,7 +215,7 @@ Here, the list of questions are pulled from the database using the
 conversation type ID, and are passed into the template, where each
 question is shown. Again, this only happens if a session is created --
 otherwise, redirects to homepage'''
-@app.route('/convo/<convoId>', methods =['POST', 'GET'])
+@app.route('/convo/<id>/<convoId>', methods =['POST', 'GET'])
 def convo(id, convoId): #id is category id!! 
 
   # check if session in progress (user logged in)
