@@ -285,33 +285,35 @@ def progress():
         points = get_user_data(userId)
         data = get_convos(userId)
 
+        # get request loads page
         if request.method == 'GET':
             return render_template('progress.html',
             points=points['points'],
             data=data, script=url_for('progress'))
 
+        # post request listens for delte button click
         elif request.method == 'POST':
-            print ("in post")
-            convoId = request.form['convoId']
 
-            # this is not yet done 
+            # check if delte is clicked
             if request.form.get('delete', None) == "delete":
 
-                print ("in delete")
-          
+                # extract matching convoId from form
                 convoId = request.form['convoId']
 
                 #delete using convo primary key
                 delete_audio(userId, convoId)
 
-                #re render template
+                # retrieve updated data
                 data = get_convos(userId)
 		
-		#refresh page with new data
+		            # re-render page with new data
+                # since the convoId is guarenteed to be
+                # in the database, there is no need to catch
+                # user errors, as a matching data entry to the
+                # table can always be found
                 return render_template('progress.html',
                   points=points['points'],
                   data=data, script=url_for('progress'))
-            # delete_audio(userId, convoId)
 
     # if no session in progress, redirect to home
     else:
