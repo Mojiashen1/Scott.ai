@@ -223,6 +223,7 @@ def convo(id, convoId): #id is category id!!
   if 'userId' in session:
       userId = session['userId']
       id = 1
+      print ("convoId is", convoId)
       
       if request.method == 'GET':
         #pull questions from database by type
