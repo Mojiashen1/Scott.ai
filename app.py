@@ -300,16 +300,21 @@ def progress():
                 print ("in delete")
           
                 convoId = request.form['convoId']
+
+                print data
                 delete_audio(convoId) #delete using convo primary key
 
                 #re render template
                 points = get_user_data(userId)
                 data = get_convos(userId)
+                print ("after delete")
+                print data
 		
 		#refresh page with new data
-                return render_template('progress.html',
-                  points=points['points'],
-                  data=data, script=url_for('progress'))
+                # return render_template('progress.html',
+                  # points=points['points'],
+                  # data=data, script=url_for('progress'))
+            # delete_audio(userId, convoId)
 
     # if no session in progress, redirect to home
     else:
