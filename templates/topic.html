@@ -19,7 +19,7 @@
     <div class="row text-center">
 
         <div class="col-md-4 selection">
-          <a href="{{ url_for('convo', id=1) }}">
+          <a href="{{ url_for('convo', id=1, convoId = {{convoId}}) }}">
             <span class="fa-stack fa-4x">
               <img src = "../static/img/school.jpg" height=150>
               <h4 class="text-muted">School</h4>
@@ -29,7 +29,7 @@
         </div>
 
         <div class="col-md-4 selection">
-          <a href="{{ url_for('convo', id=3) }}">
+          <a href="{{ url_for('convo', id=3, convoId = {{convoId}}) }}">
             <span class="fa-stack fa-4x">
               <img src = "../static/img/hobby.jpg" height=150>
               <h4 class="text-muted">Hobbies</h4>
@@ -41,7 +41,7 @@
 
 
         <div class="col-md-4 selection">
-          <a href="{{ url_for('convo', id=2) }}">
+          <a href="{{ url_for('convo', id=2, convoId = {{convoId}}) }}">
             <span class="fa-stack fa-4x">
               <img src = "../static/img/food.jpg" height=150>
               <h4 class="text-muted">Food</h4>

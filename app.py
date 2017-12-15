@@ -179,25 +179,25 @@ in progress, and otherwise the user is redirected to homepage.'''
 @app.route('/topic/', methods =['POST', 'GET'])
 def topic():
     if 'userId' in session:
+        userId = session['userId'] # extract userId
+
+        # create dummy data for convo ID for initialization
+        audio_path = ''
+        feedback = ''
+        category_id = 1
+
         if request.method == "POST":
             print ("in post")
-            userId = session['userId'] # extract userId
             print ("2")
             category_id = request.form['form-id']
-
-            # make dummy data for now
-            audio_path = ''
-            feedback = ''
-
-            print ("print going to great convo")
-            convoId = create_convo(category_id, userId, audio_path, feedback)
 
             print ("created convo", convoId)
             return redirect(url_for('convo', convoId = convoId))
 
         elif request.method == "GET":
             print ("in get")
-            return render_template('topic.html')
+            convoId = create_convo(category_id, userId, audio_path, feedback)
+            return render_template('topic.html', convoId = convoId)
     else:
         return redirect(url_for('home'))
 
@@ -216,7 +216,7 @@ conversation type ID, and are passed into the template, where each
 question is shown. Again, this only happens if a session is created --
 otherwise, redirects to homepage'''
 @app.route('/convo/<convoId>', methods =['POST', 'GET'])
-def convo(convoId): #id is category id!! 
+def convo(id, convoId): #id is category id!! 
 
   # check if session in progress (user logged in)
   if 'userId' in session:
@@ -235,8 +235,8 @@ def convo(convoId): #id is category id!!
 
         # render template and fill with questions pulled from database
 
-        return render_template('convo.html', questions = questions, convoId = id, 
-                              userId = userId, script=(url_for('convo', convoId = convoId)))
+        return render_template('convo.html', questions = questions, convoId = convoId, 
+                              userId = userId, script=(url_for('convo', id = id, convoId = convoId)))
 
       # go to feedback page once user submits
       elif request.method == 'POST':
