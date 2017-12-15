@@ -12,6 +12,7 @@ import MySQLdb
 import dbconn2
 from flask import flash, json
 import bcrypt, random
+import urllib #to fetch file from url
 
 # Connects to the db
 def getConn():
@@ -254,7 +255,11 @@ def get_convos(userId):
 
 # tihs is yet to be imlemented, but will take an audio input, and add it to the SQL database
 # according to the userId and convoID, such that the audio can be retrieved later.
-def save_audio(convoId, audio):
+def save_audio(convoId, userid, url):
+
+    testfile = urllib.URLopener()
+    testfile.retrieve("http://randomsite.com/file.gz", "file.gz")
+
     return None
 
 # this helper function deletes an entry from the convos table givecn some convoID, and

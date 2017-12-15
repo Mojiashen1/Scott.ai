@@ -257,6 +257,8 @@ def convo(id): #id is category id!!
             feedback = create_feedback(userId, audio_path)
             print ("feedback is", feedback)
 
+            # TO DO -- pull audio path
+
             update_feedback(feedback, audio_path, convoId, userId)
 
             increment_point_time(userId, audio_length)
@@ -296,6 +298,7 @@ using the user ID and convoID. Not yet implemented.'''
 def audiofile():
     if 'userId' in session:
         userId = session['userId']
+        print request.url_rule
         print "in audiofile"
         if request.method == 'POST':
             print "HERE"
