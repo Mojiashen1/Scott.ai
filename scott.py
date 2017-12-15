@@ -151,18 +151,22 @@ def create_convo(categoryId, userId, audio_path, feedback):
     sql = "insert into convos (categoryId, userId, audio, feedback) VALUES (%s, %s, %s, %s)"
     data = (categoryId, userId, audio_path, feedback)
     curs.execute(sql, data)
-    curs.execute('select convoId from convos where categoryId=%s and userId=%s', (categoryId, userId))
-    return curs.fetchone()
+    curs.execute('SELECT SCOPE_IDENTITY()')
+    # curs.execute('select convoId from convos where categoryId=%s and userId=%s', (categoryId, userId))
+    return curs.fetchone() #returns convoId
 
 # helper method updates categoryId of a convo once it has been created
 def update_categoryId(categoryId, convoId, userId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute('update convos set categoryId = %s where convoId = %s and userId=%s', (categoryId, convoId, userId))
+    return curs.fetchone()
 
-    sql = "update convos (categoryId, userId, audio, feedback) VALUES (%s, %s, %s, %s)"
-    data = (categoryId, userId, audio_path, feedback)
-    curs.execute(sql, data)
-    curs.execute('select convoId set categoryId = %S where convoId = %s and userId=%s', (categoryId, convoId, userId))
+# helper method updates categoryId of a convo once it has been created
+def update_feedback(feedback, audiofile, convoId, userId):
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute('update convos set feedback = %s, audio = %s where convoId = %s and userId=%s', (feedback, audiofile, convoId, userId))
     return curs.fetchone()
 
 # A random feedback message is generated in this helper method. The idea is that 
