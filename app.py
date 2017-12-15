@@ -184,13 +184,14 @@ def topic():
         # create dummy data for convo ID for initialization
         audio_path = ''
         feedback = ''
-        category_id = 1
 
         if request.method == "POST":
             print ("IN POST")
 
             convoId = request.form['convoId']
+            categoryId = request.form['categoryId']
             print ("created convo", convoId)
+            category_id = 3
             
             update_categoryId(category_id, convoId, userId)
 
