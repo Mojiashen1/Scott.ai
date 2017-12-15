@@ -188,7 +188,7 @@ def topic():
             audio_length = 1 # minutes of the new audio
 
             convoId = create_convo(category_id, userId, audio_path, feedback)
-            return redirect(url_for('convo', id=category_id, convoID = convoId))
+            return redirect(url_for('convo', id=category_id, convoId = convoId))
         return render_template('topic.html')
     else:
         return redirect(url_for('home'))
