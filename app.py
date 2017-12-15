@@ -309,6 +309,7 @@ def audiofile(userId, convoId):
         print request.base_url
         print "in audiofile"
 
+        # request.files is empty!! 
         print (request.files)
 
         # not working yet

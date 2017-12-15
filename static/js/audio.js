@@ -79,6 +79,7 @@ function (e) {
     });
 
 stopRecordingButton.addEventListener("click", function () {
+
     // stop recording
     recorder.disconnect(context.destination);
     mediaStream.disconnect(recorder);
@@ -125,6 +126,9 @@ stopRecordingButton.addEventListener("click", function () {
 
     var form = new FormData();
     form.append('blob', blob, 'title');
+
+    console.log('form is', form)
+    console.log( 'blob', blob, 'title')
 
     var audiourl = '/audiofile/' + userId + '/'+convoId + '/';
     console.log(audiourl);
