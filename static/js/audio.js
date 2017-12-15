@@ -140,10 +140,11 @@ stopRecordingButton.addEventListener("click", function () {
     $.ajax({
       type: "POST",
       url: audiourl,
-      data: form, 
-      processData: false,
-      contentType: false,
-      dataType: 'audio/wav',
+      data: audioRecorder.forceDownload(blob, 'output.wav'),
+      // data: form, 
+      // processData: false,
+      // contentType: false,
+      // dataType: 'audio/wav',
       success: function(e){console.log("success");}
     });
 
