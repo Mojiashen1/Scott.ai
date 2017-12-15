@@ -285,36 +285,37 @@ def progress():
         points = get_user_data(userId)
         data = get_convos(userId)
 
+        # get request loads the page
         if request.method == 'GET':
             return render_template('progress.html',
             points=points['points'],
             data=data, script=url_for('progress'))
 
+        # post request listens for delete button click
         elif request.method == 'POST':
-            print ("in post")
-            convoId = request.form['convoId']
 
-            # this is not yet done 
+            # check if delete button clicked
             if request.form.get('delete', None) == "delete":
-
-                print ("in delete")
           
+                # extract convo ID from table
                 convoId = request.form['convoId']
 
-                print data
-                delete_audio(userId, convoId) #delete using convo primary key
+                #save updated convo data after deleting selected entry
+                new_data = delete_audio(userId, convoId) #delete using convo primary key
 
-                #re render template
-                points = get_user_data(userId)
-                data = get_convos(userId)
-                print ("after delete")
-                print data
-		
-		#refresh page with new data
-                return render_template('progress.html',
-                  points=points['points'],
-                  data=data, script=url_for('progress'))
-            # delete_audio(userId, convoId)
+                #continue if success
+                if new_data != 0: 
+  		
+  		            #refresh page with new data
+                  return render_template('progress.html',
+                    points=points['points'],
+                    data=new_data, script=url_for('progress'))
+
+                #if delete was not successful
+                else:
+                  return render_template('progress.html',
+                    points=points['points'],
+                    data=data, script=url_for('progress'))
 
     # if no session in progress, redirect to home
     else:
