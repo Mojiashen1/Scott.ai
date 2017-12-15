@@ -187,17 +187,18 @@ def topic():
         category_id = 1
 
         if request.method == "POST":
-            print ("in post")
-            print ("2")
-            category_id = request.form['form-id']
 
+            convoId = request.form['convoId']
             print ("created convo", convoId)
-            return redirect(url_for('convo', convoId = convoId))
+            
+            update_categoryId(category_id, convoId, userId):
+
+            return redirect(url_for('convo', id = category_id, convoId = convoId))
 
         elif request.method == "GET":
             print ("in get")
             convoId = create_convo(category_id, userId, audio_path, feedback)
-            return render_template('topic.html', convoId = convoId)
+            return render_template('topic.html', convoId = convoId, script=(url_for('topic')))
     else:
         return redirect(url_for('home'))
 

@@ -154,7 +154,16 @@ def create_convo(categoryId, userId, audio_path, feedback):
     curs.execute('select convoId from convos where categoryId=%s and userId=%s', (categoryId, userId))
     return curs.fetchone()
 
-# need to make another method to update convo with audio and feedback
+# helper method updates categoryId of a convo once it has been created
+def update_categoryId(categoryId, convoId, userId):
+    conn = getConn()
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+
+    sql = "update convos (categoryId, userId, audio, feedback) VALUES (%s, %s, %s, %s)"
+    data = (categoryId, userId, audio_path, feedback)
+    curs.execute(sql, data)
+    curs.execute('select convoId set categoryId = %S where convoId = %s and userId=%s', (categoryId, convoId, userId))
+    return curs.fetchone()
 
 # A random feedback message is generated in this helper method. The idea is that 
 # in an actual implementation of the AI, the feedback will be 'smart', and will
