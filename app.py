@@ -194,7 +194,7 @@ def topic():
             
             update_categoryId(category_id, convoId, userId)
 
-            return redirect(url_for('convo', id = category_id, convoId = convoId['convoId']))
+            return redirect(url_for('convo', id = category_id, convoId = convoId))
 
         elif request.method == "GET":
             print ("in get")
