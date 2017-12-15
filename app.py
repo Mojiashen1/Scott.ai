@@ -190,9 +190,9 @@ def topic():
             print ("IN POST")
 
             convoId = request.form['convoId']
-            # categoryId = request.form['categoryId']
+            category_id = request.form['categoryId']
             print ("created convo", convoId)
-            category_id = 3
+            # category_id = 3
             
             update_categoryId(category_id, convoId, userId)
 
