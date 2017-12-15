@@ -1,8 +1,11 @@
 # Mojia & Harshita
 # final project
 # draft version
-# Dec 3, 2017
-# this file contains all the helper methods that app.py calls
+# Dec 14, 2017
+
+# this file contains all the helper methods that app.py calls, and contains
+# most of the code that will be communicating with the SQL servers to add or
+# modify user data as necessary. 
 
 import sys
 import MySQLdb
@@ -138,6 +141,10 @@ def get_user_data(userId):
     existing_profile = curs.fetchone()
     return existing_profile
 
+# when a new conversation is started, a new convo is added to the convos
+# table using the userId, audio filepath, categoryID, and user feedback. 
+# the convoId auto-increments, and thus all other parameters are insered 
+# into the table. 
 def create_convo(categoryId, userId, audio_path, feedback):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
@@ -147,6 +154,10 @@ def create_convo(categoryId, userId, audio_path, feedback):
     curs.execute('select convoId from convos where categoryId=%s and userId=%s', (categoryId, userId))
     return curs.fetchone()
 
+# A random feedback message is generated in this helper method. The idea is that 
+# in an actual implementation of the AI, the feedback will be 'smart', and will
+# critique the user's grammar or pronounciation. For this use case, the feedback
+# is just hard coded.  
 def create_feedback(userId, audio_path):
     scores = ['GREAT WORK! You can start to challenge yourself more on the diversity of your vocabulary.',
     'GOOD IMPROVEMENT ON THE ACCENT, WAY TO GO',
@@ -155,6 +166,8 @@ def create_feedback(userId, audio_path):
     'You are sounding like a native now!']
     return scores[random.randint(0,len(scores)-1)]
 
+# pulls the feedback message for a particular user using the convoId and userId, 
+# and returns the message.
 def get_feedback(convoId, userId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
@@ -187,6 +200,11 @@ def get_options(data):
                 index = i
     return (all_options, index)
 
+# In order to implement the gamification element of this application,
+# a point system is used to show users how much time they've spent on the
+# app, and thereby also how many points they've earned. This increments
+# the total points of a user depdending on the amount of time they had spent
+# in a single conversation. 
 def increment_point_time(userId, time_spent):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
@@ -210,6 +228,8 @@ def increment_point_time(userId, time_spent):
         return 1 #update successful
     return 0 #update failed
 
+# This helper method returns all conversations a user has had, which is useful for the 
+# progress page in our application, where all data for one user is shown. 
 def get_convos(userId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
@@ -218,9 +238,14 @@ def get_convos(userId):
     result = curs.fetchall()
     return result
 
+# tihs is yet to be imlemented, but will take an audio input, and add it to the SQL database
+# according to the userId and convoID, such that the audio can be retrieved later.
 def get_audio():
     return None
 
+# this helper function deletes an entry from the convos table givecn some convoID, and
+# is meant to be used when the user is not happy with the audio recording for a 
+# particular question.
 def delete_audio(userId, convoId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)

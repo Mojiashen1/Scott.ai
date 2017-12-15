@@ -1,45 +1,66 @@
-        console.log("start");
-        var startRecordingButton = document.getElementById("startRecordingButton");
-        var stopRecordingButton = document.getElementById("end");
-        var leftchannel = [];
-        var rightchannel = [];
-        var recorder = null;
-        var recordingLength = 0;
-        var volume = null;
-        var mediaStream = null;
-        var sampleRate = 44100;
-        var context = null;
-        var blob = null;
-        startRecordingButton.addEventListener("click", function () {
-        // Initialize recorder
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-        navigator.getUserMedia(
-        {
-            audio: true
-        },
-        function (e) {
+// Mojia & Harshita
+// final project
+// alpha version
+// Dec 14, 2017 
 
-            console.log("user consent");
-        // creates the audio context
-        window.AudioContext = window.AudioContext || window.webkitAudioContext;
-        context = new AudioContext();
-        // creates an audio node from the microphone incoming stream
-        mediaStream = context.createMediaStreamSource(e);
-        // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createScriptProcessor
-        // bufferSize: the onaudioprocess event is called when the buffer is full
-        var bufferSize = 2048;
-        var numberOfInputChannels = 2;
-        var numberOfOutputChannels = 2;
-        if (context.createScriptProcessor) {
-            recorder = context.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
-        } else {
-            recorder = context.createJavaScriptNode(bufferSize, numberOfInputChannels, numberOfOutputChannels);
-        }
-        recorder.onaudioprocess = function (e) {
-            leftchannel.push(new Float32Array(e.inputBuffer.getChannelData(0)));
-            rightchannel.push(new Float32Array(e.inputBuffer.getChannelData(1)));
-            recordingLength += bufferSize;
-        }
+// This Javascript file adds the audio recording functionality to the page.
+// In orer to recourd audio, the browser must first get permission from the
+// user to access the raw audio input from the microphone, which is done 
+// using getUserMedia. After recording starts, the API collects audio snippets
+// at regular increments of time from 'input channels', and stores them locally.
+// Once recording is complete ('End Conversation' button is clicked), the recorder
+// auditomatically stops recording, and saves the recording. This is done by combining
+// all the audio snippets from the left and right stream as a Blob, and then
+// saving the file remotely using a unique route using AJAX. (Right now, we also save the
+// file to the local device (user's computer) for sanity check, but will remove that
+// in the Beta version). Then, a listener implemented in Flask will fetch the file, and
+// save to the server (this is yet to be implemented).
+
+// script adapted from https://gist.github.com/meziantou/edb7217fddfbb70e899e
+
+console.log("start");
+var startRecordingButton = document.getElementById("startRecordingButton");
+var stopRecordingButton = document.getElementById("end");
+var leftchannel = [];
+var rightchannel = [];
+var recorder = null;
+var recordingLength = 0;
+var volume = null;
+var mediaStream = null;
+var sampleRate = 44100;
+var context = null;
+var blob = null;
+startRecordingButton.addEventListener("click", function () {
+
+// Initialize recorder
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+navigator.getUserMedia(
+{
+    audio: true
+},
+function (e) {
+
+    console.log("user consent");
+// creates the audio context
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
+context = new AudioContext();
+// creates an audio node from the microphone incoming stream
+mediaStream = context.createMediaStreamSource(e);
+// https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createScriptProcessor
+// bufferSize: the onaudioprocess event is called when the buffer is full
+var bufferSize = 2048;
+var numberOfInputChannels = 2;
+var numberOfOutputChannels = 2;
+if (context.createScriptProcessor) {
+    recorder = context.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+} else {
+    recorder = context.createJavaScriptNode(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+}
+recorder.onaudioprocess = function (e) {
+    leftchannel.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+    rightchannel.push(new Float32Array(e.inputBuffer.getChannelData(1)));
+    recordingLength += bufferSize;
+}
 // we connect the recorder
 mediaStream.connect(recorder);
 recorder.connect(context.destination);
@@ -93,7 +114,7 @@ stopRecordingButton.addEventListener("click", function () {
     if (blob == null) {
         return;
     }
-
+    
     var form = new FormData();
     form.append('blob', blob, 'title');
 
@@ -108,6 +129,7 @@ stopRecordingButton.addEventListener("click", function () {
       success: function(e){console.log("success");}
     });
 
+    //download file locally (will remove)
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");
     document.body.appendChild(a);
@@ -119,27 +141,7 @@ stopRecordingButton.addEventListener("click", function () {
 
 });
 
-// playButton.addEventListener("click", function () {
-//     if (blob == null) {
-//         return;
-//     }
-//     var url = window.URL.createObjectURL(blob);
-//     var audio = new Audio(url);
-//     audio.play();
-// });
-// downloadButton.addEventListener("click", function () {
-//     if (blob == null) {
-//         return;
-//     }
-//     var url = URL.createObjectURL(blob);
-//     var a = document.createElement("a");
-//     document.body.appendChild(a);
-//     a.style = "display: none";
-//     a.href = url;
-//     a.download = "sample.wav";
-//     a.click();
-//     window.URL.revokeObjectURL(url);
-// });
+//helper functions adapted from code found on Github
 
 function flattenArray(channelBuffer, recordingLength) {
     var result = new Float32Array(recordingLength);

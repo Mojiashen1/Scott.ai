@@ -1,8 +1,8 @@
 <!-- # Mojia & Harshita
 # final project
 # draft version
-# Dec 3, 2017 -->
-<!-- !!!!! this page is not completed implemented yet! We will update the UI -->
+# Dec 14, 2017 -->
+
 <!-- this page shows the user a list of questions and allow the user to select what questions to answer
 we will inplement audio file system to record the answers -->
 {% extends "layout_2.html" %}
@@ -32,13 +32,15 @@ we will inplement audio file system to record the answers -->
 			<button type='submit' value ='Next' class="btn btn-primary" id='next'>Next</button>
 		</div>
 
-		<!-- <form method = "POST" action = "{{script}}" style='display:none'> -->
+		<form method = "POST" action = "{{script}}" style='display:none'>
 				<button type='submit' value ='Next' class="btn btn-primary" id='end'>End Conversation</button>
-		<!-- </form> -->
+		</form>
 
 	</div>
 
 	<script>
+
+        // display each question and change after clicking next question
 		var questions = {{questions | safe}};
 		var index = 0;
 		var convoId = 0;
@@ -54,6 +56,7 @@ we will inplement audio file system to record the answers -->
 		});
 	</script>
 
+    <!-- add audio recording functionality using JS file-->
     <script src="../static/js/audio.js"> </script>
 
 {% endblock %}

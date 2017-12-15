@@ -1,4 +1,12 @@
+// # Mojia & Harshita
+// # final project
+// # draft version
+// # Dec 14 2017 
+
+
 // taken from https://tympanus.net/codrops/2010/06/07/fancy-sliding-form-with-jquery/
+
+// this is not being used at the moment, and may be deleted in final version
 
 $(function() {
 	/*

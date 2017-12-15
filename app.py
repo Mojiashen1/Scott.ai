@@ -10,7 +10,7 @@ log them out when they press log-out, to make this program easier to use.
 
 Filename: app.py
 Authors: Mojia & Harshita
-Modified Date: 12/3/2017
+Modified Date: 12/14/2017
 Scott.ai final project draft version
 '''
 
@@ -256,16 +256,28 @@ def feedback(convoId):
     else:
         return redirect(url_for('home'))
 
+''' This route gets any audio files that are posted to it 
+by the AJAX script after audio recording, and will call a 
+helper function in scott.py to take the file, and save it to the server
+using the user ID and convoID. Not yet implemented.'''
 @app.route('/audiofile/', methods = ['POST', 'GET'])
 def audiofile():
     if 'userId' in session:
         userId = session['userId']
         if request.method == 'POST':
+            # not working yet
             audio = request.files['blob']
             # save_audio(convoId, audio)
             return ''
     return ''
 
+''' The progress page shows the user's progress thus far when
+using the app. It displays all conversations that the user has had in
+chonrological order (most recent last), as well as the audio file (not
+yet implmented), feedback message,  and an option to delete the entry 
+if the user finds something wrong with the audio file or their performance. 
+The userId is pulled from the session, and thus there are no other parameters
+to this method. '''
 @app.route('/progress/', methods =['POST', 'GET'])
 def progress():
     if 'userId' in session:
@@ -279,15 +291,13 @@ def progress():
             data=data, script=url_for('progress'))
 
         elif request.method == 'POST':
-            print ("YOOO")
             convoId = request.form['convoId']
 
+            # this is not yet done 
             if request.form['submit'] == 'delete':
-                print ("hello")
-                print (userId)
+          
                 convoId = request.form['convoId']
-                print (convoId)
-                # delete_audio(convoId) #delete using convo primary key
+                delete_audio(convoId) #delete using convo primary key
 
                 #re render template
                 points = get_user_data(userId)

@@ -1,9 +1,12 @@
 <!-- # Mojia & Harshita
 # final project
 # draft version
-# Dec 3, 2017 -->
-<!-- !!! this page is not fully implemented yet! -->
-<!-- this page shows user's progress -->
+# Dec 14, 2017 -->
+
+<!-- this page shows user's progress in the form of a table, using
+Jinja templating that parses all conversation data for a single user. 
+Then, a user can delete any entry in the table, thereby deleting an
+entire conversation from the database. -->
 
 {% extends "layout_2.html" %}
 
@@ -23,7 +26,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Topic</th>
-      <!-- <th scope="col">Audio</th> -->
+      <th scope="col">Audio</th>
       <th scope="col">Feedback</th>
       <th scope="col">Action</th>
     </tr>
@@ -33,7 +36,7 @@
     <tr>
       <th scope="row">{{i+1}}</th>
       <td>{{data[i]['categoryType']}}</td>
-      <!-- <td>{{data[i]['audio']}}</td> -->
+      <td>{{data[i]['audio']}}</td>
       <td>{{data[i]['feedback']}}</td>
       <td>
         <form method = "POST" action = "{{script}}">
