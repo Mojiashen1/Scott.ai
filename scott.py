@@ -258,6 +258,8 @@ def get_convos(userId):
 def save_audio(convoId, userId, audiofile):
     print ("in save audio")
     print ("audio file is ", audiofile)
+    print ("user id is ", userId)
+    print ("convoId is", convoId)
 
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
