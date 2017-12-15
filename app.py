@@ -191,7 +191,7 @@ def topic():
             convoId = request.form['convoId']
             print ("created convo", convoId)
             
-            update_categoryId(category_id, convoId, userId):
+            update_categoryId(category_id, convoId, userId)
 
             return redirect(url_for('convo', id = category_id, convoId = convoId))
 
