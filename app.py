@@ -243,7 +243,7 @@ def convo(id): #id is category id!!
         # render template and fill with questions pulled from database
 
         return render_template('convo.html', questions = questions, convoId = convoId, 
-                              userId = userId, script=(url_for('convo', id = id, convoId = convoId)))
+                              userId = userId, script=(url_for('convo', id = id)))
 
       # go to feedback page once user submits
       elif request.method == 'POST':
@@ -251,6 +251,8 @@ def convo(id): #id is category id!!
             # need to update this 
             audio_path = ''
             audio_length = 1 # minutes of the new audio
+
+            convoId = request.form['convoId']
 
             feedback = create_feedback(userId, audio_path)
             increment_point_time(userId, audio_length)
