@@ -54,9 +54,11 @@ we will inplement audio file system to record the answers -->
 				$('form').attr('style', 'display:block');
 			}
 		});
+
+
 	</script>
 
     <!-- add audio recording functionality using JS file-->
-    <script src="../static/js/audio.js"> </script>
+    <script src="../static/js/audio.js" userId = {{userId}}, convoID = {{convoId}}> </script>
 
 {% endblock %}

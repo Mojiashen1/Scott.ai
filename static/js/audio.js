@@ -19,6 +19,14 @@
 // script adapted from https://gist.github.com/meziantou/edb7217fddfbb70e899e
 
 console.log("start");
+
+//extract convoId and userId
+var convoId = document.currentScript.getAttribute('convoId'); //1
+var userId = document.currentScript.getAttribute('userId'); //2
+
+console.log ("convoId", convoId)
+console.log ("userId", userId)
+
 var startRecordingButton = document.getElementById("startRecordingButton");
 var stopRecordingButton = document.getElementById("end");
 var leftchannel = [];
@@ -114,7 +122,7 @@ stopRecordingButton.addEventListener("click", function () {
     if (blob == null) {
         return;
     }
-    
+
     var form = new FormData();
     form.append('blob', blob, 'title');
 
@@ -122,7 +130,7 @@ stopRecordingButton.addEventListener("click", function () {
     $.ajax({
       type: "POST",
       url: '/audiofile/',
-      data: form,
+      data: form, 
       processData: false,
       contentType: false,
       dataType: 'audio/wav',
