@@ -184,25 +184,20 @@ def topic():
         # create dummy data for convo ID for initialization
         audio_path = ''
         feedback = ''
-        category_id = 1
 
         if request.method == "POST":
             print ("IN POST")
 
-            convoId = request.form['convoId']
+            # convoId = request.form['convoId']
             category_id = request.form['categoryId']
-            print ("created convo", convoId)
-            # category_id = 3
             
-            update_categoryId(category_id, convoId, userId)
+            convoId = create_convo(category_id, userId, audio_path, feedback)
 
             return redirect(url_for('convo', id = category_id, convoId = convoId))
 
         elif request.method == "GET":
-            print ("in get")
-            convoId = create_convo(category_id, userId, audio_path, feedback)
-            print ("convoId in get is", convoId)
-            return render_template('topic.html', convoId = convoId, script=(url_for('topic')))
+          
+            return render_template('topic.html', script=(url_for('topic')))
     else:
         return redirect(url_for('home'))
 
