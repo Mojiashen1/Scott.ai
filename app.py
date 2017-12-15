@@ -264,7 +264,9 @@ using the user ID and convoID. Not yet implemented.'''
 def audiofile():
     if 'userId' in session:
         userId = session['userId']
+        print "in audiofile"
         if request.method == 'POST':
+            print "HERE"
             # not working yet
             audio = request.files['blob']
             print (audio)
