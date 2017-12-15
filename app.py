@@ -19,6 +19,7 @@ import os, sys
 import MySQLdb
 import dbconn2
 from scott import *
+from urlparse import urlparse
 
 app = Flask(__name__)
 app.secret_key = 'youcantguessthisout'
@@ -219,8 +220,6 @@ otherwise, redirects to homepage'''
 @app.route('/convo/<id>', methods =['POST', 'GET'])
 def convo(id): #id is category id!! 
 
-  print request.base_url
-
   # check if session in progress (user logged in)
   if 'userId' in session:
       userId = session['userId']
@@ -258,6 +257,12 @@ def convo(id): #id is category id!!
 
             feedback = create_feedback(userId, audio_path)
             print ("feedback is", feedback)
+
+            #build url path for audiofile
+            url_path = request.base_url
+            o = urlparse(url_path)
+            audio_url = o.scheme + '://' + o.netloc + '/audiofile/' + str(userId) + '/' + str(convoId) + '/'
+            print ("audio URL is", audio_url)
 
             # TO DO -- pull audio path
 
