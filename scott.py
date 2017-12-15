@@ -258,7 +258,7 @@ def get_convos(userId):
 def save_audio(convoId, userid, url):
 
     testfile = urllib.URLopener()
-    testfile.retrieve("http://randomsite.com/file.gz", "file.gz")
+    testfile.retrieve(url, "file.gz")
 
     return None
 

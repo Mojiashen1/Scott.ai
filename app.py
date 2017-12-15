@@ -264,6 +264,8 @@ def convo(id): #id is category id!!
             audio_url = o.scheme + '://' + o.netloc + '/audiofile/' + str(userId) + '/' + str(convoId) + '/'
             print ("audio URL is", audio_url)
 
+            # save_audio(convoId, userId, audio_rul)
+
             # TO DO -- pull audio path
 
             update_feedback(feedback, audio_path, convoId, userId)
@@ -306,7 +308,7 @@ def audiofile(userId, convoId):
     if 'userId' in session:
         print request.base_url
         print "in audiofile"
-        if request.method == 'POST':
+        if request.method == 'GET':
             print "HERE"
             # not working yet
             audio = request.files['blob']
