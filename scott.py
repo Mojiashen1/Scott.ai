@@ -154,6 +154,8 @@ def create_convo(categoryId, userId, audio_path, feedback):
     curs.execute('select convoId from convos where categoryId=%s and userId=%s', (categoryId, userId))
     return curs.fetchone()
 
+# need to make another method to update convo with audio and feedback
+
 # A random feedback message is generated in this helper method. The idea is that 
 # in an actual implementation of the AI, the feedback will be 'smart', and will
 # critique the user's grammar or pronounciation. For this use case, the feedback

@@ -180,8 +180,15 @@ in progress, and otherwise the user is redirected to homepage.'''
 def topic():
     if 'userId' in session:
         if request.method == "POST":
+            userId = session['userId'] # extract userId
             category_id = request.form['form-id']
-            return redirect(url_for('convo', id=category_id))
+
+            # make dummy data for now
+            audio_path = ''
+            audio_length = 1 # minutes of the new audio
+
+            convoId = create_convo(category_id, userId, audio_path, feedback)
+            return redirect(url_for('convo', id=category_id, convoID = convoId))
         return render_template('topic.html')
     else:
         return redirect(url_for('home'))
@@ -200,12 +207,13 @@ Here, the list of questions are pulled from the database using the
 conversation type ID, and are passed into the template, where each
 question is shown. Again, this only happens if a session is created --
 otherwise, redirects to homepage'''
-@app.route('/convo/<id>', methods =['POST', 'GET'])
-def convo(id):
+@app.route('/convo/<convoId>', methods =['POST', 'GET'])
+def convo(id, convoId): #id is category id!! 
 
   # check if session in progress (user logged in)
   if 'userId' in session:
       userId = session['userId']
+      
       if request.method == 'GET':
         #pull questions from database by type
         all_questions = get_questions(id)
@@ -217,17 +225,18 @@ def convo(id):
         # store audio filepath and timestamps in appropriate table (convos)
 
         # render template and fill with questions pulled from database
-        convoId = id 
 
         return render_template('convo.html', questions = questions, convoId = id, 
-                              userId = userId, script=(url_for('convo', id=id)))
+                              userId = userId, script=(url_for('convo', id=id, convoId = convoId)))
 
       # go to feedback page once user submits
       elif request.method == 'POST':
+
+            # need to update this 
             audio_path = ''
             audio_length = 1 # minutes of the new audio
+
             feedback = create_feedback(userId, audio_path)
-            convoId = create_convo(id, userId, audio_path, feedback)
             increment_point_time(userId, audio_length)
 
             return redirect(url_for('feedback', convoId=convoId['convoId']))
