@@ -125,10 +125,7 @@ stopRecordingButton.addEventListener("click", function () {
     }
 
     var form = new FormData();
-    // form.append('blob', blob, 'title');
-
-    form.append('fname', 'convo.wav');
-    form.append('data', blob);
+    form.append('blob', blob, 'title');
 
     console.log('form is', form)
     console.log( 'blob', blob, 'title')
@@ -140,11 +137,10 @@ stopRecordingButton.addEventListener("click", function () {
     $.ajax({
       type: "POST",
       url: audiourl,
-      data: audioRecorder.forceDownload(blob, 'output.wav'),
-      // data: form, 
-      // processData: false,
-      // contentType: false,
-      // dataType: 'audio/wav',
+      data: form, 
+      processData: false,
+      contentType: false,
+      dataType: 'audio/wav',
       success: function(e){console.log("success");}
     });
 
