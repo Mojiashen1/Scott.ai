@@ -309,15 +309,11 @@ def audiofile(userId, convoId):
         print request.base_url
         print "in audiofile"
 
-        #get the file posted to this route
-        if request.method == 'GET':
-            print "HERE"
-            # not working yet
-            file = request.files['blob']
-
-            print file.filename
-            # save_audio(convoId, audio)
-            return ''
+        # not working yet
+        file = request.files['blob']
+        print file.filename
+        # save_audio(convoId, audio)
+        return ''
     return ''
 
 ''' The progress page shows the user's progress thus far when
