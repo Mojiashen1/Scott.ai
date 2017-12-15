@@ -252,7 +252,7 @@ def convo(id, convoId): #id is category id!!
             feedback = create_feedback(userId, audio_path)
             increment_point_time(userId, audio_length)
 
-            return redirect(url_for('feedback', convoId=convoId['convoId']))
+            return redirect(url_for('feedback', convoId=convoId))
 
   # redirect to home page if user not logged in
   else:
