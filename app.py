@@ -320,6 +320,8 @@ def audiofile(userId, convoId):
         save_audio(convoId, userId, file)
 
         return ''
+    else: 
+        print ("not in session!!")
     return ''
 
 ''' The progress page shows the user's progress thus far when
