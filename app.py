@@ -255,6 +255,10 @@ def convo(id): #id is category id!!
             convoId = request.form['convoId']
 
             feedback = create_feedback(userId, audio_path)
+            print ("feedback is", feedback)
+
+            update_feedback(feedback, audio_path, convoId, userId)
+
             increment_point_time(userId, audio_length)
 
             return redirect(url_for('feedback', convoId=convoId))
