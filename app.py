@@ -180,7 +180,9 @@ in progress, and otherwise the user is redirected to homepage.'''
 def topic():
     if 'userId' in session:
         if request.method == "POST":
+            print ("in post")
             userId = session['userId'] # extract userId
+            print ("2")
             category_id = request.form['form-id']
 
             # make dummy data for now
