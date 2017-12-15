@@ -200,7 +200,7 @@ def topic():
             print ("in get")
             convoId = create_convo(category_id, userId, audio_path, feedback)
             print ("convoId in get is", convoId)
-            return render_template('topic.html', convoId = convoId['convoId'], script=(url_for('topic')))
+            return render_template('topic.html', convoId = convoId, script=(url_for('topic')))
     else:
         return redirect(url_for('home'))
 
