@@ -187,11 +187,15 @@ def topic():
             audio_path = ''
             feedback = ''
 
+            print ("print going to great convo")
             convoId = create_convo(category_id, userId, audio_path, feedback)
 
+            print ("created convo", convoId)
             return redirect(url_for('convo', id=category_id, convoId = convoId))
 
-        return render_template('topic.html')
+        elif request.method == "GET":
+            print ("in get")
+            return render_template('topic.html')
     else:
         return redirect(url_for('home'))
 
