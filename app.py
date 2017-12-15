@@ -297,7 +297,7 @@ using the user ID and convoID. Not yet implemented.'''
 @app.route('/audiofile/<userId>/<convoId>/', methods = ['POST', 'GET'])
 def audiofile(userId, convoId):
     if 'userId' in session:
-        print request.url_rule
+        print request.base_url
         print "in audiofile"
         if request.method == 'POST':
             print "HERE"
