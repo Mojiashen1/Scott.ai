@@ -295,7 +295,7 @@ def progress():
             convoId = request.form['convoId']
 
             # this is not yet done 
-            if request.form['submit'] == 'delete':
+            if request.form.get('delete', None) == "delete":
 
                 print ("in delete")
           
