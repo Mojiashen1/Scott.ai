@@ -302,7 +302,8 @@ def progress():
                 #re render template
                 points = get_user_data(userId)
                 data = get_convos(userId)
-
+		
+		#refresh page with new data
                 return render_template('progress.html',
                   points=points['points'],
                   data=data, script=url_for('progress'))
