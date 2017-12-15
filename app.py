@@ -193,7 +193,7 @@ def topic():
             convoId = create_convo(category_id, userId, audio_path, feedback)
 
             print ("created convo", convoId)
-            return redirect(url_for('convo', id=category_id, convoId = convoId))
+            return redirect(url_for('convo', convoId = convoId))
 
         elif request.method == "GET":
             print ("in get")
@@ -215,12 +215,13 @@ Here, the list of questions are pulled from the database using the
 conversation type ID, and are passed into the template, where each
 question is shown. Again, this only happens if a session is created --
 otherwise, redirects to homepage'''
-@app.route('/convo/<id>/<convoId>', methods =['POST', 'GET'])
-def convo(id, convoId): #id is category id!! 
+@app.route('/convo/<convoId>', methods =['POST', 'GET'])
+def convo(convoId): #id is category id!! 
 
   # check if session in progress (user logged in)
   if 'userId' in session:
       userId = session['userId']
+      id = 1
       
       if request.method == 'GET':
         #pull questions from database by type
@@ -235,7 +236,7 @@ def convo(id, convoId): #id is category id!!
         # render template and fill with questions pulled from database
 
         return render_template('convo.html', questions = questions, convoId = id, 
-                              userId = userId, script=(url_for('convo', id=id, convoId = convoId)))
+                              userId = userId, script=(url_for('convo', convoId = convoId)))
 
       # go to feedback page once user submits
       elif request.method == 'POST':
