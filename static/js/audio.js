@@ -24,6 +24,7 @@ console.log("start");
 // var convoId = document.currentScript.getAttribute('convoId'); //1
 // var userId = document.currentScript.getAttribute('userId'); //2
 var categoryId = document.currentScript.getAttribute('categoryId');
+console.log('categoryId', categoryId)
 
 var startRecordingButton = document.getElementById("startRecordingButton");
 var stopRecordingButton = document.getElementById("end"); //"End Conversation" button has id "end"
