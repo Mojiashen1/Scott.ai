@@ -37,7 +37,8 @@ entire conversation from the database. -->
         <th scope="row">{{i+1}}</th>
         <td>{{data[i]['categoryType']}}</td>
         <td>
-          <button class="btn btn-primary" name="play" id='playButton' audio-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button>
+          <span id="audio"> <button class="btn btn-primary" name="play" id='playButton' audio-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button> </span>
+
         </td>
         <td>{{data[i]['feedback']}}</td>
         <td>
@@ -60,43 +61,48 @@ entire conversation from the database. -->
 
   var playButton = document.getElementById("playButton");
 
-  playButton.addEventListener("click", function () {
+  var audio_file = $('#playButton').attr('audio-file');
 
-    // // Initialize recorder
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-
-    navigator.getUserMedia(
-    {
-      audio: true
-    }, function (e) { console.log("success");}, function(e) {console.log("err");});
+  $('#audio').html('<audio autoplay><source src=audio_file></audio>');
 
 
-    var audio_file = $('#playButton').attr('audio-file');
+//   playButton.addEventListener("click", function () {
 
-    console.log("aduio file", audio_file);
+//     // // Initialize recorder
+//     // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
-    var file_path = 'https://cs.wellesley.edu:9000/static/audio/'+audio_file;
+//     // navigator.getUserMedia(
+//     // {
+//     //   audio: true
+//     // }, function (e) { console.log("success");}, function(e) {console.log("err");});
 
-    console.log("file_path");
 
-    var audio = new Audio(audio_file);
+//     var audio_file = $('#playButton').attr('audio-file');
 
-    var playPromise = audio.play()
+//     console.log("aduio file", audio_file);
 
-    if (playPromise !== undefined) {
+//     var file_path = 'https://cs.wellesley.edu:9000/static/audio/'+audio_file;
 
-      playPromise.then(function() {
-        console.log("success");
-        audio.play();
-        // Automatic playback started!
-      }).catch(function(error) {
-        // audio.play();
-        console.log("error");
-      });
-}
+//     console.log("file_path");
 
-// audio.play();
+//     var audio = new Audio(audio_file);
 
-});
+//     var playPromise = audio.play()
+
+//     if (playPromise !== undefined) {
+
+//       playPromise.then(function() {
+//         console.log("success");
+//         audio.play();
+//         // Automatic playback started!
+//       }).catch(function(error) {
+//         // audio.play();
+//         console.log("error");
+//       });
+// }
+
+// // audio.play();
+
+// });
 </script>
 {% endblock %}
