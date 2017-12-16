@@ -325,7 +325,7 @@ def audiofile(userId, convoId):
 
         # file.save(secure_filename(f.filename))
 
-        # save_audio(convoId, userId, file)
+        save_audio(convoId, userId, filepath)
 
         return ''
     else: 

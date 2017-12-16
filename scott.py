@@ -266,9 +266,6 @@ def save_audio(convoId, userId, audiofile):
     curs.execute('update convos set audio = %s where convoId = %s and userId=%s', (audiofile, convoId, userId))
     return curs.fetchone()
 
-
-
-
 # this helper function deletes an entry from the convos table givecn some convoID, and
 # is meant to be used when the user is not happy with the audio recording for a 
 # particular question.
