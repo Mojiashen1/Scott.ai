@@ -214,7 +214,8 @@ def convo(categoryId):
                               script=(url_for('convo', categoryId = categoryId)))
 
       # go to feedback page once user finishes the conversation
-      elif request.method == 'POST':
+    #   elif request.method == 'POST':
+      else:
 
             # need to update this
             # audio_ = ''
