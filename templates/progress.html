@@ -69,75 +69,16 @@ entire conversation from the database. -->
   for (var i = 0; i < allButtons.length; i++){
 
     allButtons[i].addEventListener('click', function (e) {
-      console.log('inside')
-
       var audio_file = $(this).attr('data-file');
+      var host =  "https://"+ window.location.hostname;
 
-      console.log("audiofile", audio_file)
+      console.log(host)
 
       var file_path = 'https://cs.wellesley.edu:9000/static/audio/'+audio_file;
-
-      console.log("filepath", file_path)
-
       $('#audio').html('<audio autoplay><source src=' + file_path + '></audio>');
     });
 
 }
 
-
-  // var playButton = $(".playButton");
-
-  // playButton.addEventListener("click", function () {
-
-  //   var audio_file = playButton.attr('data-file');
-
-  //   console.log("audiofile", audio_file)
-
-  //   var file_path = 'https://cs.wellesley.edu:9000/static/audio/'+audio_file;
-
-  //   console.log("filepath", file_path)
-
-  //   $('#audio').html('<audio autoplay><source src=' + file_path + '></audio>');
-  // });
-
-
-//   playButton.addEventListener("click", function () {
-
-//     // // Initialize recorder
-//     // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-
-//     // navigator.getUserMedia(
-//     // {
-//     //   audio: true
-//     // }, function (e) { console.log("success");}, function(e) {console.log("err");});
-
-
-//     var audio_file = $('#playButton').attr('audio-file');
-
-//     console.log("aduio file", audio_file);
-
-//     var file_path = 'https://cs.wellesley.edu:9000/static/audio/'+audio_file;
-
-//     console.log("file_path");
-
-//     var audio = new Audio(audio_file);
-
-//     var playPromise = audio.play()
-
-//     if (playPromise !== undefined) {
-
-//       playPromise.then(function() {
-//         console.log("success");
-//         audio.play();
-//         // Automatic playback started!
-//       }).catch(function(error) {
-//         // audio.play();
-//         console.log("error");
-//       });
-// }
-
-// // audio.play();
-
-// });
 </script>
 {% endblock %}
