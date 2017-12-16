@@ -11,7 +11,7 @@ log them out when they press log-out, to make this program easier to use.
 Filename: app.py
 Authors: Mojia & Harshita
 Modified Date: 12/14/2017
-Scott.ai final project draft version
+Scott.ai final project alpha version
 '''
 
 from flask import Flask, render_template, request, flash, redirect, url_for, session
@@ -67,8 +67,6 @@ def signup():
     # get information from form
     name = request.form['name']
     username = request.form['username']
-    # note that right now, this does not check for a 'good' password
-    # (with minimum # of characters, for example), but will be implemented
     password = request.form['password']
 
     # call helper function to create account by checking
@@ -155,9 +153,6 @@ def survey():
             nation = request.form['nation']
             lang = request.form['lang']
 
-            # note that more questions will be added related to the
-            # user's personal interests (favorite sports teams, hobbies, etc.)
-
             # call helper function to update or insert profile data into table
             message = create_profile(userId, birthday, yearsLearned, nation, lang)
             flash(message)
@@ -228,6 +223,7 @@ def convo(id): #id is category id!!
       if request.method == 'GET':
         #pull questions from database by type
         all_questions = get_questions(id)
+        #change the list of questions json format to send to the front end
         questions = json.dumps(all_questions)
 
         audio_path = ''
@@ -246,7 +242,7 @@ def convo(id): #id is category id!!
         return render_template('convo.html', questions = questions, convoId = convoId, 
                               userId = userId, script=(url_for('convo', id = id)))
 
-      # go to feedback page once user submits
+      # go to feedback page once user finishes the conversation
       elif request.method == 'POST':
 
             # need to update this 
@@ -269,7 +265,6 @@ def convo(id): #id is category id!!
             # TO DO -- pull audio path
 
             update_feedback(feedback, audio_path, convoId, userId)
-
             increment_point_time(userId, audio_length)
 
             return redirect(url_for('feedback', convoId=convoId))
@@ -289,9 +284,9 @@ def feedback(convoId):
     # if a session is in progress
     if 'userId' in session:
         userId = session['userId']
-        print('userId in feedback', userId)
-        # pull user profile using userId (in progress)
-        data = get_user_data(userId)
+        # pull user timeActive and points from profile using userId
+        data = get_user_time_point(userId)
+        # full feedback from database based on convoId
         feedback = get_feedback(convoId, userId)
         return render_template('feedback.html', data = data, feedback=feedback)
 
@@ -299,8 +294,8 @@ def feedback(convoId):
     else:
         return redirect(url_for('home'))
 
-''' This route gets any audio files that are posted to it 
-by the AJAX script after audio recording, and will call a 
+''' This route gets any audio files that are posted to it
+by the AJAX script after audio recording, and will call a
 helper function in scott.py to take the file, and save it to the server
 using the user ID and convoID. Not yet implemented.'''
 @app.route('/audiofile/<userId>/<convoId>/', methods = ['POST', 'GET'])
@@ -326,25 +321,29 @@ def audiofile(userId, convoId):
         print ("not in session!!")
     return ''
 
+
 ''' The progress page shows the user's progress thus far when
 using the app. It displays all conversations that the user has had in
 chonrological order (most recent last), as well as the audio file (not
-yet implmented), feedback message,  and an option to delete the entry 
-if the user finds something wrong with the audio file or their performance. 
+yet implmented), feedback message,  and an option to delete the entry
+if the user finds something wrong with the audio file or their performance.
 The userId is pulled from the session, and thus there are no other parameters
-to this method. '''
+to this method. This is not fully implemented! (delete audio)'''
 @app.route('/progress/', methods =['POST', 'GET'])
 def progress():
     if 'userId' in session:
         userId = session['userId']
-        points = get_user_data(userId)
-        data = get_convos(userId)
+        # data is a dictionary of user's timeActive and points
+        data = get_user_time_point(userId)
+        points = data['points']
+        # data is a list of a user's conversations
+        convos = get_convos(userId)
 
-        # get request loads page
+        # when a user views the progress page: display information
         if request.method == 'GET':
             return render_template('progress.html',
-            points=points['points'],
-            data=data, script=url_for('progress'))
+            points=points,
+            data=convos, script=url_for('progress'))
 
         # post request listens for delte button click
         elif request.method == 'POST':
@@ -370,6 +369,7 @@ def progress():
                   points=points['points'],
                   data=data, script=url_for('progress'))
 
+
     # if no session in progress, redirect to home
     else:
         return redirect(url_for('home'))
@@ -379,5 +379,6 @@ if __name__ == '__main__':
   port = os.getuid()
   app.debug = True
   # Flask will print the port anyhow, but let's do so too
-  print('Running on port '+str(port))
-  app.run('0.0.0.0',9000, ssl_context='adhoc')
+  print('Running on port ' + str(port))
+  app.run('0.0.0.0',port, ssl_context='adhoc')
+

@@ -1,7 +1,7 @@
 -- Authors: Mojia and Harshita
 -- Filename: database.sql
--- Modified Date: December 3, 2017
--- Scott.ai Final Project draft version
+-- Modified Date: December 14, 2017
+-- Scott.ai Final Project alpha version
 
 -- This DDL initializes the SQL database that will be used to store
 -- all relevant data to the Scott.ai app. It contains multiple
@@ -57,7 +57,6 @@ create table profile(
 	nation varchar(50),
 	points int not null default 0, -- points earned using the application
 	timeActive int not null default 0, -- measured in time (minutes)
-	
 	-- link foreign key userId to account table
 	foreign key (userId) references account(userId) on delete cascade on update cascade
 );

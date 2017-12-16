@@ -1,11 +1,11 @@
 // Mojia & Harshita
 // final project
 // alpha version
-// Dec 14, 2017 
+// Dec 14, 2017
 
 // This Javascript file adds the audio recording functionality to the page.
 // In orer to recourd audio, the browser must first get permission from the
-// user to access the raw audio input from the microphone, which is done 
+// user to access the raw audio input from the microphone, which is done
 // using getUserMedia. After recording starts, the API collects audio snippets
 // at regular increments of time from 'input channels', and stores them locally.
 // Once recording is complete ('End Conversation' button is clicked), the recorder
@@ -28,7 +28,7 @@ console.log ("convoId", convoId)
 console.log ("userId", userId)
 
 var startRecordingButton = document.getElementById("startRecordingButton");
-var stopRecordingButton = document.getElementById("end");
+var stopRecordingButton = document.getElementById("end"); //"End Conversation" button has id "end"
 var leftchannel = [];
 var rightchannel = [];
 var recorder = null;
@@ -38,57 +38,58 @@ var mediaStream = null;
 var sampleRate = 44100;
 var context = null;
 var blob = null;
+
+// on click on startRecordingButton
 startRecordingButton.addEventListener("click", function () {
 
-// Initialize recorder
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-navigator.getUserMedia(
-{
-    audio: true
-},
-function (e) {
+    // Initialize recorder
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    navigator.getUserMedia({audio: true}, function (e) {
+        console.log("user consent");
 
-    console.log("user consent");
-// creates the audio context
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
-context = new AudioContext();
-// creates an audio node from the microphone incoming stream
-mediaStream = context.createMediaStreamSource(e);
-// https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createScriptProcessor
-// bufferSize: the onaudioprocess event is called when the buffer is full
-var bufferSize = 2048;
-var numberOfInputChannels = 2;
-var numberOfOutputChannels = 2;
-if (context.createScriptProcessor) {
-    recorder = context.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
-} else {
-    recorder = context.createJavaScriptNode(bufferSize, numberOfInputChannels, numberOfOutputChannels);
-}
-recorder.onaudioprocess = function (e) {
-    leftchannel.push(new Float32Array(e.inputBuffer.getChannelData(0)));
-    rightchannel.push(new Float32Array(e.inputBuffer.getChannelData(1)));
-    recordingLength += bufferSize;
-}
-// we connect the recorder
-mediaStream.connect(recorder);
-recorder.connect(context.destination);
-},
-function (e) {
-    console.error(e);
+        // creates the audio context
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        context = new AudioContext();
+        // creates an audio node from the microphone incoming stream
+        mediaStream = context.createMediaStreamSource(e);
+
+        // source: https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createScriptProcessor
+        // bufferSize: the onaudioprocess event is called when the buffer is full
+        var bufferSize = 2048;
+        var numberOfInputChannels = 2;
+        var numberOfOutputChannels = 2;
+        if (context.createScriptProcessor) {
+            recorder = context.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+        } else {
+            recorder = context.createJavaScriptNode(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+        }
+        // when audio is in process, push data to leftchannel, rightchannel
+        recorder.onaudioprocess = function (e) {
+            leftchannel.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+            rightchannel.push(new Float32Array(e.inputBuffer.getChannelData(1)));
+            recordingLength += bufferSize;
+        }
+
+        // connect the recorder
+        mediaStream.connect(recorder);
+        recorder.connect(context.destination);
+        },
+        function (e) {console.error(e);});
 });
-    });
 
+// on click on stopRecordingButton
 stopRecordingButton.addEventListener("click", function () {
 
     // stop recording
     recorder.disconnect(context.destination);
     mediaStream.disconnect(recorder);
+
     // we flat the left and right channels down
     // Float32Array[] => Float32Array
     var leftBuffer = flattenArray(leftchannel, recordingLength);
     var rightBuffer = flattenArray(rightchannel, recordingLength);
-    // we interleave both channels together
-    // [left[0],right[0],left[1],right[1],...]
+
+    // we interleave both channels together[left[0],right[0],left[1],right[1],...]
     var interleaved = interleave(leftBuffer, rightBuffer);
     // we create our wav file
     var buffer = new ArrayBuffer(44 + interleaved.length * 2);
@@ -116,14 +117,19 @@ stopRecordingButton.addEventListener("click", function () {
         view.setInt16(index, interleaved[i] * (0x7FFF * volume), true);
         index += 2;
     }
-    // our final blob
-    var blob = new Blob([view], { type: 'audio/wav' });
+
+    // create blob
+    blob = new Blob([view], { type: 'audio/wav' });
 
     //add functionality of download to end of stop button
     if (blob == null) {
         return;
     }
 
+<<<<<<< HEAD
+=======
+    // store blob in FormData to pass to flask
+>>>>>>> e33083d7eab01624584b06030ca66de64afc3297
     var form = new FormData();
     form.append('blob', blob, 'convo');
 
@@ -133,7 +139,7 @@ stopRecordingButton.addEventListener("click", function () {
     var audiourl = '/audiofile/' + userId + '/'+convoId + '/';
     console.log(audiourl);
 
-    //post file to route
+    //post data to flask path: /audiofile
     $.ajax({
       type: "POST",
       url: audiourl,
@@ -144,7 +150,7 @@ stopRecordingButton.addEventListener("click", function () {
       success: function(e){console.log("success");}
     });
 
-    //download file locally (will remove)
+    //download file locally (will remove for the next version)
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");
     document.body.appendChild(a);
@@ -153,11 +159,10 @@ stopRecordingButton.addEventListener("click", function () {
     a.download = "convo.wav";
     a.click();
     window.URL.revokeObjectURL(url);
-
 });
 
-//helper functions adapted from code found on Github
 
+//helper functions adapted from code found on Github
 function flattenArray(channelBuffer, recordingLength) {
     var result = new Float32Array(recordingLength);
     var offset = 0;
@@ -168,6 +173,7 @@ function flattenArray(channelBuffer, recordingLength) {
     }
     return result;
 }
+
 function interleave(leftChannel, rightChannel) {
     var length = leftChannel.length + rightChannel.length;
     var result = new Float32Array(length);
@@ -179,6 +185,7 @@ function interleave(leftChannel, rightChannel) {
     }
     return result;
 }
+
 function writeUTFBytes(view, offset, string) {
     for (var i = 0; i < string.length; i++) {
         view.setUint8(offset + i, string.charCodeAt(i));
