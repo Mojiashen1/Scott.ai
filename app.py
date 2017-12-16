@@ -315,6 +315,7 @@ def progress():
 
                 #delete using convo primary key
                 delete_audio(convoId)
+                print('it is deleted')
 
                 # retrieve updated data
                 data = get_convos(userId)
