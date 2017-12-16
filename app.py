@@ -66,8 +66,6 @@ def signup():
     # get information from form
     name = request.form['name']
     username = request.form['username']
-    # note that right now, this does not check for a 'good' password
-    # (with minimum # of characters, for example), but will be implemented
     password = request.form['password']
 
     # call helper function to create account by checking
@@ -154,9 +152,6 @@ def survey():
             nation = request.form['nation']
             lang = request.form['lang']
 
-            # note that more questions will be added related to the
-            # user's personal interests (favorite sports teams, hobbies, etc.)
-
             # call helper function to update or insert profile data into table
             message = create_profile(userId, birthday, yearsLearned, nation, lang)
             flash(message)
@@ -209,24 +204,27 @@ def convo(id):
       if request.method == 'GET':
         #pull questions from database by type
         all_questions = get_questions(id)
+        #change the list of questions json format to send to the front end
         questions = json.dumps(all_questions)
 
-        # TO DO:
-        # start recording audio file once conversation is entered
-        # show a timer for the duration of each conversation question
-        # store audio filepath and timestamps in appropriate table (convos)
-
         # render template and fill with questions pulled from database
-        convoId = 0
-
+        # pass convoId to know store to database
         return render_template('convo.html', questions = questions, script=(url_for('convo', id=id)))
 
-      # go to feedback page once user submits
+      # go to feedback page once user finishes the conversation
       elif request.method == 'POST':
-            audio_path = ''
+            # blob and audio_length are hard-coded for now. We are implementing function in js
+            # to send audio data to store in database
+            blob = '' # audio file in a blob format
             audio_length = 1 # minutes of the new audio
-            feedback = create_feedback(userId, audio_path)
-            convoId = create_convo(id, userId, audio_path, feedback)
+
+            #call helper functon to get feedback for the conversation
+            feedback = create_feedback(userId, blob)
+
+            #call helper function to create a conversation with the blob and feedback. returns a convoId
+            convoId = create_convo(id, userId, blob, feedback)
+
+            #reward the user by increasing points & time and update profile
             increment_point_time(userId, audio_length)
 
             return redirect(url_for('feedback', convoId=convoId['convoId']))
@@ -246,9 +244,9 @@ def feedback(convoId):
     # if a session is in progress
     if 'userId' in session:
         userId = session['userId']
-        print('userId in feedback', userId)
-        # pull user profile using userId (in progress)
+        # pull user timeActive and points from profile using userId
         data = get_user_data(userId)
+        # full feedback from database based on convoId
         feedback = get_feedback(convoId, userId)
         return render_template('feedback.html', data = data, feedback=feedback)
 
@@ -256,8 +254,8 @@ def feedback(convoId):
     else:
         return redirect(url_for('home'))
 
-''' This route gets any audio files that are posted to it 
-by the AJAX script after audio recording, and will call a 
+''' This route gets any audio files that are posted to it
+by the AJAX script after audio recording, and will call a
 helper function in scott.py to take the file, and save it to the server
 using the user ID and convoID. Not yet implemented.'''
 @app.route('/audiofile/', methods = ['POST', 'GET'])
@@ -265,48 +263,49 @@ def audiofile():
     if 'userId' in session:
         userId = session['userId']
         if request.method == 'POST':
-            # not working yet
+            # this gives us the blob file
             audio = request.files['blob']
+            # save audio is not implemented yet!
             # save_audio(convoId, audio)
-            return ''
-    return ''
+            return 'not implemented'
+    return 'not implemented'
 
 ''' The progress page shows the user's progress thus far when
 using the app. It displays all conversations that the user has had in
 chonrological order (most recent last), as well as the audio file (not
-yet implmented), feedback message,  and an option to delete the entry 
-if the user finds something wrong with the audio file or their performance. 
+yet implmented), feedback message,  and an option to delete the entry
+if the user finds something wrong with the audio file or their performance.
 The userId is pulled from the session, and thus there are no other parameters
-to this method. '''
+to this method. This is not fully implemented! (delete audio)'''
 @app.route('/progress/', methods =['POST', 'GET'])
 def progress():
     if 'userId' in session:
         userId = session['userId']
-        points = get_user_data(userId)
-        data = get_convos(userId)
+        # data is a dictionary of user's timeActive and points
+        data = get_user_data(userId)
+        points = data['points']
+        # data is a list of a user's conversations
+        convos = get_convos(userId)
 
+        # when a user views the progress page: display information
         if request.method == 'GET':
             return render_template('progress.html',
-            points=points['points'],
-            data=data, script=url_for('progress'))
+            points=points,
+            data=convos, script=url_for('progress'))
 
+        # when a user click on "delete button", delete the corresponding conversation
         elif request.method == 'POST':
-            convoId = request.form['convoId']
 
-            # this is not yet done 
+            # this is not implemented yet!
             if request.form['submit'] == 'delete':
-          
+                # each button will be a form that contains the convoId
                 convoId = request.form['convoId']
-                delete_audio(convoId) #delete using convo primary key
-
-                #re render template
-                points = get_user_data(userId)
-                data = get_convos(userId)
+                # delete using convo primary key, not implemented yet!
+                # delete_audio(convoId)
 
                 return render_template('progress.html',
-                  points=points['points'],
-                  data=data, script=url_for('progress'))
-            # delete_audio(userId, convoId)
+                  points=points,
+                  data=convos, script=url_for('progress'))
 
     # if no session in progress, redirect to home
     else:
@@ -317,5 +316,5 @@ if __name__ == '__main__':
   port = os.getuid()
   app.debug = True
   # Flask will print the port anyhow, but let's do so too
-  print('Running on port '+str(port))
+  print('Running on port ' + str(port))
   app.run('0.0.0.0',port, ssl_context='adhoc')
