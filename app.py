@@ -308,6 +308,7 @@ def progress():
         # post request listens for delte button click
         elif request.method == 'POST':
             # check if delte is clicked
+            print("it's here")
             if request.form['submit'] == "delete":
 
                 # extract matching convoId from form
