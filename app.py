@@ -210,8 +210,8 @@ def convo(categoryId):
         questions = json.dumps(all_questions)
 
         # convoId = create_convo(categoryId, userId)
-        return render_template('convo.html', questions = questions,
-                              userId = userId, script=(url_for('convo', categoryId = categoryId)))
+        return render_template('convo.html', questions = questions, categoryId = categoryId,
+                              script=(url_for('convo', categoryId = categoryId)))
 
       # go to feedback page once user finishes the conversation
       elif request.method == 'POST':
