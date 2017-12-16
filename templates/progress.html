@@ -37,7 +37,7 @@ entire conversation from the database. -->
       <th scope="row">{{i+1}}</th>
       <td>{{data[i]['categoryType']}}</td>
       <td>
-          <button class="btn btn-primary" name="play" id='playButton' data-path='{{data[i]['audio']}}'><i class="fa fa-microphone" aria-hidden="true"> </i></button>
+          <button class="btn btn-primary" name="play" id='playButton' data-index={{i}}><i class="fa fa-microphone" aria-hidden="true"> </i></button>
       </td>
       <td>{{data[i]['feedback']}}</td>
       <td>
@@ -57,7 +57,9 @@ entire conversation from the database. -->
 </div>
 
 <script>
-  // var blob = {{data | safe}}
+  var index = $('#playButton').attr('data-index');
+  var data = {{data | safe}}
+  var blob = data[index]['audio']
   var playButton = document.getElementById("playButton");
   playButton.addEventListener("click", function () {
             var blob = $('#playButton').attr('data-path')

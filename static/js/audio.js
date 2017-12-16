@@ -142,7 +142,6 @@ stopRecordingButton.addEventListener("click", function () {
       contentType: false,
       dataType: 'audio/wav',
       success: function(e){
-        window.location.href = '/feedback/1'
         console.log("success");
       }
     });
