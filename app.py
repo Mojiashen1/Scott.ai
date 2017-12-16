@@ -216,7 +216,7 @@ def convo(categoryId):
         audio_path = ''
         feedback = ''
 
-        convoId = create_convo(id, userId, audio_path, feedback)
+        convoId = create_convo(categoryId, userId, audio_path, feedback)
 
         print ("convoId in convo method is", convoId)
 
@@ -228,7 +228,7 @@ def convo(categoryId):
         # render template and fill with questions pulled from database
 
         return render_template('convo.html', questions = questions, convoId = convoId,
-                              userId = userId, script=(url_for('convo', id = id)))
+                              userId = userId, script=(url_for('convo', categoryId = categoryId)))
 
       # go to feedback page once user finishes the conversation
       elif request.method == 'POST':
