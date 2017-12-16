@@ -3,7 +3,7 @@
 # draft version
 # Dec 14, 2017 -->
 
-<!-- this page shows user's progress in the form of a table, using
+<!-- This page shows user's progress in the form of a table, using
 Jinja templating that parses all conversation data for a single user. 
 Then, a user can delete any entry in the table, thereby deleting an
 entire conversation from the database. -->
@@ -41,7 +41,6 @@ entire conversation from the database. -->
           <span id = "audio"> </span>
 
           <button class="btn btn-primary playButton" name="play" data-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button> 
-          <p> {{data[i]['audio']}} </p>
 
         </td>
         <td>{{data[i]['feedback']}}</td>
@@ -71,7 +70,7 @@ entire conversation from the database. -->
     allButtons[i].addEventListener('click', function (e) {
       var audio_file = $(this).attr('data-file');
       var file_path =  location.protocol + '//' + location.host + '/static/audio/' + audio_file;
-      
+
       $('#audio').html('<audio autoplay><source src=' + file_path + '></audio>');
     });
 
