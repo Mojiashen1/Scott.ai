@@ -60,7 +60,7 @@ entire conversation from the database. -->
   var index = $('#playButton').attr('data-index');
   var data = {{convos_json | safe}}
   // var blob = data[index]['audio']
-  var blob = data[index]
+  var blob = JSON.parse(data[index])
   console.log('printttt', blob.getAll())
   console.log('this is the blob inside play', blob)
   var playButton = document.getElementById("playButton");
