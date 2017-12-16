@@ -35,6 +35,8 @@ def make_session_permanent():
 ''' Scott.ai landing page. Has places to sign in or sign up for the service. '''
 @app.route('/', methods =['POST', 'GET'])
 def home():
+    if 'userId' in session:
+        return redirect(url_for('convo'))
     return render_template('index.html')
 
 
