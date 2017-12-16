@@ -320,6 +320,7 @@ helper function in scott.py to take the file, and save it to the server
 using the user ID and convoID. Not yet implemented.'''
 @app.route('/audiofile/<userId>/<convoId>/', methods = ['POST', 'GET'])
 def audiofile(userId, convoId):
+    return ''
     if 'userId' in session:
         print request.base_url
         print "in audiofile"
