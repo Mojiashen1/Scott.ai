@@ -263,7 +263,7 @@ def convo(id): #id is category id!!
 
             convoId = request.form['convoId']
 
-            feedback = create_feedback(userId, audio_path)
+            feedback = create_feedback(userId, '')
 
             update_feedback(feedback, convoId, userId)
 
