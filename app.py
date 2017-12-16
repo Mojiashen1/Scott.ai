@@ -301,7 +301,7 @@ def progress():
         points = data['points']
         # data is a list of a user's conversations
         convos = get_convos(userId)
-        convos_json = json.dumps(all_questions)
+        convos_json = json.dumps(convos)
 
         # when a user views the progress page: display information
         if request.method == 'GET':
