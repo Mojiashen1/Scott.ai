@@ -267,7 +267,7 @@ def convo(id): #id is category id!!
             # url_path = request.base_url
             # convoId = create_convo(categoryId, userId, url_path, feedback)
             print ("2")
-            convoId = create_convo(categoryId, userId, blob, feedback)
+            convoId = create_convo(id, userId, blob, feedback)
             print ("3")
             increment_point_time(userId, audio_length)
             # save_audio(convoId, userId, audio_url)
