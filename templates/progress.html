@@ -37,7 +37,7 @@ entire conversation from the database. -->
       <th scope="row">{{i+1}}</th>
       <td>{{data[i]['categoryType']}}</td>
       <td>
-          <button class="btn btn-primary" name="play" id='playButton' data-index=i><i class="fa fa-microphone" aria-hidden="true"> </i></button>
+          <button class="btn btn-primary" name="play" id='playButton' audio-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button>
       </td>
       <td>{{data[i]['feedback']}}</td>
       <td>
@@ -58,8 +58,7 @@ entire conversation from the database. -->
 
 <script>
 
-  var index = $('#playButton').attr('data-index');
-  var audio_file = data[index];
+  var audio_file = $('#playButton').attr('audio-file');
 
   var playButton = document.getElementById("playButton");
 
@@ -67,7 +66,7 @@ entire conversation from the database. -->
 
     var audio = new Audio(audio_file);
     audio.play();
-    
+
   });
 </script>
 {% endblock %}
