@@ -219,8 +219,9 @@ def convo(categoryId):
 
             # need to update this
             # audio_ = ''
-            # audio_length = 1 # minutes of the new audio
+            audio_length = 1 # minutes of the new audio
             file = request.files['blob']
+            console.log('this is the blob file', file)
             # convoId = request.form['convoId']
             feedback = create_feedback(userId, file)
 
