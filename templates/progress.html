@@ -58,17 +58,17 @@ entire conversation from the database. -->
 
 <script>
 
-  var audio_file = $('#playButton').attr('audio-file');
-
-  console.log("aduio file", audio_file);
-
   var playButton = document.getElementById("playButton");
 
-  var file_path = '../static/audio/'+audio_file;
-
-  console.log("file_path");
-
   playButton.addEventListener("click", function () {
+
+      var audio_file = $('#playButton').attr('audio-file');
+
+    console.log("aduio file", audio_file);
+
+    var file_path = '../static/audio/'+audio_file;
+
+    console.log("file_path");
 
       var audio = new Audio(audio_file);
 
