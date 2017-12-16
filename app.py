@@ -217,7 +217,7 @@ def convo(categoryId):
       else:
             print('inside convos post')
             audio_length = 1 # minutes of the new audio
-            blob = request.files['blob'].read())
+            blob = request.files['blob'].read()
             size = len(blob)
             print('size of blob', size)
             # file = request.files['blob']
