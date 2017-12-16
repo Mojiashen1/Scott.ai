@@ -221,7 +221,8 @@ def convo(categoryId):
             # blob = blob.encode('ISO-8859-1').strip()
             # print('this is blob inside convo', blob)
 
-            audio_length = len(blob)
+            # audio_length = len(blob)
+            audio_length = 1
             # file = request.files['blob']
             # convoId = request.form['convoId']
             feedback = create_feedback(userId, blob)
