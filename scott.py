@@ -276,7 +276,9 @@ def save_audio(convoId, userId, audiofile):
     print ("SQL command is", sql)
     print ("data is", data)
 
+    print ("WRITING TO DATABASE")
     curs.execute(sql, data)
+    print ("WROTE TO DB")
     return 'success'
 
 # this helper function deletes an entry from the convos table givecn some convoID, and
