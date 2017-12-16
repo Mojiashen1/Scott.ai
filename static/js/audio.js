@@ -137,7 +137,7 @@ stopRecordingButton.addEventListener("click", function () {
     //post data to flask path: /audiofile
     $.ajax({
       type: "POST",
-      url: '/convo/'+cateogryId,
+      url: '/convo/'+categoryId,
       data: form,
       processData: false,
       contentType: false,
