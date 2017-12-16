@@ -215,9 +215,11 @@ def convo(categoryId):
       # go to feedback page once user finishes the conversation
     #   elif request.method == 'POST':
       else:
+            app.logger.debug(request.files['blob'].filename)
             blob = request.files['blob'].read()
-            blob = blob.encode('utf-8').strip()
+            blob = blob.encode('ISO-8859-1').strip()
             print('this is blob inside convo', blob)
+
             audio_length = len(blob)
             # file = request.files['blob']
             # convoId = request.form['convoId']
