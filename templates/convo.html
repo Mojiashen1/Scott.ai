@@ -24,7 +24,8 @@ we will inplement audio file system to record the answers -->
 		<br><br>
 
 		<div class="col-lg-7 text-center">
-			<p id="demo"></p>
+			<p id="timer"></p>
+			<br><br>
     	<button id="startRecordingButton" class="btn btn-primary"><i class="fa fa-microphone" aria-hidden="true"> </i> Start Recording</button>
 		</div>
 
@@ -65,11 +66,11 @@ we will inplement audio file system to record the answers -->
 
 
 	// Update the count down every 1 second
-	var x = setInterval(function() {
-		var count = new Date(now);
-	  // Display the result in the element with id="demo"
-	  document.getElementById("demo").innerHTML = count.getMinutes() + ':' + count.getSeconds();
-	}, 1000);
+		var timer = setInterval(function() {
+			var count = new Date(now);
+		  // Display the result in the element with id="demo"
+		  $("#timer").html(count.getMinutes() + ':' + count.getSeconds());
+		}, 1000);
 	</script>
 
     <!-- add audio recording functionality using JS file-->
