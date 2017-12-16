@@ -253,18 +253,22 @@ def get_convos(userId):
     result = curs.fetchall()
     return result
 
-# tihs is yet to be imlemented, but will take an audio input, and add it to the SQL database
-# according to the userId and convoID, such that the audio can be retrieved later.
+# tan audio input, and add it to the SQL database, according to the userId and convoID, 
+# such that the audio can be retrieved later.
 def save_audio(convoId, userId, audiofile):
     print ("in save audio")
     print ("audio file is ", audiofile)
     print ("user id is ", userId)
     print ("convoId is", convoId)
 
+    # need to convert audiofile to a File type
+
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('update convos set audio = %s where convoId = %s and userId=%s', (audiofile, convoId, userId))
     return curs.fetchone()
+
+
 
 
 # this helper function deletes an entry from the convos table givecn some convoID, and
