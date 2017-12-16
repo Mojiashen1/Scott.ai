@@ -93,30 +93,30 @@ If the inputs are not valid (username does not exist or password does
 not match), remain on login page and flash a message telling user to try again.'''
 @app.route('/login/', methods =['POST', 'GET'])
 def login():
-
   # display form
-  if (request.method == "GET"):
-    return render_template('login.html', script=(url_for("login")))
+    if (request.method == "GET"):
+        return render_template('login.html', script=(url_for("login")))
 
   # fetch information from the form
-  elif (request.method == "POST"):
-    # get information from form
-    username = request.form['username']
-    password = request.form['password'] #password is encrpyted in helper.py
-    # call helper function to check if valid login
-    message, success_message, userId = helper_login(username, password)
+    elif (request.method == "POST"):
+        # get information from form
+        username = request.form['username']
+        password = request.form['password'] #password is encrpyted in helper.py
+        # call helper function to check if valid login
+        message, success_message, userId = helper_login(username, password)
 
-    flash(message) #flash return message
+        flash(message) #flash return message
 
-    # if login is successful
-    if success_message == 1:
-      #create a new session
-      session['userId'] = userId
-      # since user has alreday created account before, go directly to topics page
-      return redirect(url_for('topic'))
-
-    else: #remain on sign up page if not successful
-      return redirect(url_for('signup'))
+        # if login is successful
+        if success_message == 1:
+            #create a new session
+            session['userId'] = userId
+            # since user has alreday created account before, go directly to topics page
+            return redirect(url_for('topic'))
+        elif success_message == 2:
+            return redirect(url_for('login'))
+        else: #remain on sign up page if not successful
+          return redirect(url_for('signup'))
 
 
 ''' Onboarding survey to get user's basic information. This page

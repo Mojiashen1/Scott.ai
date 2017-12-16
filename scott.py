@@ -114,8 +114,8 @@ def helper_login(username, password):
 			return ('''Success, {username} logged in.'''.format(username=username),1, other_account['userId'])
             # 1 means login sucessful
 		else:
-			return ("Password does not match. Please try again.", 0, '')
-            # 0 means login failed
+			return ("Password does not match. Please try again.", 2, '')
+            # 2 means username is correct but password doesnt match
 	else:
         # if user doesn't exist, create an account
 		return ('''User {username} does not exist. Please create an account. '''.format(username=username),0, '')

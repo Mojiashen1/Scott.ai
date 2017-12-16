@@ -64,21 +64,15 @@ we will inplement audio file system to record the answers -->
 			}
 		});
 
-		// var start = new Date('00:00:00');
 		var start_min = 0
 		var start_sec = 0
 	// Update the count down every 1 second
 		var timer = setInterval(function() {
-			// var now = new Date();
-		  // Display the result in the element with id="demo"
-			// var min = now.getMinutes() - start.getMinutes();
-			// var sec = now.getSeconds() - start.getSeconds();
 			start_sec ++;
 			if (start_sec == 60) {
 				start_min ++;
 				start_sec = 0;
 			}
-			// start_min = (start_min<10 ? '0' + start_min : start_min)
 			start_sec = (start_sec<10 ? '0' + start_sec : start_sec)
 		  $("#timer").html('0' + start_min + ':' + start_sec);
 		}, 1000);
