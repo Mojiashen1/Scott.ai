@@ -163,10 +163,10 @@ def update_categoryId(categoryId, convoId, userId):
     return curs.fetchone()
 
 # helper method updates categoryId of a convo once it has been created
-def update_feedback(feedback, audiofile, convoId, userId):
+def update_feedback(feedback, convoId, userId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute('update convos set feedback = %s, audio = %s where convoId = %s and userId=%s', (feedback, audiofile, convoId, userId))
+    curs.execute('update convos set feedback = %s where convoId = %s and userId=%s', (feedback, convoId, userId))
     return curs.fetchone()
 
 # A random feedback message is generated in this helper method. The idea is that 
@@ -268,10 +268,14 @@ def save_audio(convoId, userId, audiofile):
     # audiofile = "sfsdfadf"
 
     conn = getConn()
-    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    # curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
-    sql = 'update convos set audio = %s where convoId = %s and userId=%s'
-    data = (audiofile, convoId, userId)
+    # sql = 'update convos set audio = %s where convoId = %s and userId=%s'
+    # data = (audiofile, convoId, userId)
+
+    curs = conn.cursor(MySQLdb.cursors.DictCursor)
+    curs.execute('update convos set audio = %s where convoId = %s and userId=%s', (audiofile, convoId, userId))
+    return curs.fetchone()
 
     print ("SQL command is", sql)
     print ("data is", data)

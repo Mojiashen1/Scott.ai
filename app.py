@@ -257,7 +257,6 @@ def convo(id): #id is category id!!
 
             # convoId = create_convo(id, userId, blob, feedback)
 
-            audio_path = ''
             audio_length = 1 # minutes of the new audio
 
             increment_point_time(userId, audio_length)
@@ -266,7 +265,7 @@ def convo(id): #id is category id!!
 
             feedback = create_feedback(userId, audio_path)
 
-            update_feedback(feedback, audio_path, convoId, userId)
+            update_feedback(feedback, convoId, userId)
 
             return redirect(url_for('feedback', convoId=convoId))
 
