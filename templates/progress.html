@@ -62,10 +62,13 @@ entire conversation from the database. -->
 
   var playButton = document.getElementById("playButton");
 
+  var file_path = '../static/audio/'+audio_file
+  console.log(file_path)
+
   playButton.addEventListener("click", function () {
 
-      var audio = new Audio('../static/audio/'+audio_file);
-  
+      var audio = new Audio(file_path);
+      
       audio.play();
 
   });
