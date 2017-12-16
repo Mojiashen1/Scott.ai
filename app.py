@@ -249,6 +249,26 @@ def convo(id): #id is category id!!
       # go to feedback page once user submits
       elif request.method == 'POST':
 
+
+          # app.logger.debug(request.files['blob'])
+            blob = request.files['blob']
+            # blob = request.files['blob'].read()
+            # blob = blob.encode('ISO-8859-1').strip()
+            # print('this is blob inside convo', blob)
+
+            # audio_length = len(blob)
+            audio_length = 1
+            # file = request.files['blob']
+            # convoId = request.form['convoId']
+            feedback = create_feedback(userId, blob)
+            #build url path for audiofile
+            # url_path = request.base_url
+            # convoId = create_convo(categoryId, userId, url_path, feedback)
+            convoId = create_convo(categoryId, userId, blob, feedback)
+            increment_point_time(userId, audio_length)
+            # save_audio(convoId, userId, audio_url)
+            # update_feedback(feedback, audio_path, convoId, userId)
+            return redirect(url_for('feedback', convoId=convoId))
             # need to update this 
             audio_path = ''
             audio_length = 1 # minutes of the new audio
@@ -257,12 +277,6 @@ def convo(id): #id is category id!!
 
             feedback = create_feedback(userId, audio_path)
             print ("feedback is", feedback)
-
-            #build url path for audiofile
-            url_path = request.base_url
-            o = urlparse(url_path)
-            audio_url = o.scheme + '://' + o.netloc + '/audiofile/' + str(userId) + '/' + str(convoId) + '/'
-            print ("audio URL is", audio_url)
 
             # save_audio(convoId, userId, audio_rul)
 
@@ -309,7 +323,7 @@ def audiofile(userId, convoId):
         print request.base_url
         print "in audiofile"
 
-        # it actaully reaches this when end convo is clicked 
+        app.logger.debug(request.files['blob'].filename) 
 
         # request.files is empty!! 
         print (request.files['blob'])
