@@ -329,7 +329,7 @@ def audiofile(userId, convoId):
         print (request.files['blob'])
 
         # not working yet
-        file = request.files['blob']
+        file = request.files['blob'].read()
 
         # file.save(secure_filename(f.filename))
 
