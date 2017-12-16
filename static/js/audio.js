@@ -139,7 +139,7 @@ stopRecordingButton.addEventListener("click", function () {
       url: url,
       data: form,
       processData: false,
-      contentType: false,
+      contentType: 'multipart/form-data',
       dataType: 'audio/wav',
       success: function(e){
         window.location.href = '/feedback/1'
