@@ -13,46 +13,46 @@ entire conversation from the database. -->
 {% block content %}
 
 <div class='container' id='feedback' >
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading text-uppercase">Progress</h2>
-      </div>
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <h2 class="section-heading text-uppercase">Progress</h2>
     </div>
-<h5> Total energy points: {{points}}</h5>
-<br>
-<h5> Conversations you have attended: </h5>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Topic</th>
-      <th scope="col">Audio</th>
-      <th scope="col">Feedback</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for i in range(data | length) %}
-    <tr>
-      <th scope="row">{{i+1}}</th>
-      <td>{{data[i]['categoryType']}}</td>
-      <td>
+  </div>
+  <h5> Total energy points: {{points}}</h5>
+  <br>
+  <h5> Conversations you have attended: </h5>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Topic</th>
+        <th scope="col">Audio</th>
+        <th scope="col">Feedback</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in range(data | length) %}
+      <tr>
+        <th scope="row">{{i+1}}</th>
+        <td>{{data[i]['categoryType']}}</td>
+        <td>
           <button class="btn btn-primary" name="play" id='playButton' audio-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button>
-      </td>
-      <td>{{data[i]['feedback']}}</td>
-      <td>
-        <form method = "POST" action = "{{script}}">
-          <input type='text' name='categoryId' style='display:none' value="{{data[i]['categoryId']}}">
+        </td>
+        <td>{{data[i]['feedback']}}</td>
+        <td>
+          <form method = "POST" action = "{{script}}">
+            <input type='text' name='categoryId' style='display:none' value="{{data[i]['categoryId']}}">
 
-          <input type='text' name='convoId' style='display:none' value="{{data[i]['convoId']}}">
+            <input type='text' name='convoId' style='display:none' value="{{data[i]['convoId']}}">
 
-          <button type='submit' class="btn btn-primary" name="delete" value = "delete">Delete</button>
-        </form>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+            <button type='submit' class="btn btn-primary" name="delete" value = "delete">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
 </div>
 
@@ -62,17 +62,17 @@ entire conversation from the database. -->
 
   playButton.addEventListener("click", function () {
 
-      var audio_file = $('#playButton').attr('audio-file');
+    var audio_file = $('#playButton').attr('audio-file');
 
     console.log("aduio file", audio_file);
 
-    var file_path = '../static/audio/'+audio_file;
+    var file_path = 'https://cs.wellesley.edu:9000/static/audio/'+audio_file;
 
     console.log("file_path");
 
-      var audio = new Audio(audio_file);
+    var audio = new Audio(audio_file);
 
-      audio.play();
+    audio.play();
 
   });
 </script>
