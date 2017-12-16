@@ -328,7 +328,6 @@ def progress():
                   points=points,
                   data=convos, script=url_for('progress'))
 
-
     # if no session in progress, redirect to home
     else:
         return redirect(url_for('home'))
