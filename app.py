@@ -217,21 +217,14 @@ def convo(categoryId):
     #   elif request.method == 'POST':
       else:
 
-            # need to update this
-            # audio_ = ''
             audio_length = 1 # minutes of the new audio
             file = request.files['blob']
-            print('this is the blob file size', file.size)
             # convoId = request.form['convoId']
             feedback = create_feedback(userId, file)
 
             #build url path for audiofile
             url_path = request.base_url
-            o = urlparse(url_path)
-            convoId = 0 # to delete
-            audio_url = o.scheme + '://' + o.netloc + '/audiofile/' + str(userId) + '/' + str(convoId) + '/'
-            print ("audio URL is", audio_url)
-            convoId = create_convo(categoryId, userId, audio_url, feedback)
+            convoId = create_convo(categoryId, userId, url_path, feedback)
             increment_point_time(userId, audio_length)
 
             # save_audio(convoId, userId, audio_url)
