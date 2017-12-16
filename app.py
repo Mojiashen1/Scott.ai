@@ -36,7 +36,7 @@ def make_session_permanent():
 @app.route('/', methods =['POST', 'GET'])
 def home():
     if 'userId' in session:
-        return redirect(url_for('convo'))
+        return redirect(url_for('topic'))
     return render_template('index.html')
 
 
