@@ -40,7 +40,7 @@ entire conversation from the database. -->
 
           <span id = "audio"> </span>
 
-          <button class="btn btn-primary" name="play" class='playButton' data-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button> 
+          <button class="btn btn-primary playButton" name="play" data-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button> 
           <p> {{data[i]['audio']}} </p>
 
         </td>
@@ -62,10 +62,10 @@ entire conversation from the database. -->
 </div>
 
 <script>
-  var allButtons = document.getElementsByClassName("playButton");
+  var allButtons = $(".playButton");
   console.log(allButtons[0]);
   console.log(allButtons[1]);
-  
+
 
   playButton.addEventListener('click', function (e) {
     console.log('inside')
