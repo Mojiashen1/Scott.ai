@@ -303,7 +303,7 @@ def progress():
         convos = get_convos(userId)
         audio = []
         for convo in convos:
-            audio.push(convo['audio'].encode('utf-8').strip())
+            audio.append(convo['audio'].encode('utf-8').strip())
         print('all audio', audio)
         convos_json = json.dumps(audio)
 
