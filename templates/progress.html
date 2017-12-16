@@ -40,7 +40,7 @@ entire conversation from the database. -->
 
           <span id = "audio"> </span>
 
-          <button class="btn btn-primary" name="play" id='playButton' data-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button> 
+          <button class="btn btn-primary" name="play" class='playButton' data-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button> 
           <p> {{data[i]['audio']}} </p>
 
         </td>
@@ -62,12 +62,12 @@ entire conversation from the database. -->
 </div>
 
 <script>
+  var playButton = $(".playButton");
 
-  var playButton = document.getElementById("playButton");
+  playButton.bind("click", function () {
+    var 
 
-  playButton.addEventListener("click", function () {
-
-    var audio_file = playButton.attr('data-file');
+    var audio_file = $('.playButton').attr('data-file');
 
     console.log("audiofile", audio_file)
 
@@ -77,6 +77,22 @@ entire conversation from the database. -->
 
     $('#audio').html('<audio autoplay><source src=' + file_path + '></audio>');
   });
+
+
+  // var playButton = $(".playButton");
+
+  // playButton.addEventListener("click", function () {
+
+  //   var audio_file = playButton.attr('data-file');
+
+  //   console.log("audiofile", audio_file)
+
+  //   var file_path = 'https://cs.wellesley.edu:9000/static/audio/'+audio_file;
+
+  //   console.log("filepath", file_path)
+
+  //   $('#audio').html('<audio autoplay><source src=' + file_path + '></audio>');
+  // });
 
 
 //   playButton.addEventListener("click", function () {
