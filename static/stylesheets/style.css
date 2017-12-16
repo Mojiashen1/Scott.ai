@@ -226,6 +226,7 @@ header.masthead {
 
 
 footer {
+  margin-top: 150px;
   padding: 25px 0;
   text-align: center; }
   footer span.copyright {
@@ -295,7 +296,7 @@ h4 {
 #convo button {
   float: right;
 }
-
-#footer {
+/*
+footer {
   margin-top: 150px;
-}
+}*/
