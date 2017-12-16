@@ -1,6 +1,6 @@
 # Mojia & Harshita
 # final project
-# draft version
+# alpha version
 # Dec 14, 2017
 
 # this file contains all the helper methods that app.py calls, and contains

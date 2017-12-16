@@ -11,7 +11,7 @@ log them out when they press log-out, to make this program easier to use.
 Filename: app.py
 Authors: Mojia & Harshita
 Modified Date: 12/14/2017
-Scott.ai final project draft version
+Scott.ai final project alpha version
 '''
 
 from flask import Flask, render_template, request, flash, redirect, url_for, session
