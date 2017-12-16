@@ -20,6 +20,7 @@ import MySQLdb
 import dbconn2
 from scott import *
 from werkzeug.utils import secure_filename
+import time
 
 app = Flask(__name__)
 app.secret_key = 'youcantguessthisout'
@@ -233,14 +234,15 @@ def convo(categoryId):
       # go to feedback page once user finishes the conversation
       elif request.method == 'POST':
 
-            # blob = ''
-            # feedback = create_feedback(userId, blob)
-            # audio_length = 1 # minutes of the new audio
-            # increment_point_time(userId, audio_length)
-            # convoId = request.form['convoId']
-            # update_feedback(feedback, convoId, userId)
+            time.sleep(5)
+            blob = ''
+            feedback = create_feedback(userId, blob)
+            audio_length = 1 # minutes of the new audio
+            increment_point_time(userId, audio_length)
+            convoId = request.form['convoId']
+            update_feedback(feedback, convoId, userId)
 
-            # return redirect(url_for('feedback', convoId=convoId))
+            return redirect(url_for('feedback', convoId=convoId))
             return ''
   # redirect to home page if user not logged in
   else:
@@ -306,15 +308,8 @@ def audiofile(userId, convoId):
 
         print ("FILE SAVE DB")
 
+        return ''
 
-        feedback = create_feedback(userId, file)
-        audio_length = 1 # minutes of the new audio
-        increment_point_time(userId, audio_length)
-        update_feedback(feedback, convoId, userId)
-
-        return redirect(url_for('feedback', convoId=convoId))
-
-        # return ''
     else:
         print ("not in session!!")
     return ''
