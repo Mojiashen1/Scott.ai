@@ -1,11 +1,11 @@
 // Mojia & Harshita
 // final project
 // alpha version
-// Dec 14, 2017 
+// Dec 14, 2017
 
 // This Javascript file adds the audio recording functionality to the page.
 // In orer to recourd audio, the browser must first get permission from the
-// user to access the raw audio input from the microphone, which is done 
+// user to access the raw audio input from the microphone, which is done
 // using getUserMedia. After recording starts, the API collects audio snippets
 // at regular increments of time from 'input channels', and stores them locally.
 // Once recording is complete ('End Conversation' button is clicked), the recorder
@@ -130,7 +130,6 @@ stopRecordingButton.addEventListener("click", function () {
 
     form.append('blob', blob, filename);
 
-    console.log('form is', form)
     console.log( 'blob', blob, 'convo')
 
     var audiourl = '/audiofile/' + userId + '/'+convoId + '/';
@@ -140,7 +139,7 @@ stopRecordingButton.addEventListener("click", function () {
     $.ajax({
       type: "POST",
       url: audiourl,
-      data: form, 
+      data: form,
       processData: false,
       contentType: false,
       dataType: 'audio/wav',
