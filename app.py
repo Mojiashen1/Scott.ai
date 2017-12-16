@@ -322,7 +322,7 @@ def audiofile(userId, convoId):
 
         # file.save(secure_filename(f.filename))
 
-        print (save_audio(convoId, userId, filepath))
+        print (save_audio(int(convoId), int(userId), filepath))
 
         return ''
     else: 
