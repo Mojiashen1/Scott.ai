@@ -233,15 +233,15 @@ def convo(categoryId):
       # go to feedback page once user finishes the conversation
       elif request.method == 'POST':
 
-            blob = ''
-            feedback = create_feedback(userId, blob)
-            audio_length = 1 # minutes of the new audio
-            increment_point_time(userId, audio_length)
-            convoId = request.form['convoId']
-            feedback = create_feedback(userId, '')
-            update_feedback(feedback, convoId, userId)
+            # blob = ''
+            # feedback = create_feedback(userId, blob)
+            # audio_length = 1 # minutes of the new audio
+            # increment_point_time(userId, audio_length)
+            # convoId = request.form['convoId']
+            # update_feedback(feedback, convoId, userId)
 
-            return redirect(url_for('feedback', convoId=convoId))
+            # return redirect(url_for('feedback', convoId=convoId))
+            return ''
   # redirect to home page if user not logged in
   else:
       return redirect(url_for('home'))
@@ -289,7 +289,7 @@ def audiofile(userId, convoId):
 
         # filename in format userId_convoId such that it can be parsed
         filename = secure_filename(file.filename)
-        
+
         print ("filename is", filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
@@ -297,12 +297,24 @@ def audiofile(userId, convoId):
 
         file.save(filepath)
 
+        print ("FILE SAVED LOCAL")
+
 
         # file.save(secure_filename(f.filename))
 
         save_audio(int(convoId), int(userId), filename)
 
-        return ''
+        print ("FILE SAVE DB")
+
+
+        feedback = create_feedback(userId, file)
+        audio_length = 1 # minutes of the new audio
+        increment_point_time(userId, audio_length)
+        update_feedback(feedback, convoId, userId)
+
+        return redirect(url_for('feedback', convoId=convoId))
+
+        # return ''
     else:
         print ("not in session!!")
     return ''
