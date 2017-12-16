@@ -301,8 +301,11 @@ def progress():
         points = data['points']
         # data is a list of a user's conversations
         convos = get_convos(userId)
-        print('all convos', convos)
-        convos_json = json.dumps(convos.encode('utf-8').strip())
+        audio = []
+        for convo in convos:
+            audio.push(convo['audio'].encode('utf-8').strip())
+        print('all audio', audio)
+        convos_json = json.dumps(audio)
 
         # when a user views the progress page: display information
         if request.method == 'GET':
