@@ -229,8 +229,7 @@ def convo(categoryId):
             print('done with everything, gonna redirect to feedbakc')
             # save_audio(convoId, userId, audio_url)
             # update_feedback(feedback, audio_path, convoId, userId)
-            return 0
-            # return redirect(url_for('feedback', convoId=convoId))
+            return redirect(url_for('feedback', convoId=convoId))
   # redirect to home page if user not logged in
   else:
       return redirect(url_for('home'))
