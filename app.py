@@ -227,6 +227,7 @@ def convo(categoryId):
             #build url path for audiofile
             url_path = request.base_url
             o = urlparse(url_path)
+            convoId = 0 # to delete
             audio_url = o.scheme + '://' + o.netloc + '/audiofile/' + str(userId) + '/' + str(convoId) + '/'
             print ("audio URL is", audio_url)
             convoId = create_convo(categoryId, userId, audio_url, feedback)
