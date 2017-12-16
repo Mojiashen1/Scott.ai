@@ -303,7 +303,7 @@ def progress():
         userId = session['userId']
         # data is a dictionary of user's timeActive and points
         data = get_user_time_point(userId)
-        points = data['points']
+        points = data['points'] if data else 0
         # data is a list of a user's conversations
         convos = get_convos(userId)
         audio = []
