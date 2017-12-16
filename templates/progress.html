@@ -66,20 +66,23 @@ entire conversation from the database. -->
   console.log(allButtons[0]);
   console.log(allButtons[1]);
 
+  for (var i = 0; i < allButtons.length; i++){
 
-  playButton.addEventListener('click', function (e) {
-    console.log('inside')
+    allButtons[i].addEventListener('click', function (e) {
+      console.log('inside')
 
-    var audio_file = $(this).attr('data-file');
+      var audio_file = $(this).attr('data-file');
 
-    console.log("audiofile", audio_file)
+      console.log("audiofile", audio_file)
 
-    var file_path = 'https://cs.wellesley.edu:9000/static/audio/'+audio_file;
+      var file_path = 'https://cs.wellesley.edu:9000/static/audio/'+audio_file;
 
-    console.log("filepath", file_path)
+      console.log("filepath", file_path)
 
-    $('#audio').html('<audio autoplay><source src=' + file_path + '></audio>');
-  });
+      $('#audio').html('<audio autoplay><source src=' + file_path + '></audio>');
+    });
+
+}
 
 
   // var playButton = $(".playButton");
