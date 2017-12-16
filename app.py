@@ -310,6 +310,7 @@ def progress():
 
         # post request listens for delte button click
         elif request.method == 'POST':
+            print ('h9')
             # extract matching convoId from form
             convoId = request.form['convoId']
 
@@ -319,7 +320,7 @@ def progress():
 
             # retrieve updated data
             data = get_convos(userId)
-
+            print('all the data', data)
 		    # re-render page with new data
             # since the convoId is guarenteed to be
             # in the database, there is no need to catch
