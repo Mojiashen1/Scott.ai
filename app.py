@@ -261,6 +261,7 @@ def convo(id): #id is category id!!
             # file = request.files['blob']
             # convoId = request.form['convoId']
             print ("here")
+            blob = ''
             feedback = create_feedback(userId, blob)
             #build url path for audiofile
             # url_path = request.base_url
