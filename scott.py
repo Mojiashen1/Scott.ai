@@ -263,7 +263,14 @@ def save_audio(convoId, userId, audiofile):
 
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute('update convos set audio = %s where convoId = %s and userId=%s', (audiofile, convoId, userId))
+
+    sql = 'update convos set audio = %s where convoId = %s and userId=%s'
+    data = (audiofile, convoId, userId)
+
+    print ("SQL command is", sql)
+    print ("data is", data)
+
+    curs.execute(sql, data)
     return curs.fetchone()
 
 # this helper function deletes an entry from the convos table givecn some convoID, and
