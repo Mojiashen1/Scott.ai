@@ -41,6 +41,7 @@ entire conversation from the database. -->
           <span id = "audio"> </span>
 
           <button class="btn btn-primary" name="play" id='playButton' data-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button> 
+          <p> {{data[i]['audio']}} </p>
 
         </td>
         <td>{{data[i]['feedback']}}</td>
@@ -66,7 +67,7 @@ entire conversation from the database. -->
 
   playButton.addEventListener("click", function () {
 
-    var audio_file = $('#playButton').attr('data-file');
+    var audio_file = playButton.attr('data-file');
 
     console.log("audiofile", audio_file)
 
