@@ -78,9 +78,9 @@ we will inplement audio file system to record the answers -->
 				start_min ++;
 				start_sec = 0;
 			}
-			start_min = (start_min<10 ? '0' + start_min : start_min)
+			// start_min = (start_min<10 ? '0' + start_min : start_min)
 			start_sec = (start_sec<10 ? '0' + start_sec : start_sec)
-		  $("#timer").html(start_min + ':' + start_sec);
+		  $("#timer").html('0' + start_min + ':' + start_sec);
 		}, 1000);
 	</script>
 
