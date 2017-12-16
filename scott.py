@@ -157,6 +157,7 @@ def create_convo(categoryId, userId, file, feedback):
     # create a new conversation in the convos table
     sql = "insert into convos (categoryId, userId, audio, feedback) VALUES (%s, %s, %s, %s)"
     data = (categoryId, userId, file, feedback)
+    print('in scott.py, file', file)
     curs.execute(sql, data)
     convoId = conn.insert_id() #return last added convoId primary key
 
