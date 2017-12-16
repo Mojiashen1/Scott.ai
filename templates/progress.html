@@ -63,7 +63,11 @@ entire conversation from the database. -->
 
   var audio_file = $('#playButton').attr('audio-file');
 
+  console.log("audiofile", audio_file)
+
   var file_path = 'https://cs.wellesley.edu:9000/static/audio/'+audio_file;
+
+  console.log("filepath", file_path)
 
   $('#audio').html('<audio autoplay><source src=' + file_path + '></audio>');
 
