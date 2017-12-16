@@ -307,26 +307,22 @@ def progress():
 
         # post request listens for delte button click
         elif request.method == 'POST':
-            # check if delte is clicked
-            print("it's here")
-            if request.form['submit'] == "delete":
+            # extract matching convoId from form
+            convoId = request.form['convoId']
 
-                # extract matching convoId from form
-                convoId = request.form['convoId']
+            #delete using convo primary key
+            delete_audio(convoId)
+            print('it is deleted')
 
-                #delete using convo primary key
-                delete_audio(convoId)
-                print('it is deleted')
+            # retrieve updated data
+            data = get_convos(userId)
 
-                # retrieve updated data
-                data = get_convos(userId)
-
-		            # re-render page with new data
-                # since the convoId is guarenteed to be
-                # in the database, there is no need to catch
-                # user errors, as a matching data entry to the
-                # table can always be found
-                return render_template('progress.html',
+		    # re-render page with new data
+            # since the convoId is guarenteed to be
+            # in the database, there is no need to catch
+            # user errors, as a matching data entry to the
+            # table can always be found
+            return render_template('progress.html',
                   points=points,
                   data=convos, script=url_for('progress'))
 
