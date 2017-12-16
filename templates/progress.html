@@ -36,7 +36,9 @@ entire conversation from the database. -->
     <tr>
       <th scope="row">{{i+1}}</th>
       <td>{{data[i]['categoryType']}}</td>
-      <td>{{data[i]['audio']}}</td>
+      <td>
+          <button class="btn btn-primary" name="play" id='play' path='{{data[i]['audio']}}'>Play</button>
+      </td>
       <td>{{data[i]['feedback']}}</td>
       <td>
         <form method = "POST" action = "{{script}}">
