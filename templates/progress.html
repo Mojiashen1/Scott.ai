@@ -70,9 +70,7 @@ entire conversation from the database. -->
 
     allButtons[i].addEventListener('click', function (e) {
       var audio_file = $(this).attr('data-file');
-      var host =  "https://"+ window.location.hostname;
-
-      console.log(location.protocol + '//' + location.host)
+      var host =  location.protocol + '//' + location.host + '/static/audio/' + audio_file;
 
       console.log(host)
 
