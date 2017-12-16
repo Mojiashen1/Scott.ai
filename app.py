@@ -218,7 +218,7 @@ def convo(categoryId):
             app.logger.debug(request.files['blob'].filename)
             blob = request.files['blob'].read()
             # blob = blob.encode('ISO-8859-1').strip()
-            print('this is blob inside convo', blob)
+            # print('this is blob inside convo', blob)
 
             audio_length = len(blob)
             # file = request.files['blob']
@@ -307,7 +307,7 @@ def progress():
         convos = get_convos(userId)
         audio = []
         for convo in convos:
-            audio.append(convo['audio'])
+            audio.append(convo['audio'].encode('ISO-8859-1').strip())
         print('all audio', audio)
         convos_json = json.dumps(audio)
 
