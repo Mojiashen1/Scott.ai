@@ -224,6 +224,7 @@ def convo(categoryId):
             # print('this is blob inside convo', blob)
 
             audio_length = len(blob.read())
+            print('audio-length', audio_length)
             # file = request.files['blob']
             # convoId = request.form['convoId']
             feedback = create_feedback(userId, blob)
@@ -310,7 +311,7 @@ def progress():
             if not data:
                 flash("Profile doesn't exist, please create a profile")
                 return redirect(url_for('survey'))
-                
+
             points = data['points']
             # data is a list of a user's conversations
             convos = get_convos(userId)
