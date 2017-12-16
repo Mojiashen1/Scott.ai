@@ -215,6 +215,7 @@ def convo(categoryId):
       # go to feedback page once user finishes the conversation
     #   elif request.method == 'POST':
       else:
+            print('inside convos post')
             audio_length = 1 # minutes of the new audio
             file = request.files['blob']
             # convoId = request.form['convoId']
@@ -224,7 +225,7 @@ def convo(categoryId):
             url_path = request.base_url
             convoId = create_convo(categoryId, userId, url_path, feedback)
             increment_point_time(userId, audio_length)
-
+            print('done with everything, gonna redirect to feedbakc')
             # save_audio(convoId, userId, audio_url)
             # update_feedback(feedback, audio_path, convoId, userId)
 
