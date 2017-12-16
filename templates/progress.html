@@ -60,8 +60,7 @@ entire conversation from the database. -->
   var index = $('#playButton').attr('data-index');
   var data = {{convos_json | safe}}
   // var blob = data[index]['audio']
-  var blob = JSON.parse(data[index])
-  console.log('printttt', blob.getAll())
+  var blob = data[index]
   console.log('this is the blob inside play', blob)
   var playButton = document.getElementById("playButton");
   playButton.addEventListener("click", function () {
@@ -69,6 +68,7 @@ entire conversation from the database. -->
             if (blob == null) {
                 return;
             }
+            blob = new Blob(blob)
             var url = window.URL.createObjectURL(blob);
             var audio = new Audio(url);
             console.log('audio createed', audio);
