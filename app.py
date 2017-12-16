@@ -301,12 +301,13 @@ def progress():
         points = data['points']
         # data is a list of a user's conversations
         convos = get_convos(userId)
+        convos_json = json.dumps(all_questions)
 
         # when a user views the progress page: display information
         if request.method == 'GET':
             return render_template('progress.html',
-            points=points,
-            data=convos, script=url_for('progress'))
+            points=points, data=convos, convos_json = convos_json,
+            script=url_for('progress'))
 
         # post request listens for delte button click
         elif request.method == 'POST':
