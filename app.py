@@ -215,8 +215,8 @@ def convo(categoryId):
       # go to feedback page once user finishes the conversation
     #   elif request.method == 'POST':
       else:
-            app.logger.debug(request.files['blob'].filename)
-            blob = request.files['blob'].read()
+            app.logger.debug(request.files['blob'])
+            # blob = request.files['blob'].read()
             # blob = blob.encode('ISO-8859-1').strip()
             # print('this is blob inside convo', blob)
 
