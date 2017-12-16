@@ -153,7 +153,7 @@ def create_convo(categoryId, userId, audio_file, feedback):
 
     # create a new conversation in the convos table
     sql = "insert into convos (categoryId, userId, audio, feedback) VALUES (%s, %s, %s, %s)"
-    data = (categoryId, userId, audio_path, feedback)
+    data = (categoryId, userId, audio_file, feedback)
     curs.execute(sql, data)
 
     # returns convoId of the new conversation

@@ -57,14 +57,6 @@ create table profile(
 	nation varchar(50),
 	points int not null default 0, -- points earned using the application
 	timeActive int not null default 0, -- measured in time (minutes)
-	-- proPic varchar(100), profile picture file path. we can get rid of this if audio file works
-
-	-- different questions to learn more about user and their interests
-	faveSport enum('swimming','table tennis','basketball', 'running', 'sleeping','yoga'),
-	faveShow enum('Star Trek','Titanic','Modern Family','News'),
-	faveHobby enum('Drawing','Singing','Playing music','Hiking'),
-	faveFood enum('Chinese food','American food','Indian food','Mexican food'),
-	faveCountry enum('America','UK','France','China'),
 
 	-- link foreign key userId to account table
 	foreign key (userId) references account(userId) on delete cascade on update cascade
