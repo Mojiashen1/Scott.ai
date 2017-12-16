@@ -62,13 +62,14 @@ entire conversation from the database. -->
 
   playButton.addEventListener("click", function () {
 
-    // Initialize recorder
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    // // Initialize recorder
+    // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
-    navigator.getUserMedia(
-    {
-      audio: true
-    }, function (e) { console.log("success");}, function(e) {console.log("err");});
+    // navigator.getUserMedia(
+    // {
+    //   audio: true
+    // }, function (e) { console.log("success");}, function(e) {console.log("err");});
+
 
     var audio_file = $('#playButton').attr('audio-file');
 
@@ -80,8 +81,21 @@ entire conversation from the database. -->
 
     var audio = new Audio(audio_file);
 
-    audio.play();
+    var playPromise = audio.play()
 
-  });
+    if (playPromise !== undefined) {
+
+      playPromise.then(function() {
+        console.log("success");
+        audio.play()
+        // Automatic playback started!
+      }).catch(function(error) {
+        console.log("error");
+      });
+}
+
+audio.play();
+
+});
 </script>
 {% endblock %}
