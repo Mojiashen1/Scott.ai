@@ -335,6 +335,9 @@ to this method. This is not fully implemented! (delete audio)'''
 def progress():
     if 'userId' in session:
         userId = session['userId']
+        data = get_user_time_point(userId)
+        points = data['points']
+        convos = get_convos(userId)
 
         # when a user views the progress page: display information
         if request.method == 'GET':
@@ -345,9 +348,6 @@ def progress():
                 flash("Profile doesn't exist, please create a profile")
                 return redirect(url_for('survey'))
 
-            points = data['points']
-            # data is a list of a user's conversations
-            convos = get_convos(userId)
             audio = []
             for convo in convos:
                 audio.append(convo['audio'])
@@ -359,7 +359,7 @@ def progress():
             points=points, data=convos, convos_json = audio,
             script=url_for('progress'))
 
-        # post request listens for delte button click
+        # post request listens for delete button click
         elif request.method == 'POST':
             # extract matching convoId from form
             convoId = request.form['convoId']
