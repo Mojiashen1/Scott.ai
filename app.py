@@ -215,7 +215,8 @@ def convo(categoryId):
       # go to feedback page once user finishes the conversation
     #   elif request.method == 'POST':
       else:
-            app.logger.debug(request.files['blob'])
+            # app.logger.debug(request.files['blob'])
+            blob = request.files['blob']
             # blob = request.files['blob'].read()
             # blob = blob.encode('ISO-8859-1').strip()
             # print('this is blob inside convo', blob)
@@ -228,9 +229,7 @@ def convo(categoryId):
             # url_path = request.base_url
             # convoId = create_convo(categoryId, userId, url_path, feedback)
             convoId = create_convo(categoryId, userId, blob, feedback)
-            print('convo created', convoId)
             increment_point_time(userId, audio_length)
-            print('done with everything, gonna redirect to feedbakc')
             # save_audio(convoId, userId, audio_url)
             # update_feedback(feedback, audio_path, convoId, userId)
             return redirect(url_for('feedback', convoId=convoId))
