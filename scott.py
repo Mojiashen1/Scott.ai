@@ -149,7 +149,7 @@ def get_user_time_point(userId):
 # into the table.
 # @ params: categoryId, userId, audio file, feedback
 # returns convoId of the new conversation
-def create_convo(categoryId, userId, file, feedback):
+def create_convo(categoryId, userId, audio_path, feedback):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
@@ -157,8 +157,8 @@ def create_convo(categoryId, userId, file, feedback):
     # create a new conversation in the convos table
 
     sql = "insert into convos (categoryId, userId, audio, feedback) VALUES (%s, %s, %s, %s)"
-    data = (categoryId, userId, file, feedback)
-    print('in scott.py, file', file)
+    data = (categoryId, userId, audio_path, feedback)
+    print('in scott.py, file', audio_path)
     curs.execute(sql, data)
     convoId = conn.insert_id() #return last added convoId primary key
 
