@@ -217,7 +217,7 @@ def convo(categoryId):
       else:
             app.logger.debug(request.files['blob'].filename)
             blob = request.files['blob'].read()
-            blob = blob.encode('ISO-8859-1').strip()
+            # blob = blob.encode('ISO-8859-1').strip()
             print('this is blob inside convo', blob)
 
             audio_length = len(blob)
