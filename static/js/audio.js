@@ -147,16 +147,6 @@ stopRecordingButton.addEventListener("click", function () {
       success: function(e){console.log("success");}
     });
 
-    //download file locally (will remove)
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement("a");
-    document.body.appendChild(a);
-    a.style = "display: none";
-    a.href = url;
-    a.download = "convo.wav";
-    a.click();
-    window.URL.revokeObjectURL(url);
-
 });
 
 //helper functions adapted from code found on Github
