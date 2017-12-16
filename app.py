@@ -301,11 +301,11 @@ to this method. This is not fully implemented! (delete audio)'''
 def progress():
     if 'userId' in session:
         userId = session['userId']
-        # data is a dictionary of user's timeActive and points
-        data = get_user_time_point(userId)
 
         # when a user views the progress page: display information
         if request.method == 'GET':
+            # data is a dictionary of user's timeActive and points
+            data = get_user_time_point(userId)
             if not data:
                 flash("Profile doesn't exist, please create a profile")
                 return redirect(url_for('survey'))
