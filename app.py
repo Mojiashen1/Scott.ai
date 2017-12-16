@@ -311,12 +311,12 @@ def progress():
             # audio.append(bytearray(convo['audio'], 'utf-8'))
             # convo['audio'].encode('ISO-8859-1').strip())
         # print('all audio', audio)
-        convos_json = json.dumps(audio)
+        # convos_json = json.dumps(audio)
 
         # when a user views the progress page: display information
         if request.method == 'GET':
             return render_template('progress.html',
-            points=points, data=convos, convos_json = convos_json,
+            points=points, data=convos, convos_json = audio,
             script=url_for('progress'))
 
         # post request listens for delte button click
