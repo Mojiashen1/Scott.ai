@@ -159,18 +159,18 @@ def create_convo(categoryId, userId, audio_file, feedback):
     return conn.insert_id() #return last added convoId primary key
 
 # helper method updates categoryId of a convo once it has been created
-def update_categoryId(categoryId, convoId, userId):
-    conn = getConn()
-    curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute('update convos set categoryId = %s where convoId = %s and userId=%s', (categoryId, convoId, userId))
-    return curs.fetchone()
-
-# helper method updates categoryId of a convo once it has been created
-def update_feedback(feedback, audiofile, convoId, userId):
-    conn = getConn()
-    curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute('update convos set feedback = %s, audio = %s where convoId = %s and userId=%s', (feedback, audiofile, convoId, userId))
-    return curs.fetchone()
+# def update_categoryId(categoryId, convoId, userId):
+#     conn = getConn()
+#     curs = conn.cursor(MySQLdb.cursors.DictCursor)
+#     curs.execute('update convos set categoryId = %s where convoId = %s and userId=%s', (categoryId, convoId, userId))
+#     return curs.fetchone()
+#
+# # helper method updates categoryId of a convo once it has been created
+# def update_feedback(feedback, audiofile, convoId, userId):
+#     conn = getConn()
+#     curs = conn.cursor(MySQLdb.cursors.DictCursor)
+#     curs.execute('update convos set feedback = %s, audio = %s where convoId = %s and userId=%s', (feedback, audiofile, convoId, userId))
+#     return curs.fetchone()
 
 # A random feedback message is generated in this helper method. The idea is that
 # in an actual implementation of the AI, the feedback will be 'smart', and will
@@ -264,7 +264,7 @@ def get_convos(userId):
     result = curs.fetchall()
     return result
 
-# tan audio input, and add it to the SQL database, according to the userId and convoID, 
+# tan audio input, and add it to the SQL database, according to the userId and convoID,
 # such that the audio can be retrieved later.
 def save_audio(convoId, userId, audiofile):
     print ("in save audio")
@@ -273,7 +273,6 @@ def save_audio(convoId, userId, audiofile):
     print ("convoId is", convoId)
 
     # need to convert audiofile to a File type
-
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('update convos set audio = %s where convoId = %s and userId=%s', (audiofile, convoId, userId))

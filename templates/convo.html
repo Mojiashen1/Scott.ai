@@ -34,8 +34,8 @@ we will inplement audio file system to record the answers -->
 
 		<form method = "POST" action = "{{script}}" style='display:none'>
 				<button type='submit' value ='Next' class="btn btn-primary" id='end'>End Conversation</button>
-                <!-- pass back convoId -->
-                <input type='text' name='convoId' style='display:none' value="{{convoId}}"> 
+        <!-- pass back categoryId -->
+        <!-- <input type='text' name='convoId' style='display:none' value="{{convoId}}"> -->
 		</form>
 
 	</div>
@@ -63,6 +63,6 @@ we will inplement audio file system to record the answers -->
 	</script>
 
     <!-- add audio recording functionality using JS file-->
-    <script src="../../static/js/audio.js" userId = {{userId}} convoID = {{convoId}}> </script>
-
+    <!-- <script src="../../static/js/audio.js" userId = {{userId}} convoID = {{convoId}}> </script> -->
+		<script src="../../static/js/audio.js" cateogryId = {{cateogryId}}> </script>
 {% endblock %}

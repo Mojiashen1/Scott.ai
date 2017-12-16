@@ -21,11 +21,9 @@
 console.log("start");
 
 //extract convoId and userId
-var convoId = document.currentScript.getAttribute('convoId'); //1
-var userId = document.currentScript.getAttribute('userId'); //2
-
-console.log ("convoId", convoId)
-console.log ("userId", userId)
+// var convoId = document.currentScript.getAttribute('convoId'); //1
+// var userId = document.currentScript.getAttribute('userId'); //2
+var categoryId = document.currentScript.getAttribute('categoryId');
 
 var startRecordingButton = document.getElementById("startRecordingButton");
 var stopRecordingButton = document.getElementById("end"); //"End Conversation" button has id "end"
@@ -126,24 +124,21 @@ stopRecordingButton.addEventListener("click", function () {
         return;
     }
 
-<<<<<<< HEAD
-=======
     // store blob in FormData to pass to flask
->>>>>>> e33083d7eab01624584b06030ca66de64afc3297
     var form = new FormData();
     form.append('blob', blob, 'convo');
 
     console.log('form is', form)
     console.log( 'blob', blob, 'convo')
 
-    var audiourl = '/audiofile/' + userId + '/'+convoId + '/';
-    console.log(audiourl);
+    // var audiourl = '/audiofile/' + userId + '/'+convoId + '/';
+    // console.log(audiourl);
 
     //post data to flask path: /audiofile
     $.ajax({
       type: "POST",
-      url: audiourl,
-      data: form, 
+      url: '/convo/'+cateogryId,
+      data: form,
       processData: false,
       contentType: false,
       dataType: 'audio/wav',

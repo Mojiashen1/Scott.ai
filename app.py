@@ -72,7 +72,6 @@ def signup():
     # call helper function to create account by checking
     # if the input is valid and writing to the database
     message, success_message, userId = create_account(name, username, password)
-
     flash(message) #flash whether sign up is successful
 
     # if sign-up is successful
@@ -176,24 +175,10 @@ in progress, and otherwise the user is redirected to homepage.'''
 def topic():
     if 'userId' in session:
         userId = session['userId'] # extract userId
-
-        # create dummy data for convo ID for initialization
-        audio_path = ''
-        feedback = ''
-
         if request.method == "POST":
-            print ("IN POST")
-
-            # convoId = request.form['convoId']
             category_id = request.form['categoryId']
-            print ("categoryId is ", category_id)
-
-            convoId = create_convo(category_id, userId, audio_path, feedback)
-
-            return redirect(url_for('convo', id = category_id))
-
+            return redirect(url_for('convo', categoryId = category_id))
         elif request.method == "GET":
-          
             return render_template('topic.html', script=(url_for('topic')))
     else:
         return redirect(url_for('home'))
@@ -212,63 +197,44 @@ Here, the list of questions are pulled from the database using the
 conversation type ID, and are passed into the template, where each
 question is shown. Again, this only happens if a session is created --
 otherwise, redirects to homepage'''
-@app.route('/convo/<id>', methods =['POST', 'GET'])
-def convo(id): #id is category id!! 
+@app.route('/convo/<categoryId>', methods =['POST', 'GET'])
+def convo(categoryId):
 
   # check if session in progress (user logged in)
   if 'userId' in session:
       userId = session['userId']
-      # id = 1
-      
       if request.method == 'GET':
         #pull questions from database by type
-        all_questions = get_questions(id)
+        all_questions = get_questions(categoryId)
         #change the list of questions json format to send to the front end
         questions = json.dumps(all_questions)
 
-        audio_path = ''
-        feedback = ''
-
-        convoId = create_convo(id, userId, audio_path, feedback)
-        print ("convoId in convo method is", convoId)
-
-        # TO DO:
-        # start recording audio file once conversation is entered
-        # show a timer for the duration of each conversation question
-        # store audio filepath and timestamps in appropriate table (convos)
-
-        # render template and fill with questions pulled from database
-
-        return render_template('convo.html', questions = questions, convoId = convoId, 
-                              userId = userId, script=(url_for('convo', id = id)))
+        # convoId = create_convo(categoryId, userId)
+        return render_template('convo.html', questions = questions,
+                              userId = userId, script=(url_for('convo', categoryId = categoryId)))
 
       # go to feedback page once user finishes the conversation
       elif request.method == 'POST':
 
-            # need to update this 
-            audio_path = ''
-            audio_length = 1 # minutes of the new audio
-
-            convoId = request.form['convoId']
-
-            feedback = create_feedback(userId, audio_path)
-            print ("feedback is", feedback)
+            # need to update this
+            # audio_ = ''
+            # audio_length = 1 # minutes of the new audio
+            file = request.files['blob']
+            # convoId = request.form['convoId']
+            feedback = create_feedback(userId, file)
 
             #build url path for audiofile
             url_path = request.base_url
             o = urlparse(url_path)
             audio_url = o.scheme + '://' + o.netloc + '/audiofile/' + str(userId) + '/' + str(convoId) + '/'
             print ("audio URL is", audio_url)
-
-            # save_audio(convoId, userId, audio_rul)
-
-            # TO DO -- pull audio path
-
-            update_feedback(feedback, audio_path, convoId, userId)
+            convoId = create_convo(categoryId, userId, audio_url, feedback)
             increment_point_time(userId, audio_length)
 
-            return redirect(url_for('feedback', convoId=convoId))
+            # save_audio(convoId, userId, audio_url)
+            # update_feedback(feedback, audio_path, convoId, userId)
 
+            return redirect(url_for('feedback', convoId=convoId))
   # redirect to home page if user not logged in
   else:
       return redirect(url_for('home'))
@@ -298,28 +264,28 @@ def feedback(convoId):
 by the AJAX script after audio recording, and will call a
 helper function in scott.py to take the file, and save it to the server
 using the user ID and convoID. Not yet implemented.'''
-@app.route('/audiofile/<userId>/<convoId>/', methods = ['POST', 'GET'])
-def audiofile(userId, convoId):
-    if 'userId' in session:
-        print request.base_url
-        print "in audiofile"
-
-        # it actaully reaches this when end convo is clicked 
-
-        # request.files is empty!! 
-        print (request.files['blob'])
-
-        # not working yet
-        file = request.files['blob']
-
-        # file.save(secure_filename(f.filename))
-
-        save_audio(convoId, userId, file)
-
-        return ''
-    else: 
-        print ("not in session!!")
-    return ''
+# @app.route('/audiofile/<userId>/<convoId>/', methods = ['POST', 'GET'])
+# def audiofile(userId, convoId):
+#     if 'userId' in session:
+#         print request.base_url
+#         print "in audiofile"
+#
+#         # it actaully reaches this when end convo is clicked
+#
+#         # request.files is empty!!
+#         print (request.files['blob'])
+#
+#         # not working yet
+#         file = request.files['blob']
+#
+#         # file.save(secure_filename(f.filename))
+#
+#         save_audio(convoId, userId, file)
+#
+#         return ''
+#     else:
+#         print ("not in session!!")
+#     return ''
 
 
 ''' The progress page shows the user's progress thus far when
@@ -359,7 +325,7 @@ def progress():
 
                 # retrieve updated data
                 data = get_convos(userId)
-		
+
 		            # re-render page with new data
                 # since the convoId is guarenteed to be
                 # in the database, there is no need to catch
@@ -381,4 +347,3 @@ if __name__ == '__main__':
   # Flask will print the port anyhow, but let's do so too
   print('Running on port ' + str(port))
   app.run('0.0.0.0',port, ssl_context='adhoc')
-
