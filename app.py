@@ -233,8 +233,6 @@ def convo(categoryId):
 
       # go to feedback page once user finishes the conversation
       elif request.method == 'POST':
-
-            time.sleep(5)
             blob = ''
             feedback = create_feedback(userId, blob)
             audio_length = 1 # minutes of the new audio
@@ -301,7 +299,6 @@ def audiofile(userId, convoId):
 
         print ("FILE SAVED LOCAL")
 
-
         # file.save(secure_filename(f.filename))
 
         save_audio(int(convoId), int(userId), filename)
@@ -325,9 +322,9 @@ to this method. This is not fully implemented! (delete audio)'''
 @app.route('/progress/', methods =['POST', 'GET'])
 def progress():
     if 'userId' in session:
-        userId = session['userId'] 
+        userId = session['userId']
 
-        data = get_user_time_point(userId)       
+        data = get_user_time_point(userId)
 
         if not data:
             flash("Profile doesn't exist, please create a profile")
