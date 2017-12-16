@@ -64,11 +64,11 @@ entire conversation from the database. -->
 
     // Initialize recorder
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-    
+
     navigator.getUserMedia(
     {
       audio: true
-    }
+    });
 
     var audio_file = $('#playButton').attr('audio-file');
 
