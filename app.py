@@ -229,7 +229,8 @@ def convo(categoryId):
             # save_audio(convoId, userId, audio_url)
             # update_feedback(feedback, audio_path, convoId, userId)
             print('right before directions')
-            return redirect(url_for('feedback', convoId=convoId))
+            return 0
+            # return redirect(url_for('feedback', convoId=convoId))
   # redirect to home page if user not logged in
   else:
       return redirect(url_for('home'))
