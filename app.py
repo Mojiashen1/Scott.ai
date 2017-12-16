@@ -240,7 +240,7 @@ def convo(categoryId):
             convoId = request.form['convoId']
             feedback = create_feedback(userId, '')
             update_feedback(feedback, convoId, userId)
-            
+
             return redirect(url_for('feedback', convoId=convoId))
   # redirect to home page if user not logged in
   else:
@@ -278,6 +278,8 @@ def audiofile(userId, convoId):
     if 'userId' in session:
         print request.base_url
         print "in audiofile"
+        print ("userid", userId)
+        print ("convoId", convoId)
 
         # request.files is empty!!
         print (request.files['blob'])
@@ -287,6 +289,7 @@ def audiofile(userId, convoId):
 
         # filename in format userId_convoId such that it can be parsed
         filename = secure_filename(file.filename)
+        
         print ("filename is", filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
