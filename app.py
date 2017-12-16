@@ -309,7 +309,7 @@ def progress():
         for convo in convos:
             audio.append(bytearray(convo['audio'], 'utf-8'))
             # convo['audio'].encode('ISO-8859-1').strip())
-        print('all audio', audio)
+        # print('all audio', audio)
         convos_json = json.dumps(audio)
 
         # when a user views the progress page: display information
