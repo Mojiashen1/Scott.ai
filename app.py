@@ -242,6 +242,7 @@ to the homepage, or (in the future) go back to the topics page. Again,
 this page can only be accessed if a session is in progress.'''
 @app.route('/feedback/<convoId>', methods =['POST', 'GET'])
 def feedback(convoId):
+    print('inside feedback')
     # if a session is in progress
     if 'userId' in session:
         userId = session['userId']
