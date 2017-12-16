@@ -195,7 +195,7 @@ def topic():
             category_id = request.form['categoryId']
             print ("categoryId is ", category_id)
 
-            convoId = create_convo(category_id, userId, audio_path, feedback)
+            # convoId = create_convo(category_id, userId, audio_path, feedback)
 
             return redirect(url_for('convo', id = category_id))
 
@@ -236,6 +236,7 @@ def convo(id): #id is category id!!
         feedback = ''
 
         convoId = create_convo(id, userId, audio_path, feedback)
+
         print ("convoId in convo method is", convoId)
 
         # TO DO:
@@ -254,7 +255,7 @@ def convo(id): #id is category id!!
             blob = ''
             feedback = create_feedback(userId, blob)
 
-            convoId = create_convo(id, userId, blob, feedback)
+            # convoId = create_convo(id, userId, blob, feedback)
 
             audio_path = ''
             audio_length = 1 # minutes of the new audio

@@ -265,7 +265,7 @@ def save_audio(convoId, userId, audiofile):
     print type(userId)
     print type(convoId)
 
-    audiofile = "sfsdfadf"
+    # audiofile = "sfsdfadf"
 
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
