@@ -262,6 +262,8 @@ def save_audio(convoId, userId, audiofile):
     print ("convoId is", convoId)
 
     print type(audiofile)
+
+    audiofile = "../" + audiofile
     print type(userId)
     print type(convoId)
 
