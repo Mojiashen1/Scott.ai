@@ -19,7 +19,6 @@ import os, sys
 import MySQLdb
 import dbconn2
 from scott import *
-from urlparse import urlparse
 
 app = Flask(__name__)
 app.secret_key = 'youcantguessthisout'

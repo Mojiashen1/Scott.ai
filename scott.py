@@ -13,6 +13,7 @@ import dbconn2
 from flask import flash, json
 import bcrypt, random
 import urllib #to fetch file from url
+from urlparse import urlparse
 
 # Connects to the db
 def getConn():
