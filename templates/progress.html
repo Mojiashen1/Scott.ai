@@ -37,7 +37,10 @@ entire conversation from the database. -->
         <th scope="row">{{i+1}}</th>
         <td>{{data[i]['categoryType']}}</td>
         <td>
-          <span id="audio"> <button class="btn btn-primary" name="play" id='playButton' audio-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button> </span>
+
+          <span id = "audio"> </span>
+          
+          <button class="btn btn-primary" name="play" id='playButton' audio-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button> 
 
         </td>
         <td>{{data[i]['feedback']}}</td>
