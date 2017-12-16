@@ -61,6 +61,7 @@ entire conversation from the database. -->
   var playButton = document.getElementById("playButton");
   playButton.addEventListener("click", function () {
             var blob = $('#playButton').attr('data-path')
+            console.log(blob)
             if (blob == null) {
                 return;
             }
