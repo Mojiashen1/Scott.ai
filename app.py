@@ -217,8 +217,10 @@ def convo(categoryId):
       else:
             print('inside convos post')
             audio_length = 1 # minutes of the new audio
-            print('get things out of file name', request.files['blob'].read())
-            file = request.files['blob']
+            blob = request.files['blob'].read())
+            size = len(blob)
+            print('size of blob', size)
+            # file = request.files['blob']
             # convoId = request.form['convoId']
             feedback = create_feedback(userId, file)
             #build url path for audiofile
