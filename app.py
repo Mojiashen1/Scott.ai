@@ -303,7 +303,10 @@ def progress():
         userId = session['userId']
         # data is a dictionary of user's timeActive and points
         data = get_user_time_point(userId)
-        points = data['points'] if data else 0
+        if not data:
+            flash("Profile doesn't exist, please create a profile")
+            return redirect(url_for('survey'))
+        points = data['points']
         # data is a list of a user's conversations
         convos = get_convos(userId)
         audio = []
