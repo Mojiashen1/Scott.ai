@@ -141,7 +141,10 @@ stopRecordingButton.addEventListener("click", function () {
       processData: false,
       contentType: false,
       dataType: 'audio/wav',
-      success: function(e){console.log("success");}
+      success: function(e){
+        window.location.href = '/feedback/1'
+        console.log("success");
+      }
     });
 
     //download file locally (will remove for the next version)
