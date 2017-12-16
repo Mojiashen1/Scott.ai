@@ -324,13 +324,13 @@ def audiofile(userId, convoId):
         print request.base_url
         print "in audiofile"
 
-        app.logger.debug(request.files['blob']) 
+        # app.logger.debug(request.files['blob']) 
 
         # request.files is empty!! 
         print (request.files['blob'])
 
         # not working yet
-        file = request.files['blob'].read()
+        file = request.files['blob']
 
         # file.save(secure_filename(f.filename))
 
