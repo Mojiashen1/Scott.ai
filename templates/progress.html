@@ -63,13 +63,13 @@ entire conversation from the database. -->
   console.log('this is the blob inside play', blob)
   var playButton = document.getElementById("playButton");
   playButton.addEventListener("click", function () {
-            console.log('inside play click')
+            console.log('inside play click');
             if (blob == null) {
                 return;
             }
             var url = window.URL.createObjectURL(blob);
             var audio = new Audio(url);
-            print('audio createed', audio)
+            console.log('audio createed', audio);
             audio.play();
         });
 
