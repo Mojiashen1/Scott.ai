@@ -13,6 +13,7 @@ import dbconn2
 from flask import flash, json
 import bcrypt, random
 import urllib #to fetch file from url
+from urlparse import urlparse
 
 # Connects to the db
 def getConn():
@@ -68,8 +69,8 @@ def create_account(name, username, password):
 
 		if other_account:
             # we will update this later so it redirect to the login page
-			return ('''User {username} already exists. Please log in.'''.format(username=username),0, '')
-            #0 means login not successful
+			return ('''User {username} already exists. Please log in.'''.format(username=username),2, '')
+            # 0 means sign up failed
 
 		else:
 			#if user does not exist, insert into table (sign up)
@@ -113,8 +114,8 @@ def helper_login(username, password):
 			return ('''Success, {username} logged in.'''.format(username=username),1, other_account['userId'])
             # 1 means login sucessful
 		else:
-			return ("Password does not match. Please try again.", 0, '')
-            # 0 means login failed
+			return ("Password does not match. Please try again.", 2, '')
+            # 2 means username is correct but password doesnt match
 	else:
         # if user doesn't exist, create an account
 		return ('''User {username} does not exist. Please create an account. '''.format(username=username),0, '')
@@ -148,22 +149,23 @@ def get_user_time_point(userId):
 # into the table.
 # @ params: categoryId, userId, audio file, feedback
 # returns convoId of the new conversation
-def create_convo(categoryId, userId, audio_file, feedback):
+def create_convo(categoryId, userId, file, feedback):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
+    audio_url = '' # temporary audio path
     # create a new conversation in the convos table
     sql = "insert into convos (categoryId, userId, audio, feedback) VALUES (%s, %s, %s, %s)"
-    data = (categoryId, userId, audio_file, feedback)
+    data = (categoryId, userId, file, feedback)
+    print('in scott.py, file', file)
     curs.execute(sql, data)
-    return conn.insert_id() #return last added convoId primary key
+    convoId = conn.insert_id() #return last added convoId primary key
 
-# helper method updates categoryId of a convo once it has been created
-def update_categoryId(categoryId, convoId, userId):
-    conn = getConn()
-    curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute('update convos set categoryId = %s where convoId = %s and userId=%s', (categoryId, convoId, userId))
-    return curs.fetchone()
+    # o = urlparse(url_path)
+    # audio_url = o.scheme + '://' + o.netloc + '/audiofile/' + str(userId) + '/' + str(convoId) + '/'
+    # print ("audio URL is", audio_url)
+    # curs.execute('update convos set audio = %s where convoId = %s', (audio_url, convoId))
+    return convoId
 
 # helper method updates categoryId of a convo once it has been created
 def update_feedback(feedback, convoId, userId):
@@ -264,10 +266,9 @@ def get_convos(userId):
     result = curs.fetchall()
     return result
 
-# tan audio input, and add it to the SQL database, according to the userId and convoID, 
+# tan audio input, and add it to the SQL database, according to the userId and convoID,
 # such that the audio can be retrieved later.
 def save_audio(convoId, userId, audiofile):
-
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('update convos set audio = %s where convoId = %s and userId=%s', (audiofile, convoId, userId))
@@ -280,7 +281,7 @@ def save_audio(convoId, userId, audiofile):
 def delete_audio(convoId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute("delete from convos where convoId = %s and userId = %s", (convoId, userId))
+    curs.execute("delete from convos where convoId = %s", [convoId])
     result = curs.fetchone()
     if result:
         return 1

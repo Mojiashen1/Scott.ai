@@ -23,6 +23,10 @@ we will inplement audio file system to record the answers -->
 
 		<br><br>
 
+		<div >
+			<h5 id="timer" class="col-lg-12 text-center">00:00</h5>
+		</div>
+
 		<div class="col-lg-7 text-center">
     	<button id="startRecordingButton" class="btn btn-primary"><i class="fa fa-microphone" aria-hidden="true"> </i> Start Recording</button>
 		</div>
@@ -32,13 +36,14 @@ we will inplement audio file system to record the answers -->
 			<button type='submit' value ='Next' class="btn btn-primary" id='next'>Next</button>
 		</div>
 
-		<form method = "POST" action = "{{script}}" style='display:none'>
-				<button type='submit' value ='Next' class="btn btn-primary" id='end'>End Conversation</button>
-                <!-- pass back convoId -->
-                <input type='text' name='convoId' style='display:none' value="{{convoId}}"> 
+		<form method = "POST" id='end_convo' action = "{{script}}" style='display:none'>
+		<!-- <div id='end_convo' style='display:none'> -->
+			 <button type='submit' value ='Next' class="btn btn-primary" id='end' >End Conversation</button>
+		<!-- </div> -->
 		</form>
 
 	</div>
+
 
 	<script>
 
@@ -55,14 +60,26 @@ we will inplement audio file system to record the answers -->
 			if (index === questions.length) {
 				$('#end').attr('type', 'submit');
 				$('#next').attr('style', 'display:none');
-				$('form').attr('style', 'display:block');
+				$('#end_convo').attr('style', 'display:block');
 			}
 		});
 
-
+		var start_min = 0
+		var start_sec = 0
+		$('#startRecordingButton').click(function(){
+			setInterval(function() {
+				start_sec ++;
+				if (start_sec == 60) {
+					start_min ++;
+					start_sec = 0;
+				}
+				start_sec = (start_sec<10 ? '0' + start_sec : start_sec)
+			  $("#timer").html('0' + start_min + ':' + start_sec);
+			}, 1000);
+		});
 	</script>
 
     <!-- add audio recording functionality using JS file-->
-    <script src="../../static/js/audio.js" userId = {{userId}} convoID = {{convoId}}> </script>
-
+    <!-- <script src="../../static/js/audio.js" userId = {{userId}} convoID = {{convoId}}> </script> -->
+		<script src="../../static/js/audio.js" categoryId = {{categoryId}}> </script>
 {% endblock %}

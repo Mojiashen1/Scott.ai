@@ -27,8 +27,6 @@ We will ask for email as well soon -->
     <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.</small>
   </div>
 
-  <!-- We Will also add a username field for increased personalization -->
-
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
     <input type="password" class="form-control" name = "password" id="exampleInputPassword1" placeholder="Password" required>
@@ -36,6 +34,18 @@ We will ask for email as well soon -->
 
 <button type="submit" name = "submit" value = "signup" class="btn btn-primary">Sign Up</button>
 </form>
+
+<br><br><br>
+
+<form method = "GET" action = "{{script_login}}">
+
+  <div class="form-group">
+    <label>Already have an account?</label>
+  </div>
+
+  <button type="submit" name = "submit" value = "signup" class="btn btn-primary">Log In</button>
+</form>
+
 
 </div>
 

@@ -4,7 +4,7 @@
 # Dec 14, 2017 -->
 
 <!-- This page shows user's progress in the form of a table, using
-Jinja templating that parses all conversation data for a single user. 
+Jinja templating that parses all conversation data for a single user.
 Then, a user can delete any entry in the table, thereby deleting an
 entire conversation from the database. -->
 
@@ -40,7 +40,7 @@ entire conversation from the database. -->
 
           <span id = "audio"> </span>
 
-          <button class="btn btn-primary playButton" name="play" data-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button> 
+          <button class="btn btn-primary playButton" name="play" data-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button>
 
         </td>
         <td>{{data[i]['feedback']}}</td>
@@ -57,7 +57,6 @@ entire conversation from the database. -->
       {% endfor %}
     </tbody>
   </table>
-
 </div>
 
 <script>
@@ -75,6 +74,5 @@ entire conversation from the database. -->
     });
 
 }
-
 </script>
 {% endblock %}

@@ -21,11 +21,10 @@
 console.log("start");
 
 //extract convoId and userId
-var convoId = document.currentScript.getAttribute('convoId'); //1
-var userId = document.currentScript.getAttribute('userId'); //2
-
-console.log ("convoId", convoId)
-console.log ("userId", userId)
+// var convoId = document.currentScript.getAttribute('convoId'); //1
+// var userId = document.currentScript.getAttribute('userId'); //2
+var categoryId = document.currentScript.getAttribute('categoryId');
+console.log('categoryId', categoryId)
 
 var startRecordingButton = document.getElementById("startRecordingButton");
 var stopRecordingButton = document.getElementById("end"); //"End Conversation" button has id "end"
@@ -121,6 +120,8 @@ stopRecordingButton.addEventListener("click", function () {
     // create blob
     blob = new Blob([view], { type: 'audio/wav' });
 
+    console.log('this original blob', blob)
+
     //add functionality of download to end of stop button
     if (blob == null) {
         return;
@@ -132,21 +133,21 @@ stopRecordingButton.addEventListener("click", function () {
 
     form.append('blob', blob, filename);
 
-    console.log('form is', form)
-    console.log( 'blob', blob, 'convo')
+    // var audiourl = '/audiofile/' + userId + '/'+convoId + '/';
+    // console.log(audiourl);
 
-    var audiourl = '/audiofile/' + userId + '/'+convoId + '/';
-    console.log(audiourl);
-
+    var url = '/convo/' + categoryId
     //post data to flask path: /audiofile
     $.ajax({
       type: "POST",
-      url: audiourl,
-      data: form, 
+      url: url,
+      data: form,
       processData: false,
       contentType: false,
       dataType: 'audio/wav',
-      success: function(e){console.log("success");}
+      success: function(e){
+        console.log("success");
+      }
     });
 });
 

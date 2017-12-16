@@ -38,6 +38,8 @@ def make_session_permanent():
 ''' Scott.ai landing page. Has places to sign in or sign up for the service. '''
 @app.route('/', methods =['POST', 'GET'])
 def home():
+    if 'userId' in session:
+        return redirect(url_for('topic'))
     return render_template('index.html')
 
 
@@ -61,7 +63,7 @@ def signup():
 
   # display form
   if (request.method == "GET"):
-    return render_template('signup.html', script=(url_for("signup")))
+    return render_template('signup.html', script=(url_for("signup")), script_login=(url_for("login")))
 
   # once user adds information to create account
   elif (request.method == "POST"):
@@ -74,7 +76,6 @@ def signup():
     # call helper function to create account by checking
     # if the input is valid and writing to the database
     message, success_message, userId = create_account(name, username, password)
-
     flash(message) #flash whether sign up is successful
 
     # if sign-up is successful
@@ -97,30 +98,30 @@ If the inputs are not valid (username does not exist or password does
 not match), remain on login page and flash a message telling user to try again.'''
 @app.route('/login/', methods =['POST', 'GET'])
 def login():
-
   # display form
-  if (request.method == "GET"):
-    return render_template('login.html', script=(url_for("login")))
+    if (request.method == "GET"):
+        return render_template('login.html', script=(url_for("login")))
 
   # fetch information from the form
-  elif (request.method == "POST"):
-    # get information from form
-    username = request.form['username']
-    password = request.form['password'] #password is encrpyted in helper.py
-    # call helper function to check if valid login
-    message, success_message, userId = helper_login(username, password)
+    elif (request.method == "POST"):
+        # get information from form
+        username = request.form['username']
+        password = request.form['password'] #password is encrpyted in helper.py
+        # call helper function to check if valid login
+        message, success_message, userId = helper_login(username, password)
 
-    flash(message) #flash return message
+        flash(message) #flash return message
 
-    # if login is successful
-    if success_message == 1:
-      #create a new session
-      session['userId'] = userId
-      # since user has alreday created account before, go directly to topics page
-      return redirect(url_for('topic'))
-
-    else: #remain on sign up page if not successful
-      return redirect(url_for('signup'))
+        # if login is successful
+        if success_message == 1:
+            #create a new session
+            session['userId'] = userId
+            # since user has alreday created account before, go directly to topics page
+            return redirect(url_for('topic'))
+        elif success_message == 2:
+            return redirect(url_for('login'))
+        else: #remain on sign up page if not successful
+          return redirect(url_for('signup'))
 
 
 ''' Onboarding survey to get user's basic information. This page
@@ -178,24 +179,10 @@ in progress, and otherwise the user is redirected to homepage.'''
 def topic():
     if 'userId' in session:
         userId = session['userId'] # extract userId
-
-        # create dummy data for convo ID for initialization
-        audio_path = ''
-        feedback = ''
-
         if request.method == "POST":
-            print ("IN POST")
-
-            # convoId = request.form['convoId']
             category_id = request.form['categoryId']
-            print ("categoryId is ", category_id)
-
-            # convoId = create_convo(category_id, userId, audio_path, feedback)
-
-            return redirect(url_for('convo', id = category_id))
-
+            return redirect(url_for('convo', categoryId = category_id))
         elif request.method == "GET":
-          
             return render_template('topic.html', script=(url_for('topic')))
     else:
         return redirect(url_for('home'))
@@ -214,17 +201,15 @@ Here, the list of questions are pulled from the database using the
 conversation type ID, and are passed into the template, where each
 question is shown. Again, this only happens if a session is created --
 otherwise, redirects to homepage'''
-@app.route('/convo/<id>', methods =['POST', 'GET'])
-def convo(id): #id is category id!! 
+@app.route('/convo/<categoryId>', methods =['POST', 'GET'])
+def convo(categoryId):
 
   # check if session in progress (user logged in)
   if 'userId' in session:
       userId = session['userId']
-      # id = 1
-      
       if request.method == 'GET':
         #pull questions from database by type
-        all_questions = get_questions(id)
+        all_questions = get_questions(categoryId)
         #change the list of questions json format to send to the front end
         questions = json.dumps(all_questions)
 
@@ -242,7 +227,7 @@ def convo(id): #id is category id!!
 
         # render template and fill with questions pulled from database
 
-        return render_template('convo.html', questions = questions, convoId = convoId, 
+        return render_template('convo.html', questions = questions, convoId = convoId,
                               userId = userId, script=(url_for('convo', id = id)))
 
       # go to feedback page once user finishes the conversation
@@ -262,9 +247,7 @@ def convo(id): #id is category id!!
             feedback = create_feedback(userId, '')
 
             update_feedback(feedback, convoId, userId)
-
             return redirect(url_for('feedback', convoId=convoId))
-
   # redirect to home page if user not logged in
   else:
       return redirect(url_for('home'))
@@ -279,13 +262,15 @@ this page can only be accessed if a session is in progress.'''
 def feedback(convoId):
     # if a session is in progress
     if 'userId' in session:
-        userId = session['userId']
-        # pull user timeActive and points from profile using userId
-        data = get_user_time_point(userId)
-        # full feedback from database based on convoId
-        feedback = get_feedback(convoId, userId)
-        return render_template('feedback.html', data = data, feedback=feedback)
-
+        if request.method == 'GET':
+            print('inside get')
+            userId = session['userId']
+            # pull user timeActive and points from profile using userId
+            data = get_user_time_point(userId)
+            # full feedback from database based on convoId
+            feedback = get_feedback(convoId, userId)
+            print('about to render template')
+            return render_template('feedback.html', data = data, feedback=feedback)
     # if no session in progress, redirect to home
     else:
         return redirect(url_for('home'))
@@ -300,7 +285,7 @@ def audiofile(userId, convoId):
         print request.base_url
         print "in audiofile"
 
-        # request.files is empty!! 
+        # request.files is empty!!
         print (request.files['blob'])
 
         # not working yet
@@ -321,7 +306,7 @@ def audiofile(userId, convoId):
         save_audio(int(convoId), int(userId), filename)
 
         return ''
-    else: 
+    else:
         print ("not in session!!")
     return ''
 
@@ -337,42 +322,48 @@ to this method. This is not fully implemented! (delete audio)'''
 def progress():
     if 'userId' in session:
         userId = session['userId']
-        # data is a dictionary of user's timeActive and points
-        data = get_user_time_point(userId)
-        points = data['points']
-        # data is a list of a user's conversations
-        convos = get_convos(userId)
 
         # when a user views the progress page: display information
         if request.method == 'GET':
+            # data is a dictionary of user's timeActive and points
+            data = get_user_time_point(userId)
+
+            if not data:
+                flash("Profile doesn't exist, please create a profile")
+                return redirect(url_for('survey'))
+
+            points = data['points']
+            # data is a list of a user's conversations
+            convos = get_convos(userId)
+            audio = []
+            for convo in convos:
+                audio.append(convo['audio'])
+                # audio.append(bytearray(convo['audio'], 'utf-8'))
+                # convo['audio'].encode('ISO-8859-1').strip())
+            print('all audio', audio)
+            # convos_json = json.dumps(audio)
             return render_template('progress.html',
-            points=points,
-            data=convos, script=url_for('progress'))
+            points=points, data=convos, convos_json = audio,
+            script=url_for('progress'))
 
         # post request listens for delte button click
         elif request.method == 'POST':
+            # extract matching convoId from form
+            convoId = request.form['convoId']
 
-            # check if delte is clicked
-            if request.form.get('delete', None) == "delete":
+            #delete using convo primary key
+            delete_audio(convoId)
 
-                # extract matching convoId from form
-                convoId = request.form['convoId']
-
-                #delete using convo primary key
-                delete_audio(userId, convoId)
-
-                # retrieve updated data
-                data = get_convos(userId)
-		
-		            # re-render page with new data
-                # since the convoId is guarenteed to be
-                # in the database, there is no need to catch
-                # user errors, as a matching data entry to the
-                # table can always be found
-                return render_template('progress.html',
-                  points=points['points'],
-                  data=data, script=url_for('progress'))
-
+            # retrieve updated data
+            convos = get_convos(userId)
+		    # re-render page with new data
+            # since the convoId is guarenteed to be
+            # in the database, there is no need to catch
+            # user errors, as a matching data entry to the
+            # table can always be found
+            return render_template('progress.html',
+                  points=points,
+                  data=convos, script=url_for('progress'))
 
     # if no session in progress, redirect to home
     else:
@@ -385,4 +376,3 @@ if __name__ == '__main__':
   # Flask will print the port anyhow, but let's do so too
   print('Running on port ' + str(port))
   app.run('0.0.0.0',port, ssl_context='adhoc')
-
