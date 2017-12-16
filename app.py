@@ -307,15 +307,14 @@ def progress():
 
         # post request listens for delte button click
         elif request.method == 'POST':
-
             # check if delte is clicked
-            if request.form.get('delete', None) == "delete":
+            if request.form['submit'] == "delete":
 
                 # extract matching convoId from form
                 convoId = request.form['convoId']
 
                 #delete using convo primary key
-                delete_audio(userId, convoId)
+                delete_audio(convoId)
 
                 # retrieve updated data
                 data = get_convos(userId)
