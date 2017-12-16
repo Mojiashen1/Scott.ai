@@ -19,12 +19,14 @@ import os, sys
 import MySQLdb
 import dbconn2
 from scott import *
-from urlparse import urlparse
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = 'youcantguessthisout'
 SESSION_TYPE = 'redis'
 app.config.from_object(__name__)
+app.config['UPLOAD_FOLDER'] = 'static/audio'
+ALLOWED_EXTENSIONS = set(['wav'])
 
 
 ''' Make all sessions persistent until logout '''
@@ -309,11 +311,20 @@ def audiofile(userId, convoId):
         print (request.files['blob'])
 
         # not working yet
-        file = request.files['blob'].read()
+        file = request.files['blob']
+
+        filename = secure_filename(file.filename)
+        print ("filename is", filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+        print ("file to store in", filepath)
+        
+        file.save(filepath)
+
 
         # file.save(secure_filename(f.filename))
 
-        save_audio(convoId, userId, file)
+        # save_audio(convoId, userId, file)
 
         return ''
     else: 
