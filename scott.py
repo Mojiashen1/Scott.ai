@@ -261,6 +261,10 @@ def save_audio(convoId, userId, audiofile):
     print ("user id is ", userId)
     print ("convoId is", convoId)
 
+    print type(audiofile)
+    print type(userId)
+    print type(convoId)
+
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
@@ -271,7 +275,7 @@ def save_audio(convoId, userId, audiofile):
     print ("data is", data)
 
     curs.execute(sql, data)
-    return curs.fetchone()
+    return 'success'
 
 # this helper function deletes an entry from the convos table givecn some convoID, and
 # is meant to be used when the user is not happy with the audio recording for a 
