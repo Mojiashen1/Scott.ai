@@ -319,7 +319,7 @@ def progress():
             print('it is deleted')
 
             # retrieve updated data
-            data = get_convos(userId)
+            convos = get_convos(userId)
             print('all the data', data)
 		    # re-render page with new data
             # since the convoId is guarenteed to be
