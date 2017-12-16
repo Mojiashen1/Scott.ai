@@ -325,8 +325,8 @@ def progress():
                 # user errors, as a matching data entry to the
                 # table can always be found
                 return render_template('progress.html',
-                  points=points['points'],
-                  data=data, script=url_for('progress'))
+                  points=points,
+                  data=convos, script=url_for('progress'))
 
 
     # if no session in progress, redirect to home
