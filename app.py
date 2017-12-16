@@ -217,15 +217,14 @@ def convo(categoryId):
       else:
             print('inside convos post')
             audio_length = 1 # minutes of the new audio
+            print('get things out of file name', request.files['blob'].filename)
             file = request.files['blob']
             # convoId = request.form['convoId']
             feedback = create_feedback(userId, file)
-            print('this is feedbakc', feedback)
             #build url path for audiofile
             # url_path = request.base_url
             # convoId = create_convo(categoryId, userId, url_path, feedback)
             convoId = create_convo(categoryId, userId, file, feedback)
-            print('convoId', convoId)
             increment_point_time(userId, audio_length)
             print('done with everything, gonna redirect to feedbakc')
             # save_audio(convoId, userId, audio_url)
@@ -311,17 +310,14 @@ def progress():
 
         # post request listens for delte button click
         elif request.method == 'POST':
-            print ('h9')
             # extract matching convoId from form
             convoId = request.form['convoId']
 
             #delete using convo primary key
             delete_audio(convoId)
-            print('it is deleted')
 
             # retrieve updated data
             convos = get_convos(userId)
-            print('all the data', data)
 		    # re-render page with new data
             # since the convoId is guarenteed to be
             # in the database, there is no need to catch
