@@ -224,6 +224,7 @@ def convo(categoryId):
             # url_path = request.base_url
             # convoId = create_convo(categoryId, userId, url_path, feedback)
             convoId = create_convo(categoryId, userId, blob, feedback)
+            print('convo created', convoId)
             increment_point_time(userId, audio_length)
             print('done with everything, gonna redirect to feedbakc')
             # save_audio(convoId, userId, audio_url)
