@@ -343,6 +343,9 @@ def progress():
         points = get_user_data(userId)
         data = get_convos(userId)
 
+        print ('DATA')
+        print (data)
+
         # get request loads page
         if request.method == 'GET':
             return render_template('progress.html',
