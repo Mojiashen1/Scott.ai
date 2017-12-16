@@ -251,32 +251,39 @@ def convo(id): #id is category id!!
 
 
           # app.logger.debug(request.files['blob'])
-            blob = request.files['blob']
+            # blob = request.files['blob']
             # blob = request.files['blob'].read()
             # blob = blob.encode('ISO-8859-1').strip()
             # print('this is blob inside convo', blob)
 
             # audio_length = len(blob)
-            audio_length = 1
+            # audio_length = 1
             # file = request.files['blob']
             # convoId = request.form['convoId']
+            print ("here")
             feedback = create_feedback(userId, blob)
             #build url path for audiofile
             # url_path = request.base_url
             # convoId = create_convo(categoryId, userId, url_path, feedback)
+            print ("2")
             convoId = create_convo(categoryId, userId, blob, feedback)
+            print ("3")
             increment_point_time(userId, audio_length)
             # save_audio(convoId, userId, audio_url)
-            
-            update_feedback(feedback, audio_path, convoId, userId)
-            return redirect(url_for('feedback', convoId=convoId))
+          
+            print ("4")
             # need to update this 
             audio_path = ''
             audio_length = 1 # minutes of the new audio
 
+            print ("5")
+
             convoId = request.form['convoId']
 
+            print ("6")
+
             feedback = create_feedback(userId, audio_path)
+            print ("7")
             print ("feedback is", feedback)
 
             # save_audio(convoId, userId, audio_rul)
@@ -284,8 +291,10 @@ def convo(id): #id is category id!!
             # TO DO -- pull audio path
 
             update_feedback(feedback, audio_path, convoId, userId)
+            print ("8")
 
             increment_point_time(userId, audio_length)
+            print ("9")
 
             return redirect(url_for('feedback', convoId=convoId))
 
