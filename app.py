@@ -79,6 +79,8 @@ def signup():
       session['userId'] = userId
       # redirect user to onboarding page, since they are a new user
       return redirect(url_for('survey'))
+    elif success_message == 2:
+      return redirect(url_for('login'))
 
     else: #remain on sign up page if not successful
       #we will also implement a check to see if the user entered an

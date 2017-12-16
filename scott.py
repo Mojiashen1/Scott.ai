@@ -69,8 +69,8 @@ def create_account(name, username, password):
 
 		if other_account:
             # we will update this later so it redirect to the login page
-			return ('''User {username} already exists. Please log in.'''.format(username=username),0, '')
-            #0 means login not successful
+			return ('''User {username} already exists. Please log in.'''.format(username=username),2, '')
+            # 2 means account already exists, redirect to log in
 
 		else:
 			#if user does not exist, insert into table (sign up)
