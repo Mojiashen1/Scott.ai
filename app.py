@@ -244,13 +244,14 @@ this page can only be accessed if a session is in progress.'''
 def feedback(convoId):
     # if a session is in progress
     if 'userId' in session:
-        print('inside session')
         if request.method == 'GET':
+            print('inside get')
             userId = session['userId']
             # pull user timeActive and points from profile using userId
             data = get_user_time_point(userId)
             # full feedback from database based on convoId
             feedback = get_feedback(convoId, userId)
+            print('about to render template')
             return render_template('feedback.html', data = data, feedback=feedback)
 
     # if no session in progress, redirect to home
