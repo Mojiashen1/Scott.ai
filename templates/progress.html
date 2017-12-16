@@ -62,6 +62,14 @@ entire conversation from the database. -->
 
   playButton.addEventListener("click", function () {
 
+    // Initialize recorder
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    
+    navigator.getUserMedia(
+    {
+      audio: true
+    }
+
     var audio_file = $('#playButton').attr('audio-file');
 
     console.log("aduio file", audio_file);
