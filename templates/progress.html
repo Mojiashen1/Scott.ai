@@ -39,13 +39,13 @@ entire conversation from the database. -->
       <td>{{data[i]['audio']}}</td>
       <td>{{data[i]['feedback']}}</td>
       <td>
-        <!-- <form method = "POST" action = "{{script}}"> -->
+        <form method = "POST" action = "{{script}}">
           <!-- this is a way to pass categoryId through hidden form fields -->
           <input type='text' name='categoryId' style='display:none' value="{{data[i]['categoryId']}}">
           <input type='text' name='convoId' style='display:none' value="{{data[i]['convoId']}}">
 
           <button type='submit' class="btn btn-primary" name="delete" value = "delete">Delete</button>
-        <!-- </form> -->
+        </form>
       </td>
     </tr>
     {% endfor %}

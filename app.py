@@ -220,7 +220,7 @@ def convo(categoryId):
             file = request.files['blob']
             # convoId = request.form['convoId']
             feedback = create_feedback(userId, file)
-            print('this is feedbakc')
+            print('this is feedbakc', feedback)
             #build url path for audiofile
             url_path = request.base_url
             convoId = create_convo(categoryId, userId, url_path, feedback)
