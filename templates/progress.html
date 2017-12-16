@@ -59,7 +59,8 @@ entire conversation from the database. -->
 <script>
   var index = $('#playButton').attr('data-index');
   var data = {{convos_json | safe}}
-  var blob = data[index]['audio']
+  // var blob = data[index]['audio']
+  var blob = data[index]
   console.log('this is the blob inside play', blob)
   var playButton = document.getElementById("playButton");
   playButton.addEventListener("click", function () {
