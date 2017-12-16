@@ -323,7 +323,7 @@ def audiofile(userId, convoId):
         print request.base_url
         print "in audiofile"
 
-        app.logger.debug(request.files['blob'].filename) 
+        app.logger.debug(request.files['blob']) 
 
         # request.files is empty!! 
         print (request.files['blob'])
