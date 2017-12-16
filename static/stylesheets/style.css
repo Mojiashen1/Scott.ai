@@ -266,7 +266,7 @@ ul.social-buttons {
 
 #survey, #topic, #convo, #feedback{
   margin-top:100px;
-  margin-bottom:200px;
+  /*margin-bottom:200px;*/
 }
 
 .selection{
@@ -294,4 +294,8 @@ h4 {
 
 #convo button {
   float: right;
+}
+
+#footer {
+  margin-top: 150px;
 }
