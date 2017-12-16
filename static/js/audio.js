@@ -49,7 +49,7 @@ navigator.getUserMedia(
 },
 function (e) {
 
-    console.log("user consent");
+console.log("user consent");
 // creates the audio context
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 context = new AudioContext();

@@ -68,7 +68,7 @@ entire conversation from the database. -->
     navigator.getUserMedia(
     {
       audio: true
-    });
+    }, function (e) { console.log("success");}, function(e) {console.log("err");});
 
     var audio_file = $('#playButton').attr('audio-file');
 
