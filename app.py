@@ -313,6 +313,7 @@ def audiofile(userId, convoId):
         # not working yet
         file = request.files['blob']
 
+        # filename in format userId_convoId such that it can be parsed
         filename = secure_filename(file.filename)
         print ("filename is", filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
