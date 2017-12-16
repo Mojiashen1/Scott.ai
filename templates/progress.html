@@ -70,11 +70,8 @@ entire conversation from the database. -->
 
     allButtons[i].addEventListener('click', function (e) {
       var audio_file = $(this).attr('data-file');
-      var host =  location.protocol + '//' + location.host + '/static/audio/' + audio_file;
-
-      console.log(host)
-
-      var file_path = 'https://cs.wellesley.edu:9000/static/audio/'+audio_file;
+      var file_path =  location.protocol + '//' + location.host + '/static/audio/' + audio_file;
+      
       $('#audio').html('<audio autoplay><source src=' + file_path + '></audio>');
     });
 
