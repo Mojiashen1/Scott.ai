@@ -72,6 +72,8 @@ entire conversation from the database. -->
       var audio_file = $(this).attr('data-file');
       var host =  "https://"+ window.location.hostname;
 
+      console.log(location.protocol + '//' + location.host)
+
       console.log(host)
 
       var file_path = 'https://cs.wellesley.edu:9000/static/audio/'+audio_file;
