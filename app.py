@@ -25,7 +25,7 @@ app = Flask(__name__)
 app.secret_key = 'youcantguessthisout'
 SESSION_TYPE = 'redis'
 app.config.from_object(__name__)
-app.config['UPLOAD_FOLDER'] = 'static/audio'
+app.config['UPLOAD_FOLDER'] = '../static/audio'
 ALLOWED_EXTENSIONS = set(['wav'])
 
 
@@ -318,7 +318,7 @@ def audiofile(userId, convoId):
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
         print ("file to store in", filepath)
-        
+
         file.save(filepath)
 
 
