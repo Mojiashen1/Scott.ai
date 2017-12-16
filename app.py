@@ -266,7 +266,6 @@ def convo(id): #id is category id!!
             feedback = create_feedback(userId, audio_path)
 
             update_feedback(feedback, audio_path, convoId, userId)
-            print ("8")
 
             return redirect(url_for('feedback', convoId=convoId))
 
@@ -304,7 +303,7 @@ def audiofile(userId, convoId):
     if 'userId' in session:
         print request.base_url
         print "in audiofile"
-        
+
         # request.files is empty!! 
         print (request.files['blob'])
 
@@ -323,7 +322,7 @@ def audiofile(userId, convoId):
 
         # file.save(secure_filename(f.filename))
 
-        save_audio(convoId, userId, filepath)
+        print (save_audio(convoId, userId, filepath))
 
         return ''
     else: 
