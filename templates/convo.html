@@ -66,11 +66,10 @@ we will inplement audio file system to record the answers -->
 			}
 		});
 
-	// Set the date we're counting down to
-
-
 	// Update the count down every 1 second
-		var timer = setInterval(function() {
+	var timer = new Date();
+	$("#timer").html(timer);
+		var x = setInterval(function() {
 			var count = new Date(now);
 		  // Display the result in the element with id="demo"
 		  $("#timer").html(count.getMinutes() + ':' + count.getSeconds());
