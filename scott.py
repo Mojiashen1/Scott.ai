@@ -261,12 +261,6 @@ def save_audio(convoId, userId, audiofile):
     print ("user id is ", userId)
     print ("convoId is", convoId)
 
-    print type(audiofile)
-
-    audiofile = "../" + audiofile
-    print type(userId)
-    print type(convoId)
-
     # audiofile = "sfsdfadf"
 
     conn = getConn()
