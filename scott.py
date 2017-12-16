@@ -261,8 +261,6 @@ def save_audio(convoId, userId, audiofile):
     print ("user id is ", userId)
     print ("convoId is", convoId)
 
-    # need to convert audiofile to a File type
-
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('update convos set audio = %s where convoId = %s and userId=%s', (audiofile, convoId, userId))
