@@ -216,10 +216,11 @@ def convo(categoryId):
     #   elif request.method == 'POST':
       else:
             blob = request.files['blob'].read()
+            blob = blob.encode('utf-8').strip()
             audio_length = len(blob)
             # file = request.files['blob']
             # convoId = request.form['convoId']
-            feedback = create_feedback(userId, file)
+            feedback = create_feedback(userId, blob)
             #build url path for audiofile
             # url_path = request.base_url
             # convoId = create_convo(categoryId, userId, url_path, feedback)
@@ -303,7 +304,7 @@ def progress():
         convos = get_convos(userId)
         audio = []
         for convo in convos:
-            audio.append(convo['audio'].encode('utf-8').strip())
+            audio.append(convo['audio'])
         print('all audio', audio)
         convos_json = json.dumps(audio)
 
