@@ -64,7 +64,7 @@ entire conversation from the database. -->
 <script>
   var playButton = document.getElementsByClassName("playButton");
 
-  playButton.addEventListener('click', function (e) {
+  playButton.click(function () {
     console.log('inside')
 
     var audio_file = $(this).attr('data-file');
