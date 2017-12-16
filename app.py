@@ -221,7 +221,7 @@ def convo(categoryId):
             # audio_ = ''
             audio_length = 1 # minutes of the new audio
             file = request.files['blob']
-            print('this is the blob file', file)
+            print('this is the blob file size', file.size)
             # convoId = request.form['convoId']
             feedback = create_feedback(userId, file)
 
