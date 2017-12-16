@@ -220,15 +220,15 @@ def convo(categoryId):
             file = request.files['blob']
             # convoId = request.form['convoId']
             feedback = create_feedback(userId, file)
-
+            print('this is feedbakc')
             #build url path for audiofile
             url_path = request.base_url
             convoId = create_convo(categoryId, userId, url_path, feedback)
+            print('convoId', convoId)
             increment_point_time(userId, audio_length)
             print('done with everything, gonna redirect to feedbakc')
             # save_audio(convoId, userId, audio_url)
             # update_feedback(feedback, audio_path, convoId, userId)
-            print('right before directions')
             return 0
             # return redirect(url_for('feedback', convoId=convoId))
   # redirect to home page if user not logged in
