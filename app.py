@@ -219,15 +219,6 @@ def convo(categoryId):
 
         convoId = create_convo(categoryId, userId, audio_path, feedback)
 
-        print ("convoId in convo method is", convoId)
-
-        # TO DO:
-        # start recording audio file once conversation is entered
-        # show a timer for the duration of each conversation question
-        # store audio filepath and timestamps in appropriate table (convos)
-
-        # render template and fill with questions pulled from database
-
         return render_template('convo.html', questions = questions, convoId = convoId,
                               userId = userId, script=(url_for('convo', categoryId = categoryId)))
 
@@ -242,7 +233,6 @@ def convo(categoryId):
             update_feedback(feedback, convoId, userId)
 
             return redirect(url_for('feedback', convoId=convoId))
-            return ''
   # redirect to home page if user not logged in
   else:
       return redirect(url_for('home'))
