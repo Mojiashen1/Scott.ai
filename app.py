@@ -249,48 +249,19 @@ def convo(id): #id is category id!!
       # go to feedback page once user submits
       elif request.method == 'POST':
 
-
-          # app.logger.debug(request.files['blob'])
-            # blob = request.files['blob']
-            # blob = request.files['blob'].read()
-            # blob = blob.encode('ISO-8859-1').strip()
-            # print('this is blob inside convo', blob)
-
-            # audio_length = len(blob)
-            # audio_length = 1
-            # file = request.files['blob']
-            # convoId = request.form['convoId']
-            print ("here")
             blob = ''
             feedback = create_feedback(userId, blob)
-            #build url path for audiofile
-            # url_path = request.base_url
-            # convoId = create_convo(categoryId, userId, url_path, feedback)
-            print ("2")
+
             convoId = create_convo(id, userId, blob, feedback)
-            # save_audio(convoId, userId, audio_url)
-          
-            print ("4")
-            # need to update this 
+
             audio_path = ''
             audio_length = 1 # minutes of the new audio
 
-            print ("3")
             increment_point_time(userId, audio_length)
-
-            print ("5")
 
             convoId = request.form['convoId']
 
-            print ("6")
-
             feedback = create_feedback(userId, audio_path)
-            print ("7")
-            print ("feedback is", feedback)
-
-            # save_audio(convoId, userId, audio_rul)
-
-            # TO DO -- pull audio path
 
             update_feedback(feedback, audio_path, convoId, userId)
             print ("8")
@@ -328,22 +299,21 @@ helper function in scott.py to take the file, and save it to the server
 using the user ID and convoID. Not yet implemented.'''
 @app.route('/audiofile/<userId>/<convoId>/', methods = ['POST', 'GET'])
 def audiofile(userId, convoId):
-    return ''
     if 'userId' in session:
         print request.base_url
         print "in audiofile"
 
-        # # app.logger.debug(request.files['blob']) 
+        # app.logger.debug(request.files['blob']) 
 
-        # # request.files is empty!! 
-        # print (request.files['blob'])
+        # request.files is empty!! 
+        print (request.files['blob'])
 
-        # # not working yet
-        # file = request.files['blob']
+        # not working yet
+        file = request.files['blob']
 
-        # # file.save(secure_filename(f.filename))
+        # file.save(secure_filename(f.filename))
 
-        # save_audio(convoId, userId, file)
+        save_audio(convoId, userId, file)
 
         return ''
     else: 
