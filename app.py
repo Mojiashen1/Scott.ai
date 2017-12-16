@@ -317,7 +317,7 @@ def audiofile(userId, convoId):
         # not working yet
         file = request.files['blob']
 
-        file.save(secure_filename(f.filename))
+        # file.save(secure_filename(f.filename))
 
         save_audio(convoId, userId, file)
 
