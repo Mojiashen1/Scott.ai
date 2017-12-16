@@ -71,6 +71,9 @@ we will inplement audio file system to record the answers -->
 		  // Display the result in the element with id="demo"
 			var min = now.getMinutes() - start.getMinutes();
 			var sec = now.getSeconds() - start.getSeconds();
+			min.length == 1 ? min = '0' + min : min = min
+			sec.length == 1 ? sec = '0' + sec : sec = sec
+		
 		  $("#timer").html(min + ':' + sec);
 		}, 1000);
 	</script>
