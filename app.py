@@ -216,7 +216,7 @@ def convo(categoryId):
         audio_path = ''
         feedback = ''
 
-        convoId = create_convo(id, userId, audio_path, feedback)
+        convoId = create_convo(categoryId, userId, audio_path, feedback)
 
         print ("convoId in convo method is", convoId)
 
