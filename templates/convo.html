@@ -64,11 +64,14 @@ we will inplement audio file system to record the answers -->
 			}
 		});
 
+		var start = new Date();
 	// Update the count down every 1 second
 		var timer = setInterval(function() {
-			var count = new Date();
+			var now = new Date();
 		  // Display the result in the element with id="demo"
-		  $("#timer").html(count.getMinutes() + ':' + count.getSeconds());
+			var min = now.getMinutes() - start.getMinutes();
+			var sec = now.getSeconds() - start.getSeconds();
+		  $("#timer").html(min + ':' + sec);
 		}, 1000);
 	</script>
 
