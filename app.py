@@ -306,10 +306,11 @@ def progress():
         if request.method == 'GET':
             # data is a dictionary of user's timeActive and points
             data = get_user_time_point(userId)
-            if not data:
 
+            if not data:
                 flash("Profile doesn't exist, please create a profile")
                 return redirect(url_for('survey'))
+                
             points = data['points']
             # data is a list of a user's conversations
             convos = get_convos(userId)
