@@ -60,15 +60,16 @@ entire conversation from the database. -->
   var index = $('#playButton').attr('data-index');
   var data = {{data | safe}}
   var blob = data[index]['audio']
+  console.log('this is the blob inside play', blob)
   var playButton = document.getElementById("playButton");
   playButton.addEventListener("click", function () {
-            var blob = $('#playButton').attr('data-path')
-            console.log(blob)
+            console.log('inside play click')
             if (blob == null) {
                 return;
             }
             var url = window.URL.createObjectURL(blob);
             var audio = new Audio(url);
+            print('audio createed', audio)
             audio.play();
         });
 
