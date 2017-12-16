@@ -19,12 +19,14 @@ import os, sys
 import MySQLdb
 import dbconn2
 from scott import *
-from urlparse import urlparse
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = 'youcantguessthisout'
 SESSION_TYPE = 'redis'
 app.config.from_object(__name__)
+app.config['UPLOAD_FOLDER'] = 'static/audio'
+ALLOWED_EXTENSIONS = set(['wav'])
 
 
 ''' Make all sessions persistent until logout '''
@@ -188,7 +190,7 @@ def topic():
             category_id = request.form['categoryId']
             print ("categoryId is ", category_id)
 
-            convoId = create_convo(category_id, userId, audio_path, feedback)
+            # convoId = create_convo(category_id, userId, audio_path, feedback)
 
             return redirect(url_for('convo', id = category_id))
 
@@ -230,6 +232,7 @@ def convo(id): #id is category id!!
         feedback = ''
 
         convoId = create_convo(id, userId, audio_path, feedback)
+
         print ("convoId in convo method is", convoId)
 
         # TO DO:
@@ -245,27 +248,20 @@ def convo(id): #id is category id!!
       # go to feedback page once user finishes the conversation
       elif request.method == 'POST':
 
-            # need to update this 
-            audio_path = ''
+            blob = ''
+            feedback = create_feedback(userId, blob)
+
+            # convoId = create_convo(id, userId, blob, feedback)
+
             audio_length = 1 # minutes of the new audio
+
+            increment_point_time(userId, audio_length)
 
             convoId = request.form['convoId']
 
-            feedback = create_feedback(userId, audio_path)
-            print ("feedback is", feedback)
+            feedback = create_feedback(userId, '')
 
-            #build url path for audiofile
-            url_path = request.base_url
-            o = urlparse(url_path)
-            audio_url = o.scheme + '://' + o.netloc + '/audiofile/' + str(userId) + '/' + str(convoId) + '/'
-            print ("audio URL is", audio_url)
-
-            # save_audio(convoId, userId, audio_rul)
-
-            # TO DO -- pull audio path
-
-            update_feedback(feedback, audio_path, convoId, userId)
-            increment_point_time(userId, audio_length)
+            update_feedback(feedback, convoId, userId)
 
             return redirect(url_for('feedback', convoId=convoId))
 
@@ -304,17 +300,25 @@ def audiofile(userId, convoId):
         print request.base_url
         print "in audiofile"
 
-        # it actaully reaches this when end convo is clicked 
-
         # request.files is empty!! 
         print (request.files['blob'])
 
         # not working yet
         file = request.files['blob']
 
+        # filename in format userId_convoId such that it can be parsed
+        filename = secure_filename(file.filename)
+        print ("filename is", filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+        print ("file to store in", filepath)
+
+        file.save(filepath)
+
+
         # file.save(secure_filename(f.filename))
 
-        save_audio(convoId, userId, file)
+        save_audio(int(convoId), int(userId), filename)
 
         return ''
     else: 

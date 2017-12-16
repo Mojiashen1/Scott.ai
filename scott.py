@@ -166,10 +166,10 @@ def update_categoryId(categoryId, convoId, userId):
     return curs.fetchone()
 
 # helper method updates categoryId of a convo once it has been created
-def update_feedback(feedback, audiofile, convoId, userId):
+def update_feedback(feedback, convoId, userId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute('update convos set feedback = %s, audio = %s where convoId = %s and userId=%s', (feedback, audiofile, convoId, userId))
+    curs.execute('update convos set feedback = %s where convoId = %s and userId=%s', (feedback, convoId, userId))
     return curs.fetchone()
 
 # A random feedback message is generated in this helper method. The idea is that
@@ -267,12 +267,6 @@ def get_convos(userId):
 # tan audio input, and add it to the SQL database, according to the userId and convoID, 
 # such that the audio can be retrieved later.
 def save_audio(convoId, userId, audiofile):
-    print ("in save audio")
-    print ("audio file is ", audiofile)
-    print ("user id is ", userId)
-    print ("convoId is", convoId)
-
-    # need to convert audiofile to a File type
 
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)

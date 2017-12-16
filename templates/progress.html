@@ -3,8 +3,8 @@
 # alpha version
 # Dec 14, 2017 -->
 
-<!-- this page shows user's progress in the form of a table, using
-Jinja templating that parses all conversation data for a single user.
+<!-- This page shows user's progress in the form of a table, using
+Jinja templating that parses all conversation data for a single user. 
 Then, a user can delete any entry in the table, thereby deleting an
 entire conversation from the database. -->
 
@@ -13,44 +13,68 @@ entire conversation from the database. -->
 {% block content %}
 
 <div class='container' id='feedback' >
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading text-uppercase">Progress</h2>
-      </div>
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <h2 class="section-heading text-uppercase">Progress</h2>
     </div>
-<h5> Total energy points: {{points}}</h5>
-<br>
-<h5> Conversations you have attended: </h5>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Topic</th>
-      <th scope="col">Audio</th>
-      <th scope="col">Feedback</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for i in range(data | length) %}
-    <tr>
-      <th scope="row">{{i+1}}</th>
-      <td>{{data[i]['categoryType']}}</td>
-      <td>{{data[i]['audio']}}</td>
-      <td>{{data[i]['feedback']}}</td>
-      <td>
-        <form method = "POST" action = "{{script}}">
-          <!-- this is a way to pass categoryId through hidden form fields -->
-          <input type='text' name='categoryId' style='display:none' value="{{data[i]['categoryId']}}">
-          <input type='text' name='convoId' style='display:none' value="{{data[i]['convoId']}}">
+  </div>
+  <h5> Total energy points: {{points}}</h5>
+  <br>
+  <h5> Conversations you have attended: </h5>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Topic</th>
+        <th scope="col">Audio</th>
+        <th scope="col">Feedback</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in range(data | length) %}
+      <tr>
+        <th scope="row">{{i+1}}</th>
+        <td>{{data[i]['categoryType']}}</td>
+        <td>
 
-          <button type='submit' class="btn btn-primary" name="delete" value = "delete">Delete</button>
-        </form>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+          <span id = "audio"> </span>
+
+          <button class="btn btn-primary playButton" name="play" data-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button> 
+
+        </td>
+        <td>{{data[i]['feedback']}}</td>
+        <td>
+          <form method = "POST" action = "{{script}}">
+            <input type='text' name='categoryId' style='display:none' value="{{data[i]['categoryId']}}">
+
+            <input type='text' name='convoId' style='display:none' value="{{data[i]['convoId']}}">
+
+            <button type='submit' class="btn btn-primary" name="delete" value = "delete">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
 </div>
+
+<script>
+  var allButtons = $(".playButton");
+  console.log(allButtons[0]);
+  console.log(allButtons[1]);
+
+  for (var i = 0; i < allButtons.length; i++){
+
+    allButtons[i].addEventListener('click', function (e) {
+      var audio_file = $(this).attr('data-file');
+      var file_path =  location.protocol + '//' + location.host + '/static/audio/' + audio_file;
+
+      $('#audio').html('<audio autoplay><source src=' + file_path + '></audio>');
+    });
+
+}
+
+</script>
 {% endblock %}
