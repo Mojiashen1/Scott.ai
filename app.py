@@ -222,8 +222,9 @@ def convo(categoryId):
             feedback = create_feedback(userId, file)
             print('this is feedbakc', feedback)
             #build url path for audiofile
-            url_path = request.base_url
-            convoId = create_convo(categoryId, userId, url_path, feedback)
+            # url_path = request.base_url
+            # convoId = create_convo(categoryId, userId, url_path, feedback)
+            convoId = create_convo(categoryId, userId, file, feedback)
             print('convoId', convoId)
             increment_point_time(userId, audio_length)
             print('done with everything, gonna redirect to feedbakc')

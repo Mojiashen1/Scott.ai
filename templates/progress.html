@@ -37,7 +37,7 @@ entire conversation from the database. -->
       <th scope="row">{{i+1}}</th>
       <td>{{data[i]['categoryType']}}</td>
       <td>
-          <button class="btn btn-primary" name="play" id='play' path='{{data[i]['audio']}}'><i class="fa fa-microphone" aria-hidden="true"> </i></button>
+          <button class="btn btn-primary" name="play" id='playButton' data-path='{{data[i]['audio']}}'><i class="fa fa-microphone" aria-hidden="true"> </i></button>
       </td>
       <td>{{data[i]['feedback']}}</td>
       <td>
@@ -55,4 +55,18 @@ entire conversation from the database. -->
 </table>
 
 </div>
+
+<script>
+  // var blob = {{data | safe}}
+  $('#playButton').addEventListener("click", function () {
+            var blob = $('#playButton').attr('data-path')
+            if (blob == null) {
+                return;
+            }
+            var url = window.URL.createObjectURL(blob);
+            var audio = new Audio(url);
+            audio.play();
+        });
+
+</script>
 {% endblock %}

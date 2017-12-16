@@ -149,21 +149,21 @@ def get_user_time_point(userId):
 # into the table.
 # @ params: categoryId, userId, audio file, feedback
 # returns convoId of the new conversation
-def create_convo(categoryId, userId, url_path, feedback):
+def create_convo(categoryId, userId, file, feedback):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
     audio_url = '' # temporary audio path
     # create a new conversation in the convos table
     sql = "insert into convos (categoryId, userId, audio, feedback) VALUES (%s, %s, %s, %s)"
-    data = (categoryId, userId, audio_url, feedback)
+    data = (categoryId, userId, file, feedback)
     curs.execute(sql, data)
     convoId = conn.insert_id() #return last added convoId primary key
 
-    o = urlparse(url_path)
-    audio_url = o.scheme + '://' + o.netloc + '/audiofile/' + str(userId) + '/' + str(convoId) + '/'
-    print ("audio URL is", audio_url)
-    curs.execute('update convos set audio = %s where convoId = %s', (audio_url, convoId))
+    # o = urlparse(url_path)
+    # audio_url = o.scheme + '://' + o.netloc + '/audiofile/' + str(userId) + '/' + str(convoId) + '/'
+    # print ("audio URL is", audio_url)
+    # curs.execute('update convos set audio = %s where convoId = %s', (audio_url, convoId))
     return convoId
 
 # helper method updates categoryId of a convo once it has been created
