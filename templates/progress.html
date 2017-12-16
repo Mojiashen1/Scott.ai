@@ -58,7 +58,8 @@ entire conversation from the database. -->
 
 <script>
   // var blob = {{data | safe}}
-  $('#playButton').addEventListener("click", function () {
+  var playButton = document.getElementById("playButton");
+  playButton.addEventListener("click", function () {
             var blob = $('#playButton').attr('data-path')
             if (blob == null) {
                 return;
