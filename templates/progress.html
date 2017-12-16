@@ -87,9 +87,10 @@ entire conversation from the database. -->
 
       playPromise.then(function() {
         console.log("success");
-        audio.play()
+        audio.play();
         // Automatic playback started!
       }).catch(function(error) {
+        audio.play();
         console.log("error");
       });
 }
