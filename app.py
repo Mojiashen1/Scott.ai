@@ -11,7 +11,7 @@ log them out when they press log-out, to make this program easier to use.
 Filename: app.py
 Authors: Mojia & Harshita
 Modified Date: 12/14/2017
-Scott.ai final project draft version
+Scott.ai final project alpha version
 '''
 
 from flask import Flask, render_template, request, flash, redirect, url_for, session
@@ -245,7 +245,7 @@ def feedback(convoId):
     if 'userId' in session:
         userId = session['userId']
         # pull user timeActive and points from profile using userId
-        data = get_user_data(userId)
+        data = get_user_time_point(userId)
         # full feedback from database based on convoId
         feedback = get_feedback(convoId, userId)
         return render_template('feedback.html', data = data, feedback=feedback)
@@ -282,7 +282,7 @@ def progress():
     if 'userId' in session:
         userId = session['userId']
         # data is a dictionary of user's timeActive and points
-        data = get_user_data(userId)
+        data = get_user_time_point(userId)
         points = data['points']
         # data is a list of a user's conversations
         convos = get_convos(userId)

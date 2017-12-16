@@ -1,6 +1,6 @@
 <!-- # Mojia & Harshita
 # final project
-# draft version
+# alpha version
 # Dec 14, 2017 -->
 
 <!-- this page shows the user a list of questions and allow the user to select what questions to answer
@@ -40,14 +40,16 @@ we will inplement audio file system to record the answers -->
 
 	<script>
 
-        // display each question and change after clicking next question
+    // this jquery script displays each question and changes after clicking on "next" button
+		// get all questions from flask, mark it safe
 		var questions = {{questions | safe}};
 		var index = 0;
-		var convoId = 0;
 		$('h4').text(questions[index]);
+		// change to next questions on click
 		$('#next').click(function(){
 			index++;
 			$('h4').text(questions[index]);
+			// make the "end conversation" button visible and hide the "next" button when it's the last question
 			if (index === questions.length) {
 				$('#end').attr('type', 'submit');
 				$('#next').attr('style', 'display:none');
@@ -56,7 +58,7 @@ we will inplement audio file system to record the answers -->
 		});
 	</script>
 
-    <!-- add audio recording functionality using JS file-->
-    <script src="../static/js/audio.js"> </script>
+  <!-- add audio recording functionality using JS file-->
+  <script src="../static/js/audio.js"> </script>
 
 {% endblock %}

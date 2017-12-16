@@ -1,10 +1,10 @@
 <!-- # Mojia & Harshita
 # final project
-# draft version
+# alpha version
 # Dec 14, 2017 -->
 
 <!-- this page shows user's progress in the form of a table, using
-Jinja templating that parses all conversation data for a single user. 
+Jinja templating that parses all conversation data for a single user.
 Then, a user can delete any entry in the table, thereby deleting an
 entire conversation from the database. -->
 
@@ -40,8 +40,8 @@ entire conversation from the database. -->
       <td>{{data[i]['feedback']}}</td>
       <td>
         <form method = "POST" action = "{{script}}">
+          <!-- this is a way to pass categoryId through hidden form fields -->
           <input type='text' name='categoryId' style='display:none' value="{{data[i]['categoryId']}}">
-
           <input type='text' name='convoId' style='display:none' value="{{data[i]['convoId']}}">
 
           <button type='submit' class="btn btn-primary">Delete</button>
