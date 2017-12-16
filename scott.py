@@ -156,11 +156,6 @@ def create_convo(categoryId, userId, file, feedback):
     audio_url = '' # temporary audio path
     # create a new conversation in the convos table
 
-    print ("categoryId", categoryId)
-    print ("user", userId)
-    print ("file", file)
-    print ("feed", feedback)
-
     sql = "insert into convos (categoryId, userId, audio, feedback) VALUES (%s, %s, %s, %s)"
     data = (categoryId, userId, file, feedback)
     print('in scott.py, file', file)
