@@ -62,10 +62,9 @@ entire conversation from the database. -->
 </div>
 
 <script>
-  var playButton = $(".playButton");
-  console.log('about to enter')
+  var playButton = Document.getElementByClassName("playButton");
 
-  playButton.click(function () {
+  playButton.addEventListener('click', function (e) {
     console.log('inside')
 
     var audio_file = $(this).attr('data-file');
