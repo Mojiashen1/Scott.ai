@@ -29,6 +29,7 @@ console.log ("userId", userId)
 
 var startRecordingButton = document.getElementById("startRecordingButton");
 var stopRecordingButton = document.getElementById("end");
+var playButton = document.getElementById("playButton");
 var leftchannel = [];
 var rightchannel = [];
 var recorder = null;
@@ -155,6 +156,18 @@ stopRecordingButton.addEventListener("click", function () {
     window.URL.revokeObjectURL(url);
 
 });
+
+
+//add event listener to play button
+playButton.addEventListener("click", function () {
+    if (blob == null) {
+        return;
+    }
+    var url = window.URL.createObjectURL(blob);
+    var audio = new Audio(url);
+    audio.play();
+});
+
 
 //helper functions adapted from code found on Github
 
