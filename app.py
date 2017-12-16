@@ -253,7 +253,7 @@ def feedback(convoId):
             feedback = get_feedback(convoId, userId)
             print('about to render template')
             return render_template('index.html')
-            return render_template('feedback.html', data = data, feedback=feedback)
+            # return render_template('feedback.html', data = data, feedback=feedback)
     # if no session in progress, redirect to home
     else:
         return redirect(url_for('home'))
