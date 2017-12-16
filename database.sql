@@ -109,7 +109,7 @@ create table convos( -- stores each conversation a user has
 	convoId int auto_increment not null primary key,
 	categoryId int not null, -- so we can join them to give feedback on user's performance for a set topic
 	userId int not null, -- maps convo back to user
-	audio LONGBLOB not null, -- store file path for audio answer - one audio file for entire conversation
+	audio VARBINARY not null, -- store file path for audio answer - one audio file for entire conversation
 	feedback varchar(256),
 	foreign key (categoryId) references category(categoryId) on delete cascade on update cascade,
 	foreign key (userId) references account(userId) on delete cascade on update cascade
