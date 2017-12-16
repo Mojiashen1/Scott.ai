@@ -164,7 +164,7 @@ def create_convo(categoryId, userId, url_path, feedback):
     audio_url = o.scheme + '://' + o.netloc + '/audiofile/' + str(userId) + '/' + str(convoId) + '/'
     print ("audio URL is", audio_url)
     curs.execute('update convos set audio = %s where convoId = %s', (audio_url, convoId))
-    return 1 # update successful
+    return convoId
 
 # helper method updates categoryId of a convo once it has been created
 # def update_categoryId(categoryId, convoId, userId):
