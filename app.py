@@ -235,31 +235,12 @@ def convo(categoryId):
 
             blob = ''
             feedback = create_feedback(userId, blob)
-
-            print ("1")
-
-            # convoId = create_convo(id, userId, blob, feedback)
-
             audio_length = 1 # minutes of the new audio
-
-            print ("2")
-
             increment_point_time(userId, audio_length)
-
-            print ("3")
-
             convoId = request.form['convoId']
-
-            print ("4")
-
             feedback = create_feedback(userId, '')
-
-            print ("5")
-
             update_feedback(feedback, convoId, userId)
-
-            print ("updated")
-
+            
             return redirect(url_for('feedback', convoId=convoId))
   # redirect to home page if user not logged in
   else:
