@@ -103,6 +103,7 @@ body {
     #mainNav .navbar-brand.active, #mainNav .navbar-brand:active, #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
       color: #83E4C8; }
   #mainNav .navbar-nav .nav-item .nav-link {
+    color: #676767;
     font-size: 90%;
     font-weight: 400;
     padding: 0.75em 0;
@@ -133,6 +134,7 @@ body {
       -moz-transition: all 0.3s;
       transition: all 0.3s; }
     #mainNav .navbar-nav .nav-item .nav-link {
+      color: #676767;
       padding: 1.1em 1em !important; }
     #mainNav .navbar-nav .nav-item_2 .nav-link_2 {
       color: #676767;
@@ -148,7 +150,7 @@ body {
         padding: 12px 0; } }
 
 header.masthead {
-  color: #676767;
+  color: white;
   background-image: url("../img/header-bg.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
