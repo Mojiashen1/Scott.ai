@@ -1,7 +1,7 @@
 # Mojia & Harshita
 # final project
-# alpha version
-# Dec 14, 2017
+# beta version
+# Dec 19, 2017
 
 # this file contains all the helper methods that app.py calls, and contains
 # most of the code that will be communicating with the SQL servers to add or
@@ -158,17 +158,12 @@ def create_convo(categoryId, userId, audio_path, feedback):
 
     sql = "insert into convos (categoryId, userId, audio, feedback) VALUES (%s, %s, %s, %s)"
     data = (categoryId, userId, audio_path, feedback)
-    print('in scott.py, file', audio_path)
     curs.execute(sql, data)
     convoId = conn.insert_id() #return last added convoId primary key
-
-    # o = urlparse(url_path)
-    # audio_url = o.scheme + '://' + o.netloc + '/audiofile/' + str(userId) + '/' + str(convoId) + '/'
-    # print ("audio URL is", audio_url)
-    # curs.execute('update convos set audio = %s where convoId = %s', (audio_url, convoId))
     return convoId
 
 # helper method updates categoryId of a convo once it has been created
+# @params: feedback, convoId, userId
 def update_feedback(feedback, convoId, userId):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
@@ -179,7 +174,7 @@ def update_feedback(feedback, convoId, userId):
 # in an actual implementation of the AI, the feedback will be 'smart', and will
 # critique the user's grammar or pronounciation. For this use case, the feedback
 # is just hard coded.
-# @ params userId, audio_file
+# @ params userId, audio_file (we still use the audio_file as a parameter for future usage)
 # returns a random feedback
 def create_feedback(userId, audio_file):
     scores = ['GREAT WORK! You can start to challenge yourself more on the diversity of your vocabulary.',
@@ -267,7 +262,7 @@ def get_convos(userId):
     result = curs.fetchall()
     return result
 
-# tan audio input, and add it to the SQL database, according to the userId and convoID,
+# take audio input, and add it to the SQL database, according to the userId and convoID,
 # such that the audio can be retrieved later.
 def save_audio(convoId, userId, audiofile):
     conn = getConn()

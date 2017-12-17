@@ -1,7 +1,7 @@
 // Mojia & Harshita
 // final project
-// alpha version
-// Dec 14, 2017
+// beta version
+// Dec 19, 2017
 
 // This Javascript file adds the audio recording functionality to the page.
 // In orer to recourd audio, the browser must first get permission from the
@@ -18,18 +18,12 @@
 
 // script adapted from https://gist.github.com/meziantou/edb7217fddfbb70e899e
 
-console.log("start");
-
 //extract convoId and userId
 var convoId = document.currentScript.getAttribute('convoId'); //1
 var userId = document.currentScript.getAttribute('userId'); //2
 
-console.log ("convoId", convoId)
-console.log ("userId", userId)
-
 var startRecordingButton = document.getElementById("startRecordingButton");
 var stopRecordingButton = document.getElementById("end");
-// var playButton = document.getElementById("playButton");
 var leftchannel = [];
 var rightchannel = [];
 var recorder = null;
@@ -125,15 +119,16 @@ stopRecordingButton.addEventListener("click", function () {
         return;
     }
 
+    // pass blob in a FormData to flask
     var form = new FormData();
+    // create filename
     filename = userId+"_"+convoId+".wav"
 
     form.append('blob', blob, filename);
-
-    console.log( 'blob', blob, 'convo')
+    console.log('this is the blob', blob)
 
     var audiourl = '/audiofile/' + userId + '/'+convoId + '/';
-    console.log(audiourl);
+    console.log('this is the audiourl', audiourl);
 
     //post file to route
     $.ajax({
@@ -149,7 +144,6 @@ stopRecordingButton.addEventListener("click", function () {
 });
 
 //helper functions adapted from code found on Github
-
 function flattenArray(channelBuffer, recordingLength) {
     var result = new Float32Array(recordingLength);
     var offset = 0;

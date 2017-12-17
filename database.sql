@@ -1,7 +1,7 @@
 -- Authors: Mojia and Harshita
 -- Filename: database.sql
--- Modified Date: December 14, 2017
--- Scott.ai Final Project alpha version
+-- Modified Date: December 19, 2017
+-- Scott.ai Final Project beta version
 
 -- This DDL initializes the SQL database that will be used to store
 -- all relevant data to the Scott.ai app. It contains multiple

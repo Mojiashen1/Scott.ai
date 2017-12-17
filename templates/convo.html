@@ -1,61 +1,70 @@
 <!-- # Mojia & Harshita
 # final project
-# alpha version
-# Dec 14, 2017 -->
+# beta version
+# Dec 19, 2017 -->
 
 <!-- this page shows the user a list of questions and allow the user to select what questions to answer
 we will inplement audio file system to record the answers -->
+
 {% extends "layout_2.html" %}
 
 {% block content %}
-	<br><br>
+	<br><br><br>
 	<div class='container' id='convo'>
 			<div class="row">
 			  <div class="col-lg-12 text-center">
+					<!-- javescript will insert the questions here -->
 			    <h4 class="section-heading"></h4>
 			  </div>
 			</div>
 		<br><br>
 
+		<!-- this is the avatar -->
 		<div class="col-lg-12 text-center">
 			<img src='../../static/img/scott.png' height=200px>
 		</div>
 
 		<br><br>
 
+		<!-- initialize the timer -->
 		<div >
 			<h5 id="timer" class="col-lg-12 text-center">00:00</h5>
 		</div>
 
+		<!-- start recording button -->
 		<div class="col-lg-7 text-center">
     	<button id="startRecordingButton" class="btn btn-primary"><i class="fa fa-microphone" aria-hidden="true"> </i> Start Recording</button>
 		</div>
 
 		<br><br><br>
+
+		<!-- next button: only present when there is a next question; -->
 		<div class="col-lg-12 text-center">
 			<button type='submit' value ='Next' class="btn btn-primary" id='next'>Next</button>
 		</div>
 
+		<!-- a form to post to /convo after a conversation. form is originally hidden -->
 		<form method = "POST" id='end_convo' action = "{{script}}" style='display:none'>
 			<button type='submit' value ='Next' class="btn btn-primary" id='end' >End Conversation</button>
-            <!-- pass back convoId -->
-            <input type='text' name='convoId' style='display:none' value="{{convoId}}">
+      <!-- pass back convoId to flask through a hidden input -->
+      <input type='text' name='convoId' style='display:none' value="{{convoId}}">
 		</form>
 
 	</div>
 
-
 	<script>
-
     // this jquery script displays each question and changes after clicking on "next" button
 		// get all questions from flask, mark it safe
 		var questions = {{questions | safe}};
 		var index = 0;
+
 		$('h4').text(questions[index]);
+
 		// change to next questions on click
 		$('#next').click(function(){
 			index++;
 			$('h4').text(questions[index]);
+
 			// make the "end conversation" button visible and hide the "next" button when it's the last question
 			if (index === questions.length) {
 				$('#end').attr('type', 'submit');
@@ -64,8 +73,10 @@ we will inplement audio file system to record the answers -->
 			}
 		});
 
+		// this is the timer
 		var start_min = 0
 		var start_sec = 0
+		// update the timer every second
 		$('#startRecordingButton').click(function(){
 			setInterval(function() {
 				start_sec ++;
@@ -73,12 +84,13 @@ we will inplement audio file system to record the answers -->
 					start_min ++;
 					start_sec = 0;
 				}
+				// format "second" to always have two degits
 				start_sec = (start_sec<10 ? '0' + start_sec : start_sec)
 			  $("#timer").html('0' + start_min + ':' + start_sec);
 			}, 1000);
 		});
 	</script>
 
-    <!-- add audio recording functionality using JS file-->
+    <!-- add audio recording functionality using JS file. pass in userId and convoId-->
     <script src="../../static/js/audio.js" userId = {{userId}} convoID = {{convoId}}> </script>
 {% endblock %}
