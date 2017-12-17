@@ -103,7 +103,7 @@ body {
     #mainNav .navbar-brand.active, #mainNav .navbar-brand:active, #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
       color: #83E4C8; }
   #mainNav .navbar-nav .nav-item .nav-link {
-    color: #9f9f9f;
+    color: #9f9f9f; /*this is the nav bar button color before log in*/
     font-size: 90%;
     font-weight: 400;
     padding: 0.75em 0;
@@ -114,7 +114,7 @@ body {
     font-weight: 400;
     padding: 0.75em 0;
     letter-spacing: 1px;
-    color: #676767;
+    color: #676767; /*this is the nav bar button color after log in*/
     font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
     #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
       color: #83E4C8; }
@@ -263,16 +263,14 @@ ul.social-buttons {
 /*# added CSS here
 # Mojia & Harshita
 # final project
-# draft version
-# Dec 3, 2017*/
+# beta version
+# Dec 19, 2017*/
 
 #survey, #topic, #convo, #feedback{
   margin-top:100px;
-  /*margin-bottom:200px;*/
 }
 
 .selection{
-  /*margin: 20px;*/
   padding: 15px;
 }
 
@@ -281,10 +279,6 @@ ul.social-buttons {
   text-align: center;
   padding-left: 70px;
 }
-
-/*.selection img {
-  margin: 15px;
-}*/
 
 .error p, #error p {
   color: #ed9aed;

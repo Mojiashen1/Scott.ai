@@ -1,7 +1,7 @@
 <!-- # Mojia & Harshita
 # final project
-# alpha version
-# Dec 14, 2017 -->
+# beta version
+# Dec 19, 2017 -->
 
 <!-- this file allows the user to sign up. it asks name, username and password.
 We will ask for email as well soon -->
@@ -12,41 +12,28 @@ We will ask for email as well soon -->
 
 <div class = "container" id='survey'>
 
-  <h3> Enter your information below to create an account. </h3>
+    <h3> Enter your information below to create an account. </h3>
 
-  <form method = "POST" action = "{{script}}">
+    <form method = "POST" action = "{{script}}">
 
-   <div class="form-group">
-    <label for="exampleInputPassword1">Name</label>
-    <input type="text" name = "name" class="form-control" id="exampleInputPassword1" placeholder="Wendy Wellesley" required>
-  </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Name</label>
+          <input type="text" name = "name" class="form-control" id="exampleInputPassword1" placeholder="Wendy Wellesley" required>
+        </div>
 
-  <div class="form-group">
-    <label for="exampleInputEmail1">Username</label>
-    <input type="text" class="form-control" name = "username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="wendy1234" required>
-    <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.</small>
-  </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Username</label>
+          <input type="text" class="form-control" name = "username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="wendy1234" required>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.</small>
+        </div>
 
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" name = "password" id="exampleInputPassword1" placeholder="Password" required>
-  </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" name = "password" id="exampleInputPassword1" placeholder="Password" required>
+        </div>
 
-<button type="submit" name = "submit" value = "signup" class="btn btn-primary">Sign Up</button>
-</form>
-
-<br><br><br>
-
-<form method = "GET" action = "{{script_login}}">
-
-  <div class="form-group">
-    <label>Already have an account?</label>
-  </div>
-
-  <button type="submit" name = "submit" value = "signup" class="btn btn-primary">Log In</button>
-</form>
-
-
+        <button type="submit" name = "submit" value = "signup" class="btn btn-primary">Sign Up</button>
+  </form>
 </div>
 
 {% endblock %}
