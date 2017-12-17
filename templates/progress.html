@@ -1,7 +1,7 @@
 <!-- # Mojia & Harshita
 # final project
-# alpha version
-# Dec 14, 2017 -->
+# beta version
+# Dec 19, 2017 -->
 
 <!-- This page shows user's progress in the form of a table, using
 Jinja templating that parses all conversation data for a single user.
@@ -37,19 +37,19 @@ entire conversation from the database. -->
         <th scope="row">{{i+1}}</th>
         <td>{{data[i]['categoryType']}}</td>
         <td>
-
+          <!-- insert the audio object here through javascript -->
           <span id = "audio"> </span>
-
+          <!-- save the audio path in data-file -->
           <button class="btn btn-primary playButton" name="play" data-file="{{data[i]['audio']}}"><i class="fa fa-microphone" aria-hidden="true"> </i></button>
-
         </td>
+
         <td>{{data[i]['feedback']}}</td>
         <td>
+          <!-- create a form to call /progress to delete a conversation -->
           <form method = "POST" action = "{{script}}">
+            <!-- hidden input fields to pass back categoryId and convoId to delete the conversation -->
             <input type='text' name='categoryId' style='display:none' value="{{data[i]['categoryId']}}">
-
             <input type='text' name='convoId' style='display:none' value="{{data[i]['convoId']}}">
-
             <button type='submit' class="btn btn-primary" name="delete" value = "delete">Delete</button>
           </form>
         </td>
@@ -61,18 +61,19 @@ entire conversation from the database. -->
 
 <script>
   var allButtons = $(".playButton");
-  console.log(allButtons[0]);
-  console.log(allButtons[1]);
 
+  // add event listeners to each button
   for (var i = 0; i < allButtons.length; i++){
 
     allButtons[i].addEventListener('click', function (e) {
+      // use $(this) to know which button is clicked
+      // retrieve audio path through data-file
       var audio_file = $(this).attr('data-file');
+      // build file_path
       var file_path =  location.protocol + '//' + location.host + '/static/audio/' + audio_file;
-
+      // create an audio object and insert to html
       $('#audio').html('<audio autoplay><source src=' + file_path + '></audio>');
     });
-
 }
 </script>
 {% endblock %}

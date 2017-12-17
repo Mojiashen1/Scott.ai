@@ -10,8 +10,8 @@ log them out when they press log-out, to make this program easier to use.
 
 Filename: app.py
 Authors: Mojia & Harshita
-Modified Date: 12/14/2017
-Scott.ai final project alpha version
+Modified Date: 12/19/2017
+Scott.ai final project beta version
 '''
 
 from flask import Flask, render_template, request, flash, redirect, url_for, session
@@ -64,7 +64,7 @@ def signup():
 
   # display form
   if (request.method == "GET"):
-    return render_template('signup.html', script=(url_for("signup")), script_login=(url_for("login")))
+    return render_template('signup.html', script=(url_for("signup")))
 
   # once user adds information to create account
   elif (request.method == "POST"):
@@ -120,8 +120,9 @@ def login():
             # since user has alreday created account before, go directly to topics page
             return redirect(url_for('topic'))
         elif success_message == 2:
+            # if the username is correct, but password is wrong, ask the user to try again
             return redirect(url_for('login'))
-        else: #remain on sign up page if not successful
+        else: #if the username is unknown, redirect to signup
           return redirect(url_for('signup'))
 
 
@@ -162,7 +163,6 @@ def survey():
             flash(message)
             # once profile created/updated, redirect to topic page to start convo
             return redirect(url_for('topic'))
-
     # if no session created, redirect to home page
     else:
         return redirect(url_for('home'))
@@ -214,34 +214,26 @@ def convo(categoryId):
         #change the list of questions json format to send to the front end
         questions = json.dumps(all_questions)
 
+        # create fake audio_path, feedback to create a new conversation in order to get the convoId
         audio_path = ''
         feedback = ''
-
         convoId = create_convo(categoryId, userId, audio_path, feedback)
-
-        print ("convoId in convo method is", convoId)
-
-        # TO DO:
-        # start recording audio file once conversation is entered
-        # show a timer for the duration of each conversation question
-        # store audio filepath and timestamps in appropriate table (convos)
-
-        # render template and fill with questions pulled from database
 
         return render_template('convo.html', questions = questions, convoId = convoId,
                               userId = userId, script=(url_for('convo', categoryId = categoryId)))
 
       # go to feedback page once user finishes the conversation
       elif request.method == 'POST':
+            # create a fake audio file to generate feedback. in the future the AI will profile the audio file
             blob = ''
             feedback = create_feedback(userId, blob)
-            audio_length = 1 # minutes of the new audio
+            # this is arbituary. for future iterations, we would like this to be the audio length
+            audio_length = 1
             increment_point_time(userId, audio_length)
             convoId = request.form['convoId']
             update_feedback(feedback, convoId, userId)
 
             return redirect(url_for('feedback', convoId=convoId))
-            return ''
   # redirect to home page if user not logged in
   else:
       return redirect(url_for('home'))
@@ -257,13 +249,11 @@ def feedback(convoId):
     # if a session is in progress
     if 'userId' in session:
         if request.method == 'GET':
-            print('inside get')
             userId = session['userId']
             # pull user timeActive and points from profile using userId
             data = get_user_time_point(userId)
             # full feedback from database based on convoId
             feedback = get_feedback(convoId, userId)
-            print('about to render template')
             return render_template('feedback.html', data = data, feedback=feedback)
     # if no session in progress, redirect to home
     else:
@@ -276,40 +266,17 @@ using the user ID and convoID. Not yet implemented.'''
 @app.route('/audiofile/<userId>/<convoId>/', methods = ['POST', 'GET'])
 def audiofile(userId, convoId):
     if 'userId' in session:
-        print request.base_url
-        print "in audiofile"
-        print ("userid", userId)
-        print ("convoId", convoId)
-
-        # request.files is empty!!
-        print (request.files['blob'])
-
-        # not working yet
         file = request.files['blob']
-
         # filename in format userId_convoId such that it can be parsed
         filename = secure_filename(file.filename)
-
-        print ("filename is", filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-
-        print ("file to store in", filepath)
-
+        # save the file to the filepath in the tempest folder
         file.save(filepath)
-
-        print ("FILE SAVED LOCAL")
-
-        # file.save(secure_filename(f.filename))
-
+        # save the file path to the database
         save_audio(int(convoId), int(userId), filename)
-
-        print ("FILE SAVE DB")
-
         return ''
-
     else:
-        print ("not in session!!")
-    return ''
+        return 'user not in session'
 
 
 ''' The progress page shows the user's progress thus far when
@@ -323,15 +290,16 @@ to this method. This is not fully implemented! (delete audio)'''
 def progress():
     if 'userId' in session:
         userId = session['userId']
-
+        # get user's timeAvtive and totol points
         data = get_user_time_point(userId)
 
+        # if user profile is not created, redirect to /profile before showing the progress
         if not data:
             flash("Profile doesn't exist, please create a profile")
             return redirect(url_for('survey'))
 
         points = data['points']
-
+        # get a list of conversations
         convos = get_convos(userId)
 
         # when a user views the progress page: display information
@@ -341,12 +309,9 @@ def progress():
             audio = []
             for convo in convos:
                 audio.append(convo['audio'])
-                # audio.append(bytearray(convo['audio'], 'utf-8'))
-                # convo['audio'].encode('ISO-8859-1').strip())
-            print('all audio', audio)
-            # convos_json = json.dumps(audio)
+
             return render_template('progress.html',
-            points=points, data=convos, convos_json = audio,
+            points=points, data=convos,
             script=url_for('progress'))
 
         # post request listens for delete button click
@@ -376,6 +341,5 @@ def progress():
 if __name__ == '__main__':
   port = os.getuid()
   app.debug = True
-  # Flask will print the port anyhow, but let's do so too
   print('Running on port ' + str(port))
-  app.run('0.0.0.0',9000, ssl_context='adhoc')
+  app.run('0.0.0.0',port, ssl_context='adhoc')
