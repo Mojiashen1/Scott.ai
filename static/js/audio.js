@@ -152,7 +152,7 @@ stopRecordingButton.addEventListener("click", function () {
             return 1;
         }
     })
-    .done (function (a)) {
+    .done (function (a) {
         console.log("in DONE");
     });
 
