@@ -43,6 +43,10 @@ we will inplement audio file system to record the answers -->
 			<button type='submit' value ='Next' class="btn btn-primary" id='next'>Next</button>
 		</div>
 			<button value ='end' class="btn btn-primary" id='end' style = 'display:none' >End Conversation</button>
+		<!-- send response to the user that audio is saved -->
+		<div class="col-lg-12 text-center">
+			<p id='response'></p>
+		</div>
       <!-- pass back convoId to flask through a hidden input -->
       <input type='text' name='convoId' style='display:none' value="{{convoId}}">
 

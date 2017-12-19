@@ -148,6 +148,7 @@ stopRecordingButton.addEventListener("click", function () {
         },
       complete: function(f){
             console.log("ajax complete");
+            $('#response').html('Audio saved!')
             //redirect to feedback page within complete instead
             window.location.href = redirectLink;
             return 1;

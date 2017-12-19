@@ -214,7 +214,7 @@ def convo(categoryId):
         if request.method == 'GET':
             #pull questions from database by type
             all_questions = get_questions(conn, categoryId)
-            #change the list of questions json format to send to the front end
+            #change the list of questions json format to pass to jinja temple
             questions = json.dumps(all_questions)
 
             # create fake audio_path, feedback to create a new conversation in order to get the convoId
