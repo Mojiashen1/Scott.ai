@@ -24,9 +24,8 @@ def getConn():
 # Create a user profile if the user propile doesn't exist.
 # if profile already exists, update user profile
 # @ params: userId, birthdate, #years learning language, nationality, native language
-def create_profile(userId, birthday, yearsLearned, nation, lang):
-    #establish connection
-	conn = getConn()
+def create_profile(conn, userId, birthday, yearsLearned, nation, lang):
+    #create cursor
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
 	#check if profile exists
@@ -35,24 +34,18 @@ def create_profile(userId, birthday, yearsLearned, nation, lang):
 
     # update profile
 	if existing_profile:
-                sql = '''update profile
+        sql = '''update profile
                  set birthday=%s, yearsLearned=%s, nation=%s, nativeLang=%s
                  where userId = %s'''
-                data = (birthday, yearsLearned, nation, lang, str(userId))
-                curs.execute(sql, data)
-                conn.commit()
-                curs.close()
-                conn.close()
-                return 'Profile successfully updated'
+        data = (birthday, yearsLearned, nation, lang, str(userId))
+        curs.execute(sql, data)
+        return 'Profile successfully updated'
 
    # create profile if profile doesn't already exist
 	else:
 		sql = "insert into profile (userId, birthday, yearsLearned, nation, nativeLang) VALUES (%s, %s, %s, %s, %s)"
 		data = (userId, birthday, yearsLearned, nation, lang)
 		curs.execute(sql, data)
-		conn.commit()
-		curs.close()
-		conn.close()
 		return 'Profile successfully created'
 
 # create an account for user if account doesn't exist
@@ -144,8 +137,7 @@ def get_profile(userId):
 
 # helper method to get user's timeActive and points data from profile
 # @ params: userId
-def get_user_time_point(userId):
-    conn = getConn()
+def get_user_time_point(conn, userId):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute("select timeActive, points from profile where userId = %s", [userId])
     time_point = curs.fetchone()
@@ -157,8 +149,7 @@ def get_user_time_point(userId):
 # into the table.
 # @ params: categoryId, userId, audio file, feedback
 # returns convoId of the new conversation
-def create_convo(categoryId, userId, audio_path, feedback):
-    conn = getConn()
+def create_convo(conn, categoryId, userId, audio_path, feedback):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
     audio_url = '' # temporary audio path
@@ -172,8 +163,7 @@ def create_convo(categoryId, userId, audio_path, feedback):
 
 # helper method updates categoryId of a convo once it has been created
 # @params: feedback, convoId, userId
-def update_feedback(feedback, convoId, userId):
-    conn = getConn()
+def update_feedback(conn, feedback, convoId, userId):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('update convos set feedback = %s where convoId = %s and userId=%s', (feedback, convoId, userId))
     return curs.fetchone()
@@ -184,7 +174,7 @@ def update_feedback(feedback, convoId, userId):
 # is just hard coded.
 # @ params userId, audio_file (we still use the audio_file as a parameter for future usage)
 # returns a random feedback
-def create_feedback(userId, audio_file):
+def create_feedback(conn, userId, audio_file):
     scores = ['GREAT WORK! You can start to challenge yourself more on the diversity of your vocabulary.',
     'GOOD IMPROVEMENT ON THE ACCENT, WAY TO GO',
     'GREAT! Try to pay more attention to your past tenses.',
@@ -196,16 +186,14 @@ def create_feedback(userId, audio_file):
 # pulls the feedback message for a particular user using the convoId and userId,
 # and returns the message.
 # @ params convoId, userId
-def get_feedback(convoId, userId):
-    conn = getConn()
+def get_feedback(conn, convoId, userId):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute("select feedback from convos where convoId = %s and userId = %s", (convoId, userId))
     return curs.fetchone()
 
 # get a list of questions to ask the user based on the category of questions selected
 # @ params: category type
-def get_questions(type):
-    conn = getConn()
+def get_questions(conn, type):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     # find all the questions based on the categoryId
     curs.execute("select questionText from AI where categoryId = %s", [type])
@@ -236,8 +224,7 @@ def get_options(data):
 # the total points of a user depdending on the amount of time they had spent
 # in a single conversation.
 # @ params: userId, time_spent
-def increment_point_time(userId, time_spent):
-    conn = getConn()
+def increment_point_time(conn, userId, time_spent):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     # get current user's timeActive and points
     existing_data = get_user_time_point(userId)
@@ -252,9 +239,6 @@ def increment_point_time(userId, time_spent):
         # increment timeActive
         timeActive = int(existing_data['timeActive'] + time_spent)
         curs.execute(sql, (points, timeActive, userId))
-        conn.commit()
-        curs.close()
-        conn.close()
         return 1 #update successful
     return 0 #update failed
 
@@ -262,8 +246,7 @@ def increment_point_time(userId, time_spent):
 # progress page in our application, where all data for one user is shown.
 # @params: userId
 # returns a list of conversations of a user
-def get_convos(userId):
-    conn = getConn()
+def get_convos(conn, userId):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('''select * from convos inner join category using
     (categoryId) where userId = %s''', [userId])
@@ -282,8 +265,7 @@ def save_audio(convoId, userId, audiofile):
 # is meant to be used when the user is not happy with the audio recording for a
 # particular question.
 # @params: convoId
-def delete_audio(convoId):
-    conn = getConn()
+def delete_audio(conn, convoId):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute("delete from convos where convoId = %s", [convoId])
     result = curs.fetchone()
