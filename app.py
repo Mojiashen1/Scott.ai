@@ -225,15 +225,6 @@ def convo(categoryId):
             return render_template('convo.html', questions = questions, convoId = convoId,
                               userId = userId, script=(url_for('convo', categoryId = categoryId)))
 
-        # go to feedback page once user finishes the conversation
-        # elif request.method == 'POST':
-            # create a fake audio file to generate feedback. in the future the AI will profile the audio file
-            # blob = ''
-            # feedback = create_feedback(conn, userId, blob)
-            # convoId = request.form['convoId']
-            # update_feedback(conn, feedback, convoId, userId)
-
-            # return redirect(url_for('feedback', convoId=convoId))
   # redirect to home page if user not logged in
     else:
         return redirect(url_for('home'))
@@ -253,13 +244,14 @@ def feedback(convoId):
         if request.method == 'GET':
             userId = session['userId']
 
-            blob = '' #generate dummy blob
+            #generate feedback before rendering page
+            blob = '' #generate dummy blob for now
             feedback = create_feedback(conn, userId, blob)
             update_feedback(conn, feedback, convoId, userId)
 
             # pull user timeActive and points from profile using userId
             data = get_user_time_point(conn, userId)
-            
+
             # full feedback from database based on convoId
             feedback = get_feedback(conn, convoId, userId)
             return render_template('feedback.html', data = data, feedback=feedback)

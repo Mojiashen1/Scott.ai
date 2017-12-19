@@ -59,14 +59,8 @@ def create_account(name, username, password):
 
 	if name and username and password:
 
-		# lock account table while username is checked
-        curs.execute("lock tables account read;")
-
 		#check if user exists (log in)
 		curs.execute("select * from account where username = %s", [username])
-
-		#unlock table once search is complete
-		curs.execute("unlock tables;")
 
 		other_account = curs.fetchone()
         print (other_account)
