@@ -155,8 +155,9 @@ stopRecordingButton.addEventListener("click", function () {
     .done (function (a) {
         console.log("in DONE");
     })
-    .fail(function (textStatus) {
-        console.log ("request failed", textStatus)
+    .fail(function (jqXHR, textStatus) {
+        window.jqXHR = jqXHR;
+        console.log ("request failed", textStatus);
     });
 
 });
