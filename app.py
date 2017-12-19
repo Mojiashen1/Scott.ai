@@ -276,7 +276,9 @@ def audiofile(userId, convoId):
         file.save(filepath)
         # save the file path to the database
         save_audio(int(convoId), int(userId), filename)
-        return [json.dumps({'success':True}), 200, {'ContentType': 'application/json'}]
+
+        # return success message
+        return json.dumps({'success':True}), 200, {'ContentType': 'application/json'}
     else:
         return 'user not in session'
 
