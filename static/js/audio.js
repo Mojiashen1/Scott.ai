@@ -130,6 +130,8 @@ stopRecordingButton.addEventListener("click", function () {
     var audiourl = '/audiofile/' + userId + '/'+convoId + '/';
     console.log('this is the audiourl', audiourl);
 
+    var redirectLink = '/feedback/'+convoId
+
     //post file to route
     $.ajax({
       type: "POST",
@@ -138,7 +140,17 @@ stopRecordingButton.addEventListener("click", function () {
       processData: false,
       contentType: false,
       dataType: 'audio/wav',
-      success: function(e){console.log("success");}
+      success: function(e){
+        console.log("about to redirect");
+        window.location.href = redirectLink;
+        console.log ("just tried to redirect..")
+        return 1;
+        },
+      complete: function(f){
+            console.log("ajax complete");
+            // window.location.href = redirectLink;
+            return 1;
+        }
     });
 
 });

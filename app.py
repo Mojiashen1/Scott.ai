@@ -226,14 +226,14 @@ def convo(categoryId):
                               userId = userId, script=(url_for('convo', categoryId = categoryId)))
 
         # go to feedback page once user finishes the conversation
-        elif request.method == 'POST':
+        # elif request.method == 'POST':
             # create a fake audio file to generate feedback. in the future the AI will profile the audio file
-            blob = ''
-            feedback = create_feedback(conn, userId, blob)
-            convoId = request.form['convoId']
-            update_feedback(conn, feedback, convoId, userId)
+            # blob = ''
+            # feedback = create_feedback(conn, userId, blob)
+            # convoId = request.form['convoId']
+            # update_feedback(conn, feedback, convoId, userId)
 
-            return redirect(url_for('feedback', convoId=convoId))
+            # return redirect(url_for('feedback', convoId=convoId))
   # redirect to home page if user not logged in
     else:
         return redirect(url_for('home'))
@@ -276,7 +276,7 @@ def audiofile(userId, convoId):
         file.save(filepath)
         # save the file path to the database
         save_audio(int(convoId), int(userId), filename)
-        return ''
+        return json.dumps({'success':True}), 200, {'ContentType': 'application/json'}
     else:
         return 'user not in session'
 
