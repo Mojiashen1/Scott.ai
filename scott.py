@@ -34,9 +34,7 @@ def create_profile(conn, userId, birthday, yearsLearned, nation, lang):
 
     # update profile
 	if existing_profile:
-        sql = '''update profile
-        set birthday=%s, yearsLearned=%s, nation=%s, nativeLang=%s
-        where userId = %s'''
+        sql = '''update profile set birthday=%s, yearsLearned=%s, nation=%s, nativeLang=%s where userId = %s'''
         data = (birthday, yearsLearned, nation, lang, str(userId))
         curs.execute(sql, data)
         return 'Profile successfully updated'
