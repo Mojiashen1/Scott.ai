@@ -234,7 +234,7 @@ def get_options(data):
 def increment_point_time(conn, userId, time_spent):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     # get current user's timeActive and points
-    existing_data = get_user_time_point(userId)
+    existing_data = get_user_time_point(conn, userId)
 
     # update profile
     if existing_data:
