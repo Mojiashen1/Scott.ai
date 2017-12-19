@@ -252,8 +252,14 @@ def feedback(convoId):
     if 'userId' in session:
         if request.method == 'GET':
             userId = session['userId']
+
+            blob = '' #generate dummy blob
+            feedback = create_feedback(conn, userId, blob)
+            update_feedback(conn, feedback, convoId, userId)
+
             # pull user timeActive and points from profile using userId
             data = get_user_time_point(conn, userId)
+            
             # full feedback from database based on convoId
             feedback = get_feedback(conn, convoId, userId)
             return render_template('feedback.html', data = data, feedback=feedback)

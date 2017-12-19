@@ -143,13 +143,13 @@ stopRecordingButton.addEventListener("click", function () {
       success: function(e){
         console.log("success");
         // success is not being entered, and cannot redirect within success
-        window.location.href = redirectLink;
+        // window.location.href = redirectLink;
         return 1;
         },
       complete: function(f){
             console.log("ajax complete");
             //redirect to feedback page within complete instead
-            // window.location.href = redirectLink;
+            window.location.href = redirectLink;
             return 1;
         },
         error: function(e){
