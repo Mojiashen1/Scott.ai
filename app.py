@@ -24,7 +24,7 @@ import time
 
 app = Flask(__name__)
 app.secret_key = 'youcantguessthisout'
-SESSION_TYPE = 'redis'
+SESSION_TYPE = 'redis' #use RedisSessionInterface
 app.config.from_object(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/audio'
 ALLOWED_EXTENSIONS = set(['wav'])
