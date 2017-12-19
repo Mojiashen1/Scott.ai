@@ -1,6 +1,6 @@
 # Mojia & Harshita
 # final project
-# beta version
+# Beta version
 # Dec 19, 2017
 
 # this file contains all the helper methods that app.py calls, and contains
@@ -32,15 +32,16 @@ def create_profile(conn, userId, birthday, yearsLearned, nation, lang):
 	curs.execute("select * from profile where userId = %s", [userId])
         existing_profile = curs.fetchone()
 
-    # update profile
+        # update profile
 	if existing_profile:
-        sql = '''update profile set birthday=%s, yearsLearned=%s, nation=%s, nativeLang=%s
-        where userId = %s'''
-        data = (birthday, yearsLearned, nation, lang, str(userId))
-        curs.execute(sql, data)
-        return 'Profile successfully updated'
+                sql = '''update profile
+                 set birthday=%s, yearsLearned=%s, nation=%s, nativeLang=%s
+                 where userId = %s'''
+                data = (birthday, yearsLearned, nation, lang, str(userId))
+                curs.execute(sql, data)
+                return 'Profile successfully updated'
 
-   # create profile if profile doesn't already exist
+        # create profile if profile doesn't already exist
 	else:
 		sql = "insert into profile (userId, birthday, yearsLearned, nation, nativeLang) VALUES (%s, %s, %s, %s, %s)"
 		data = (userId, birthday, yearsLearned, nation, lang)
@@ -55,8 +56,16 @@ def create_account(name, username, password):
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
 	if name and username and password:
+
+		# lock account table while username is checked
+                curs.execute("lock tables account write;")
+
 		#check if user exists (log in)
 		curs.execute("select * from account where username = %s", [username])
+
+		#unlock table once search is complete
+		curs.execute("unlock tables;")
+
 		other_account = curs.fetchone()
 
 		if other_account:
@@ -71,7 +80,15 @@ def create_account(name, username, password):
 			password = password.encode('utf-8')
 			hashed = bcrypt.hashpw(password, bcrypt.gensalt())
 
+                        # lock account table while user is added
+                        curs.execute("lock tables account write;")
+
+                        # insert user account into table
 			sql = "insert into account (name, username, password) VALUES (%s, %s, %s)"
+
+                        # unlock account table oncee account is added
+                        curs.execute("unlock tables;")
+
 			data = (name, username, hashed)
 			curs.execute(sql, data)
 			conn.commit()
@@ -116,8 +133,7 @@ def helper_login(username, password):
 # if profile already exists, return the profile to populate the form
 # if profile doesn't exists, return None
 # @ params: userId
-def get_profile(userId):
-    conn = getConn()
+def get_profile(conn, userId):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('select * from profile where userId = %s', [userId])
     existing_profile = curs.fetchone()
