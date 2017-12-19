@@ -140,7 +140,10 @@ stopRecordingButton.addEventListener("click", function () {
       processData: false,
       contentType: false,
       dataType: 'audio/wav',
-      success: function(e){window.location.href = redirectLink;}
+      success: function(e){
+        window.location.href = redirectLink;
+        return 1;
+    }
     });
 
 });
