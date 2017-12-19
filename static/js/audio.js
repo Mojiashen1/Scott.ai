@@ -138,30 +138,21 @@ stopRecordingButton.addEventListener("click", function () {
       url: audiourl,
       data: form,
       processData: false,
-      contentType: false,
+      contentType: 'aaplication/json; charset = utf-8',
       dataType: 'audio/wav',
       success: function(e){
-        console.log("about to redirect");
-        window.location.href = redirectLink;
-        console.log ("just tried to redirect..")
+        console.log("success");
         return 1;
         },
       complete: function(f){
             console.log("ajax complete");
-            // window.location.href = redirectLink;
+            window.location.href = redirectLink;
             return 1;
         },
         error: function(e){
             console.log('error', e)
         }
     })
-    .done (function (a) {
-        console.log("in DONE");
-    })
-    .fail(function (jqXHR, textStatus) {
-        window.jqXHR = jqXHR;
-        console.log ("request failed", textStatus);
-    });
 
 });
 
