@@ -32,16 +32,16 @@ def create_profile(conn, userId, birthday, yearsLearned, nation, lang):
 	curs.execute("select * from profile where userId = %s", [userId])
         existing_profile = curs.fetchone()
 
-    # update profile
+        # update profile
 	if existing_profile:
-        sql = '''update profile
+                sql = '''update profile
                  set birthday=%s, yearsLearned=%s, nation=%s, nativeLang=%s
                  where userId = %s'''
-        data = (birthday, yearsLearned, nation, lang, str(userId))
-        curs.execute(sql, data)
-        return 'Profile successfully updated'
+                data = (birthday, yearsLearned, nation, lang, str(userId))
+                curs.execute(sql, data)
+                return 'Profile successfully updated'
 
-   # create profile if profile doesn't already exist
+        # create profile if profile doesn't already exist
 	else:
 		sql = "insert into profile (userId, birthday, yearsLearned, nation, nativeLang) VALUES (%s, %s, %s, %s, %s)"
 		data = (userId, birthday, yearsLearned, nation, lang)
