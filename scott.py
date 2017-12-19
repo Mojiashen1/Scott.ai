@@ -69,15 +69,17 @@ def create_account(name, username, password):
 		curs.execute("unlock tables;")
 
 		other_account = curs.fetchone()
+        print (other_account)
 
 		if other_account:
             # we will update this later so it redirect to the login page
+            print ("another account!!")
 			return ('''User {username} already exists. Please log in.'''.format(username=username),2, '')
             # 0 means sign up failed
 
 		else:
 			#if user does not exist, insert into table (sign up)
-
+            print ("SUCCESS")
 			#encrypt password
 			password = password.encode('utf-8')
 			hashed = bcrypt.hashpw(password, bcrypt.gensalt())
