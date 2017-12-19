@@ -14,6 +14,8 @@ from flask import flash, json
 import bcrypt, random
 import urllib #to fetch file from url
 from urlparse import urlparse
+import wave #to process audio file
+import contextlib
 
 # Connects to the db
 def getConn():
@@ -266,6 +268,18 @@ def save_audio(convoId, userId, audiofile):
     conn = getConn()
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('update convos set audio = %s where convoId = %s and userId=%s', (audiofile, convoId, userId))
+    
+    #find audio duration
+
+    filepath = "static/audio/" + audiofile
+    with contextlib.closing(wave.open(filepath,'r')) as f:
+        frames = f.getnframes()
+        rate = f.getframerate()
+        duration = frames / float(rate)
+        print("duration is ", duration)
+
+        print (increment_point_time(conn, userId, duration))
+
     return curs.fetchone()
 
 # this helper function deletes an entry from the convos table givecn some convoID, and
