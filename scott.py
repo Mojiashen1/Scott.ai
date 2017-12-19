@@ -133,8 +133,7 @@ def helper_login(username, password):
 # if profile already exists, return the profile to populate the form
 # if profile doesn't exists, return None
 # @ params: userId
-def get_profile(userId):
-    conn = getConn()
+def get_profile(conn, userId):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     curs.execute('select * from profile where userId = %s', [userId])
     existing_profile = curs.fetchone()
