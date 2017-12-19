@@ -138,7 +138,7 @@ stopRecordingButton.addEventListener("click", function () {
       url: audiourl,
       data: form,
       processData: false,
-      contentType: 'aaplication/json; charset = utf-8',
+      contentType: 'aplication/json; charset = utf-8',
       dataType: 'audio/wav',
       success: function(e){
         console.log("success");
