@@ -136,6 +136,8 @@ redirect to the home page. User's profile data is pulled from the databse
 if it already exists, and is otherwise blank when account is first created.'''
 @app.route('/survey/', methods =['POST', 'GET'])
 def survey():
+    # create database connection once and pass it in helper functions
+    conn = getConn()
     # check if session already created (user logged in)
     if 'userId' in session:
         userId = session['userId'] # extract userId
@@ -143,7 +145,7 @@ def survey():
         # generate survey form
         if request.method == 'GET':
 
-            data = get_profile(userId)# get profile data, if any
+            data = get_profile(conn, userId)# get profile data, if any
             yearsLearned = data['yearsLearned'] if data else ''
             # return all the options and the index of the choice selected by the user
             options, index = get_options(yearsLearned)
@@ -159,7 +161,7 @@ def survey():
             lang = request.form['lang']
 
             # call helper function to update or insert profile data into table
-            message = create_profile(userId, birthday, yearsLearned, nation, lang)
+            message = create_profile(conn, userId, birthday, yearsLearned, nation, lang)
             flash(message)
             # once profile created/updated, redirect to topic page to start convo
             return redirect(url_for('topic'))
@@ -204,39 +206,40 @@ question is shown. Again, this only happens if a session is created --
 otherwise, redirects to homepage'''
 @app.route('/convo/<categoryId>', methods =['POST', 'GET'])
 def convo(categoryId):
+    # create database connection once and pass it in helper functions
+    conn = getConn()
+    # check if session in progress (user logged in)
+    if 'userId' in session:
+        userId = session['userId']
+        if request.method == 'GET':
+            #pull questions from database by type
+            all_questions = get_questions(conn, categoryId)
+            #change the list of questions json format to send to the front end
+            questions = json.dumps(all_questions)
 
-  # check if session in progress (user logged in)
-  if 'userId' in session:
-      userId = session['userId']
-      if request.method == 'GET':
-        #pull questions from database by type
-        all_questions = get_questions(categoryId)
-        #change the list of questions json format to send to the front end
-        questions = json.dumps(all_questions)
+            # create fake audio_path, feedback to create a new conversation in order to get the convoId
+            audio_path = ''
+            feedback = ''
+            convoId = create_convo(conn, categoryId, userId, audio_path, feedback)
 
-        # create fake audio_path, feedback to create a new conversation in order to get the convoId
-        audio_path = ''
-        feedback = ''
-        convoId = create_convo(categoryId, userId, audio_path, feedback)
-
-        return render_template('convo.html', questions = questions, convoId = convoId,
+            return render_template('convo.html', questions = questions, convoId = convoId,
                               userId = userId, script=(url_for('convo', categoryId = categoryId)))
 
-      # go to feedback page once user finishes the conversation
-      elif request.method == 'POST':
+        # go to feedback page once user finishes the conversation
+        elif request.method == 'POST':
             # create a fake audio file to generate feedback. in the future the AI will profile the audio file
             blob = ''
-            feedback = create_feedback(userId, blob)
+            feedback = create_feedback(conn, userId, blob)
             # this is arbituary. for future iterations, we would like this to be the audio length
             audio_length = 1
-            increment_point_time(userId, audio_length)
+            increment_point_time(conn, userId, audio_length)
             convoId = request.form['convoId']
-            update_feedback(feedback, convoId, userId)
+            update_feedback(conn, feedback, convoId, userId)
 
             return redirect(url_for('feedback', convoId=convoId))
   # redirect to home page if user not logged in
-  else:
-      return redirect(url_for('home'))
+    else:
+        return redirect(url_for('home'))
 
 
 ''' Feedback page shows user's progress thus far. This will render the
@@ -246,14 +249,16 @@ to the homepage, or (in the future) go back to the topics page. Again,
 this page can only be accessed if a session is in progress.'''
 @app.route('/feedback/<convoId>', methods =['POST', 'GET'])
 def feedback(convoId):
+    # create database connection once and pass it in helper functions
+    conn = getConn()
     # if a session is in progress
     if 'userId' in session:
         if request.method == 'GET':
             userId = session['userId']
             # pull user timeActive and points from profile using userId
-            data = get_user_time_point(userId)
+            data = get_user_time_point(conn, userId)
             # full feedback from database based on convoId
-            feedback = get_feedback(convoId, userId)
+            feedback = get_feedback(conn, convoId, userId)
             return render_template('feedback.html', data = data, feedback=feedback)
     # if no session in progress, redirect to home
     else:
@@ -288,10 +293,12 @@ The userId is pulled from the session, and thus there are no other parameters
 to this method. This is not fully implemented! (delete audio)'''
 @app.route('/progress/', methods =['POST', 'GET'])
 def progress():
+    # create database connection once and pass it in helper functions
+    conn = getConn()
     if 'userId' in session:
         userId = session['userId']
         # get user's timeAvtive and totol points
-        data = get_user_time_point(userId)
+        data = get_user_time_point(conn, userId)
 
         # if user profile is not created, redirect to /profile before showing the progress
         if not data:
@@ -300,7 +307,7 @@ def progress():
 
         points = data['points']
         # get a list of conversations
-        convos = get_convos(userId)
+        convos = get_convos(conn, userId)
 
         # when a user views the progress page: display information
         if request.method == 'GET':
@@ -320,10 +327,10 @@ def progress():
             convoId = request.form['convoId']
 
             #delete using convo primary key
-            delete_audio(convoId)
+            delete_audio(conn, convoId)
 
             # retrieve updated data
-            convos = get_convos(userId)
+            convos = get_convos(conn, userId)
 		    # re-render page with new data
             # since the convoId is guarenteed to be
             # in the database, there is no need to catch
