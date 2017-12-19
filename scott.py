@@ -79,14 +79,14 @@ def create_account(name, username, password):
 			password = password.encode('utf-8')
 			hashed = bcrypt.hashpw(password, bcrypt.gensalt())
 
-            # lock account table while user is added
-            curs.execute("lock tables account write;")
+                        # lock account table while user is added
+                        curs.execute("lock tables account write;")
 
-            # insert user account into table
+                        # insert user account into table
 			sql = "insert into account (name, username, password) VALUES (%s, %s, %s)"
 
-            # unlock account table oncee account is added
-            curs.execute("unlock tables;")
+                        # unlock account table oncee account is added
+                        curs.execute("unlock tables;")
 
 			data = (name, username, hashed)
 			curs.execute(sql, data)
