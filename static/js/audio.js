@@ -141,7 +141,9 @@ stopRecordingButton.addEventListener("click", function () {
       contentType: false,
       dataType: 'audio/wav',
       success: function(e){
+        console.log("about to redirect");
         window.location.href = redirectLink;
+        console.log ("just tried to redirect..")
         return 1;
     }
     });
