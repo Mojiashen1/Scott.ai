@@ -63,8 +63,16 @@ def create_account(name, username, password):
 	curs = conn.cursor(MySQLdb.cursors.DictCursor)
 
 	if name and username and password:
+
+		# lock account table while username is checked
+                curs.execute("lock tables account write;")
+
 		#check if user exists (log in)
 		curs.execute("select * from account where username = %s", [username])
+		
+		#unlock table once search is complete
+		curs.execute("unlock tables;")
+
 		other_account = curs.fetchone()
 
 		if other_account:
