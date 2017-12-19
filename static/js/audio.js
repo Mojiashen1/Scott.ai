@@ -145,7 +145,10 @@ stopRecordingButton.addEventListener("click", function () {
         window.location.href = redirectLink;
         console.log ("just tried to redirect..")
         return 1;
-    }
+        }
+      complete: function(f){
+            console.log("ajax complete");
+        }
     });
 
 });
