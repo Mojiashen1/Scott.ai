@@ -230,9 +230,6 @@ def convo(categoryId):
             # create a fake audio file to generate feedback. in the future the AI will profile the audio file
             blob = ''
             feedback = create_feedback(conn, userId, blob)
-            # this is arbituary. for future iterations, we would like this to be the audio length
-            audio_length = 1
-            increment_point_time(conn, userId, audio_length)
             convoId = request.form['convoId']
             update_feedback(conn, feedback, convoId, userId)
 
