@@ -1,7 +1,7 @@
 # Mojia & Harshita
 # final project
-# alpha version
-# Dec 14, 2017
+# Beta version
+# Dec 19, 2017
 
 # this file contains all the helper methods that app.py calls, and contains
 # most of the code that will be communicating with the SQL servers to add or
@@ -79,7 +79,15 @@ def create_account(name, username, password):
 			password = password.encode('utf-8')
 			hashed = bcrypt.hashpw(password, bcrypt.gensalt())
 
+            # lock account table while user is added
+            curs.execute("lock tables account write;")
+
+            # insert user account into table
 			sql = "insert into account (name, username, password) VALUES (%s, %s, %s)"
+
+            # unlock account table oncee account is added
+            curs.execute("unlock tables;")
+
 			data = (name, username, hashed)
 			curs.execute(sql, data)
 			conn.commit()

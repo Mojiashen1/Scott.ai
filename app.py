@@ -10,8 +10,8 @@ log them out when they press log-out, to make this program easier to use.
 
 Filename: app.py
 Authors: Mojia & Harshita
-Modified Date: 12/14/2017
-Scott.ai final project alpha version
+Modified Date: 12/10/2017
+Scott.ai final project Beta version
 '''
 
 from flask import Flask, render_template, request, flash, redirect, url_for, session
