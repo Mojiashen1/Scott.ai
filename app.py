@@ -278,7 +278,7 @@ def audiofile(userId, convoId):
         save_audio(int(convoId), int(userId), filename)
 
         # return success message
-        return json.dumps({'success':True}), 200, {'ContentType': 'application/json'}
+        return json.dumps({'success':True}), 200
     else:
         return 'user not in session'
 
