@@ -151,6 +151,9 @@ stopRecordingButton.addEventListener("click", function () {
             // window.location.href = redirectLink;
             return 1;
         }
+    })
+    .done (function (a)) {
+        console.log("in DONE");
     });
 
 });
